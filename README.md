@@ -60,15 +60,19 @@ Then Go to the project Directory
     
     Then run ```ngrok http 5000``` 
     
+    ![Image of ngrok](https://raw.githubusercontent.com/indunil-19/Smart-travel-guide-app/main/Server/ss/Capture.PNG?token=APG2BMQ6BTHSUQMPPG5MM4DBIBKNG)
+
+    Copy the port forwarding url and update Localhost in config.js line 2 
+    in dirctory/Smart-travel-guide-app/smart_travel_guide/src/config
+    
     This maps mobile app http requests to back end server port 5000
     
     
     Then run ```expo start```  for more instructions refer (https://docs.expo.dev/get-started/create-a-new-app/#starting-the-development-server)
     
     You can see the mobile app running on your android device or emulater
-    
-    
-    
+
+
     
       
       
