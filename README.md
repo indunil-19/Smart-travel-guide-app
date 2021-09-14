@@ -17,7 +17,7 @@ First clone this project directory.
 Then Go to the project Directory
   ```cd directory/project ```
  
- The system may have two components:
+ The system has main 3 components:
   1. Back End server
   
       To configure server first goto adminPortal directory
