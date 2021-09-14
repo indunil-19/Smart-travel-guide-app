@@ -20,7 +20,7 @@ Then Go to the project Directory
  The system has main 3 components:
   1. Back End server
   
-      To configure server first goto adminPortal directory
+      To configure server first goto server directory
           ```cd directory/server ```
       Then run ```npm install ```
        Then use nodemon or node to start server.Nodemon is recommended
