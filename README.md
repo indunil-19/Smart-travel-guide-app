@@ -26,8 +26,8 @@ Then Go to the project Directory
        Then use nodemon or node to start server.Nodemon is recommended
  
        ```
-       nodemon start # If nodemon is installed
-       node index.js # otherwise
+       nodemon app # If nodemon is installed
+       node app.js # otherwise
       ```
 
       Then console will display 'app is working on port 5000'
