@@ -33,7 +33,7 @@ Then Go to the project Directory
       Then console will display 'app is working on port 5000'
  2. Admin portal
     
-    To configure server first goto adminPortal directory
+    To configure admin portal first goto adminPortal directory
           ```cd directory/adminPortal ```
           
       Then run ```npm install ```
