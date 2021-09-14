@@ -6,9 +6,10 @@ import Header from "../components/Header";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 // import BackButton from '../components/BackButton';
+import { theme } from "../core/theme";
 import { emailValidator, passwordValidator } from "../core/utils";
 import { AppContext } from "../context/AppContext";
-import { theme } from "../core/theme";
+import { Config } from "../config/config";
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState({ value: "", error: "" });
@@ -24,7 +25,7 @@ const LoginScreen = (props) => {
       setPassword({ ...password, error: passwordError });
       return;
     }
-    fetch("http://f470-103-21-165-206.ngrok.io/signin", {
+    fetch(`${Config.Localhost}/signin`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",

@@ -27,6 +27,11 @@ export const reducer =(state,action)=>{
                 pic:action.payload.pic
                 // password:action.payload.password
             }
+        case "USER_PREFERENCES":
+            return{
+                ...state,
+                userPreferences:action.payload.userPreferences
+            }
         default :
            return state
    }

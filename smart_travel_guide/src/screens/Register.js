@@ -21,6 +21,7 @@ import {
 } from "../core/utils";
 import DatePicker from "react-native-datepicker";
 import { Picker } from "@react-native-picker/picker";
+import { Config } from "../config/config";
 
 const RegisterScreen = (props) => {
   const [firstName, setFirstName] = useState({ value: "", error: "" });
@@ -61,7 +62,7 @@ const RegisterScreen = (props) => {
       setPassword({ ...password, error: passwordError });
       return;
     }
-    fetch("http://f470-103-21-165-206.ngrok.io/signup", {
+    fetch(`${Config.Localhost}/signup`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -76,6 +77,27 @@ const RegisterScreen = (props) => {
         email: email.value,
       }),
     })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.error) {
+          // M.toast({html: data.error,classes:"#c62828 red darken-3"})
+          console.log(data.error);
+          Alert.alert(`${data.error}`);
+        } else {
+          // localStorage.setItem("jwt",data.token)
+          // localStorage.setItem("user",JSON.stringify(data.user))
+          // dispatch({type:"USER",payload:data.user})
+          // M.toast({html:"signedin success",classes:"#43a047 green darken-1"})
+          // history.push('/')
+          console.log("sign up sucess");
+          Alert.alert(`sign up sucessfull`);
+          props.navigation.navigate("Login");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

@@ -42,7 +42,7 @@ app.use(require('express-session')({
 
 require('./models/user')
 require('./models/admin')
-
+require('./models/Province')
 
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true })); 

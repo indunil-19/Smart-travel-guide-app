@@ -2,17 +2,17 @@ import React, { useContext } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Provider as PaperProvider } from "react-native-paper";
 import LoginScreen from "./src/screens/Login";
 import RegisterScreen from "./src/screens/Register";
-import DashBoardScreen from "./src/screens/DashBoard";
-import { ProfileScreen } from "./src/screens/Profile";
+import { ProfileScreen } from "./src/screens/profile";
 import { HomeScreen } from "./src/screens/Home";
 import { FontAwesome } from "@expo/vector-icons";
 import { UpdateProfile } from "./src/screens/updateProfile";
 import { AppProvider } from "./src/context/AppContext";
-import { theme } from "./src/core/theme";
-
+import { UserPreferences } from "./src/screens/UserPreferences";
+import { Provinces } from "./src/screens/Provinces";
+import { TravelPlan } from "./src/screens/TravelPlan";
+import { Provider as PaperProvider } from "react-native-paper";
 const Stack = createNativeStackNavigator();
 
 function App() {

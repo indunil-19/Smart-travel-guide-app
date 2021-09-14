@@ -1,12 +1,87 @@
 const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose')
 const User = mongoose.model("User")
+const {Client} = require("@googlemaps/google-maps-services-js");
 
 
 
 class RootController{
     static async indexPage(req,res){
-        res.send("download the application from this link")
+        const client = new Client({});
+
+        // client
+        //   .textSearch({
+        //     params: {
+        //       location:  { lat: 7.291418, lng:80.636696},
+        //       query: "natural",
+        //       key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
+        //       type:['tourist_attraction', ],
+        //       radius:"5000",
+        //     //   rankBy :google.maps.places.RankBy.DISTANCE,
+        //       rating:4
+        //     },
+        //     timeout: 1000, // milliseconds
+        //   })
+        //   .then((r) => {
+        //     console.log(r.data.results.length);
+        //     res.send(r.data.results)
+        //   })
+        //   .catch((e) => {
+        //     console.log(e);
+        //   });
+
+    // const x= { origin: 'Chicago, IL',
+    //     destination: 'Los Angeles, CA',
+    //     waypoints: [
+    //       {
+    //         location: 'Joplin, MO',
+    //         stopover: false
+    //       },{
+    //         location: 'Oklahoma City, OK',
+    //         stopover: true
+    //       }],
+    //     provideRouteAlternatives: false,
+    //     travelMode: 'DRIVING',
+    //     drivingOptions: {
+    //       departureTime: new Date(/* now, or future date */),
+    //       trafficModel: 'pessimistic'
+    //     },
+    //     // unitSystem: google.maps.UnitSystem.IMPERIAL
+
+    // }
+
+
+    //     client
+    //   .directions({params:{
+    //       origin:{lat:6.927079,lng:79.857750},
+    //       destination:{lat:6.927079,lng:79.857750},
+    //       optimizeWaypoints: true,
+    //       waypoints: [],
+    //       travelMode: 'DRIVING',
+    //       key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
+
+    //     }})
+    //     .then((response) => {
+    //       // directionsRenderer.setDirections(response);
+          
+    //       console.log(response.data);
+    //       res.send(response.data)
+          
+         
+    //     //  console.log(pois[0])
+    //     })
+    //      .catch((e) =>{ console.log(e)
+    //         // window.alert("Directions request failed due to " + e)
+    //     });
+
+
+
+
+
+
+
+
+
     }
     static async signup(req,res){
         const {firstname,lastname,dob,country,religion,email,password}=req.body;
@@ -81,6 +156,12 @@ class RootController{
             req.session={}
             return
 
+        }
+
+
+        static async addAdmin(req,res){
+            console.log("sdgysdyy")
+            return res.send("add admin success")
         }
 
 

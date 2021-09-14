@@ -17,6 +17,7 @@ import DatePicker from 'react-native-datepicker';
 import {Picker} from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from "expo-permissions";
+import {Config} from '../config/config'
 
 
 export const  UpdateProfile=(props)=> {
@@ -69,7 +70,7 @@ export const  UpdateProfile=(props)=> {
       // setPassword({ ...password, error: passwordError });
       return;
     } 
-    fetch("http://f470-103-21-165-206.ngrok.io/updateUser",{
+    fetch(`${Config.Localhost}/updateUser`,{
           method:"post",
           headers:{
               "Content-Type":"application/json"

@@ -1,13 +1,25 @@
 import React,{useState,useContext,} from 'react'
-import {Link,useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 // import {UserContext} from '../../App'
 import M from 'materialize-css'
+import {
+    Flex,
+    Heading,
+    Text,
+    Input,
+    Button,
+    Link as Link1,
+    FormControl,
+    FormLabel,
+  
+  } from '@chakra-ui/react';
 const SignIn  = ()=>{
     // const {state,dispatch} = useContext(UserContext)
     const history = useHistory()
     const [password,setPasword] = useState("")
     const [email,setEmail] = useState("")
     const PostData = ()=>{
+        
         if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
             M.toast({html: "invalid email",classes:"#c62828 red darken-3"})
             return
@@ -39,35 +51,37 @@ const SignIn  = ()=>{
         })
     }
    return (
-      <div className="mycard">
-          <div className="card auth-card input-field">
-            <h2>Travel Guide Admins</h2>
-            <input
-            type="text"
-            placeholder="email"
-            value={email}
-            onChange={(e)=>setEmail(e.target.value)}
-            />
-            <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e)=>setPasword(e.target.value)}
-            />
-            <button className="btn waves-effect waves-light #64b5f6 blue darken-1"
-            onClick={()=>PostData()}
-            >
-                Login
-            </button>
-            <h5>
-                {/* <Link to="/signup">Dont have an account ?</Link> */}
-            </h5>
-            <h6>
-                {/* <Link to="/reset">Forgot password ?</Link> */}
-            </h6>
-    
-        </div>
-      </div>
+   
+
+
+    <Flex minH="100vh" justify="center" align="center" backgroundImage="url('https://images.unsplash.com/photo-1559038267-bfa6d8d3a160?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80')" backgroundPosition="center" backgroundSize="cover" backgroundRepeat="no-repeat">
+    <Flex  flexDirection="column" bg="#FFFFFF" p={10} borderRadius="10px" boxShadow="dark-lg">
+    <Heading fontSize={'4xl'}>Sign in to your account</Heading>
+    <Text fontSize={'lg'} color={'gray.600'} p={4}>
+       to enjoy all of our cool <Link1 color={'blue.400'}>features</Link1> ✌️
+    </Text>
+
+    <FormControl id="Email" isRequired>
+    <FormLabel>Email</FormLabel>
+    <Input placeholder="Email" value={email} type="text"  onChange={(e)=>setEmail(e.target.value) }/>
+    </FormControl>
+
+
+    <FormControl id="Password" isRequired>
+    <FormLabel>Password</FormLabel>
+    <Input placeholder="Password" value={password} type="password" onChange={(e)=>setPasword(e.target.value)} />
+    </FormControl>
+
+
+
+    <Button colorScheme="teal" size="md" mt={5} onClick={()=>PostData()} >
+        SignIn
+   </Button>
+
+    </Flex>
+
+
+    </Flex>
    )
 }
 
