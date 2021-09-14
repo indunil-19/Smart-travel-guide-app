@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose')
 const Admin = mongoose.model("Admin")
-
+const Province=mongoose.model("Province")
 
 
 class AdminController{
@@ -79,7 +79,65 @@ class AdminController{
                     console.log(err)
                 })
         }
+        static async addImgtoProvinceData(req,res){
+            Province.findOne({pid:req.body.pid})
+            .then((saveData)=>{
+                if(!saveData){
+                    const province=new Province({
+                        pid:req.body.pid,
+                        name:req.body.name,
+                        description:req.body.description,
+                        images:[req.body.image]
+                    })
+                    province.save()
+                                .then(result=>{
+                                   return res.json({message:"upload image successfully", result})
+                                })
+                                .catch(err=>{
+                                    console.log(err)
+                                })
 
+                }
+                if(saveData){
+                    Province.findOneAndUpdate({pid:req.body.pid},{$push:{images:req.body.image}}).
+                    then(result=>{
+                        return res.json({message:"upload image successfully", result})
+                    }).
+                    catch(err=>{
+                        console.log(err)
+                    })
+                }
+            }).catch(err=>{
+                console.log(err)
+            })
+        }
+        static async getProvinceData(req,res){
+            
+            Province.findOne({pid:req.params.pid})
+            .then((saveData)=>{
+                if(!saveData){
+                    const province=new Province({
+                        pid:req.params.pid,
+                        name:"",
+                        description:"",
+                        images:[]
+                    })
+                    province.save()
+                                .then(result=>{
+                                   return res.json(result)
+                                })
+                                .catch(err=>{
+                                    console.log(err)
+                                })
+
+                }
+                if(saveData){
+                    return res.json(saveData)
+                }
+            }).catch(err=>{
+                console.log(err)
+            })
+        }
 
 }
 module.exports=AdminController

@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import M from "materialize-css";
+import NavBar from "../components/navbar";
+import { Button } from "@chakra-ui/button";
+import { ViewIcon } from "@chakra-ui/icons";
 const AdminList=()=>{
    const [data,setData]=useState([])
    useEffect(()=>{
@@ -19,7 +22,7 @@ const AdminList=()=>{
     })
    },[])
     return(
-       
+       <NavBar>
              <div className="container"> 
             <table>
                 <thead>
@@ -34,13 +37,15 @@ const AdminList=()=>{
                 <tbody>
                     
                         {
-                            data.map(item=>{
+                            data.map((item,index)=>{
                                 return(
                                     <tr>
-                                        <td>{1}</td>
+                                        <td>{index+1}</td>
                                         <td>{item.firstname}</td>
                                         <td>{item.lastname}</td>
-                                        <td>view</td>
+                                        <td><Button colorScheme="teal" size="xs">
+                                                <ViewIcon/>
+                                            </Button></td>
                                     </tr>
                                 )
                             })
@@ -48,6 +53,7 @@ const AdminList=()=>{
                 </tbody>
             </table>
              </div>
+             </NavBar>
 
        
           

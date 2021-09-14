@@ -26,6 +26,8 @@ class UserController{
                 return res.status(422).json({error:"update error"})
             })    
         }
+
+    
     
 }
 module.exports=UserController

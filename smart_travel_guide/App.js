@@ -9,7 +9,9 @@ import { HomeScreen } from './src/screens/Home';
 import { FontAwesome } from '@expo/vector-icons';
 import { UpdateProfile } from './src/screens/updateProfile';
 import { AppProvider } from './src/context/AppContext';
-
+import { UserPreferences } from './src/screens/UserPreferences';
+import { Provinces } from './src/screens/Provinces';
+import { TravelPlan } from './src/screens/TravelPlan';
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -17,8 +19,23 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
+
+     {/* <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} /> */}
+
+
+
+    <Stack.Screen name="Home" component={HomeScreen} 
+          options={({ navigation }) => ({
+            headerRight: () => (
+              <TouchableOpacity style={{}} onPress={()=>navigation.navigate("Profile")}>
+                <FontAwesome name="user-circle-o" size={24} color="black" />
+                </TouchableOpacity>
+            ),
+          })}
+      />
+    <Stack.Screen name="UserPreferences" component={UserPreferences} />  
+       
         
         <Stack.Screen name="Profile" component={ProfileScreen} 
           options={({ navigation }) => ({
@@ -30,15 +47,9 @@ function App() {
           })}
         />
         <Stack.Screen name="updateProfile" component={UpdateProfile} /> 
-        <Stack.Screen name="Home" component={HomeScreen} 
-            options={({ navigation }) => ({
-              headerRight: () => (
-                <TouchableOpacity style={{}} onPress={()=>navigation.navigate("Profile")}>
-                  <FontAwesome name="user-circle-o" size={24} color="black" />
-                  </TouchableOpacity>
-              ),
-            })}
-        />
+        <Stack.Screen name="TravelPlan" component={TravelPlan} />
+        <Stack.Screen name="Provinces" component={Provinces} /> 
+       
 
 
       </Stack.Navigator>

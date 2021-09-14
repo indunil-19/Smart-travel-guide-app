@@ -6,10 +6,15 @@ import {BrowserRouter,Route,Switch,useHistory} from 'react-router-dom'
 import Dashboard from './screens/dashboard';
 import SignUp from './screens/Register';
 import AdminList from './screens/adminList';
+import { ChakraProvider } from "@chakra-ui/react"
+import {TestPage} from "./screens/testPage"
+import { Provinces } from './screens/Provinces';
+import { ViewProvince } from './screens/viewProvince';
 
 function App() {
   const history = useHistory()
   return (
+    <ChakraProvider>
     <div className="App">
       <BrowserRouter>
         <Switch>
@@ -33,9 +38,25 @@ function App() {
             <AdminList/>
           </Route>
 
+          <Route path="/test">
+            <TestPage/>
+          </Route>
+
+          <Route path="/admin/provinces">
+            <Provinces/>
+          </Route>
+
+          <Route path="/admin/viewProvinces/:pid">
+            <ViewProvince/>
+          </Route>
+          
+
+          
+
         </Switch>
       </BrowserRouter>
     </div>
+    </ChakraProvider>
     
   );
 }
