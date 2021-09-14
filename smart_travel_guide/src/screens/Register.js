@@ -14,6 +14,7 @@ import {
 } from '../core/utils';
 import DatePicker from 'react-native-datepicker';
 import {Picker} from '@react-native-picker/picker';
+import {Config} from '../config/config'
 
 
 const RegisterScreen = (props) => {
@@ -57,7 +58,7 @@ const RegisterScreen = (props) => {
       setPassword({ ...password, error: passwordError });
       return;
     }
-    fetch("http://f470-103-21-165-206.ngrok.io/signup",{
+    fetch(`${Config.Localhost}/signup`,{
           method:"post",
           headers:{
               "Content-Type":"application/json"
