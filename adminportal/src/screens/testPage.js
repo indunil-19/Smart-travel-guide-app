@@ -34,6 +34,8 @@ export const TestPage = () => {
   )
 }
 const Galary=({pid,imarr,...props})=>{
+  useEffect(()=>setImages(imarr), [imarr])
+
   const [images,setImages]=useState(imarr)
   const layoutRef = useRef()
   const inputRef = useRef()
@@ -42,7 +44,36 @@ const Galary=({pid,imarr,...props})=>{
   const [isLoading,setLoading]=useState(false)
   const [url,setUrl]=useState("")
 
+
+  const deleteImage=(image)=>{
+    fetch("/admin/deleteProvinceImage",{
+      method:"post",
+      headers:{
+          "Content-Type":"application/json",
+      },
+      body:JSON.stringify({
+          image:image,
+          pid:pid,
+      })
+  }).then(res=>res.json())
+  .then(data=>{
+    console.log(data)
+    if(data.message){
+        M.toast({html: data.message,classes:"#c62828 red darken-3"})
+        setImages(data.result.images)
+
+    }
+    if (data.error){
+      M.toast({html: data.message,classes:"#c62828 red darken-3"})
+    }
+    
+  }).catch(err=>{
+      console.log(err)
+  })
+}
+
   const postDetails = (image)=>{
+    setLoading(true)
     console.log(image)
     const data = new FormData()
     data.append("file",image)
@@ -79,8 +110,10 @@ const Galary=({pid,imarr,...props})=>{
      .then(data=>{
         console.log(data)
         if(data.message){
+          setImages(data.result.images)
            M.toast({html: data.message,classes:"#c62828 red darken-3"})
-           setImages(data.result.images)
+           setLoading(false)
+           
 
         }
        
@@ -107,7 +140,7 @@ const Galary=({pid,imarr,...props})=>{
           {({ ref, open }) => (
            <>
             <img ref={ref} onClick={open} src={image}  width="200px" height="200px"/>
-            <Button ><DeleteIcon/></Button>
+            <Button onClick={()=>{deleteImage()}}><DeleteIcon/></Button>
            </>
           )}
         </Item>
