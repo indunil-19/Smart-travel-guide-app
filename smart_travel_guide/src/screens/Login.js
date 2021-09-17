@@ -65,53 +65,56 @@ const LoginScreen = (props) => {
       imageStyle={{ opacity: 0.6 }}
     >
       {/* <BackButton goBack={() => navigation.navigate('HomeScreen')} /> */}
+      <View style={styles.loginContainer}>
+        <Logo />
 
-      <Logo />
+        <Header>Welcome ...</Header>
 
-      <Header>Welcome ...</Header>
+        <TextInput
+          mode="flat"
+          label="EMAIL ADDRESS"
+          returnKeyType="next"
+          value={email.value}
+          onChangeText={(text) => setEmail({ value: text, error: "" })}
+          error={!!email.error}
+          errorText={email.error}
+          autoCapitalize="none"
+          autoCompleteType="email"
+          textContentType="emailAddress"
+          keyboardType="email-address"
+        />
 
-      <TextInput
-        mode="flat"
-        label="EMAIL ADDRESS"
-        returnKeyType="next"
-        value={email.value}
-        onChangeText={(text) => setEmail({ value: text, error: "" })}
-        error={!!email.error}
-        errorText={email.error}
-        autoCapitalize="none"
-        autoCompleteType="email"
-        textContentType="emailAddress"
-        keyboardType="email-address"
-      />
+        <TextInput
+          mode="flat"
+          label="PASSWORD"
+          returnKeyType="done"
+          value={password.value}
+          onChangeText={(text) => setPassword({ value: text, error: "" })}
+          error={!!password.error}
+          errorText={password.error}
+          secureTextEntry
+        />
 
-      <TextInput
-        mode="flat"
-        label="PASSWORD"
-        returnKeyType="done"
-        value={password.value}
-        onChangeText={(text) => setPassword({ value: text, error: "" })}
-        error={!!password.error}
-        errorText={password.error}
-        secureTextEntry
-      />
+        <View style={styles.forgotPassword}>
+          <TouchableOpacity
+          //   onPress={() => navigation.navigate('ForgotPasswordScreen')}
+          >
+            <Text style={styles.label}>Forgot your password?</Text>
+          </TouchableOpacity>
+        </View>
 
-      <View style={styles.forgotPassword}>
-        <TouchableOpacity
-        //   onPress={() => navigation.navigate('ForgotPasswordScreen')}
-        >
-          <Text style={styles.label}>Forgot your password?</Text>
-        </TouchableOpacity>
-      </View>
+        <Button mode="contained" onPress={_onLoginPressed}>
+          Login
+        </Button>
 
-      <Button mode="contained" onPress={_onLoginPressed}>
-        Login
-      </Button>
-
-      <View style={styles.row}>
-        <Text style={styles.label}>Don’t have an account? </Text>
-        <TouchableOpacity onPress={() => props.navigation.navigate("Register")}>
-          <Text style={styles.link}>Sign up</Text>
-        </TouchableOpacity>
+        <View style={styles.row}>
+          <Text style={styles.label}>Don’t have an account? </Text>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate("Register")}
+          >
+            <Text style={styles.link}>Sign up</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </Background>
   );
@@ -133,6 +136,14 @@ const styles = StyleSheet.create({
   link: {
     fontWeight: "bold",
     color: theme.colors.primary,
+  },
+  loginContainer: {
+    width: "100%",
+    maxWidth: 340,
+    // padding: 20,
+    alignItems: "center",
+    alignSelf: "center",
+    justifyContent: "center",
   },
 });
 

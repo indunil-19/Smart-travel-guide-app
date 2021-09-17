@@ -1,14 +1,24 @@
 import React from "react";
 
-import Background from "../components/Background";
-import PreferenceCard from "../components/PreferenceCard";
-import { BottomNavigation, Text } from "react-native-paper";
+import { BottomNavigation } from "react-native-paper";
 import AddPlan from "./AddPlan";
 import SavedPlans from "./SavedPlans";
 import Map from "./Map";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+const AddPlanStack = createNativeStackNavigator();
+
+function AddPlanStackScreen() {
+  return (
+    <AddPlanStack.Navigator>
+      <AddPlanStack.Screen name="Create New Plan" component={AddPlan} />
+      <AddPlanStack.Screen name="Details" component={Map} />
+    </AddPlanStack.Navigator>
+  );
+}
 
 const DashBoardScreen = (props) => {
-  const [index, setIndex] = React.useState(0);
+  const [index, setIndex] = React.useState(1);
   const [routes] = React.useState([
     { key: "savedPlans", title: "Saved Plans", icon: "bookmark-outline" },
     { key: "addPlan", title: "Add Plan", icon: "plus-circle-outline" },
@@ -16,13 +26,14 @@ const DashBoardScreen = (props) => {
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
+    addPlan: AddPlanStackScreen,
     savedPlans: SavedPlans,
-    addPlan: AddPlan,
     map: Map,
   });
 
   return (
     <BottomNavigation
+      in
       navigationState={{ index, routes }}
       onIndexChange={setIndex}
       renderScene={renderScene}

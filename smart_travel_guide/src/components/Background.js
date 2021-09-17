@@ -33,12 +33,12 @@ const styles = StyleSheet.create({
   },
   container: {
     flexGrow: 1,
-    padding: 20,
+    // padding: 20,
     width: "100%",
-    maxWidth: 340,
+    // maxWidth: 340,
     alignSelf: "center",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
   },
 });
 

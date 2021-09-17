@@ -50,7 +50,7 @@ const PreferenceCard = (props) => {
   };
 
   return (
-    <Card mode="outlined" style={styles.card}>
+    <Card mode="outlined" style={{ ...styles.card, display: props.display }}>
       <Card.Content>
         <Paragraph style={styles.question}>{props.question}</Paragraph>
         {renderOptions()}
@@ -101,9 +101,10 @@ const styles = StyleSheet.create({
 });
 
 PreferenceCard.defaultProps = {
-  question: "What kind of weather do you like ?",
-  checkOptions: ["Sunny", "Cloudy", "Chilly", "Gloomy"],
-  pickerOptions: ["Sunny", "Cloudy", "Chilly", "Gloomy"],
+  display: "none",
+  question: "",
+  checkOptions: [],
+  pickerOptions: [],
   firstPage: false,
   lastPage: false,
 };
