@@ -12,6 +12,7 @@ import { AppProvider } from './src/context/AppContext';
 import { UserPreferences } from './src/screens/UserPreferences';
 import { Provinces } from './src/screens/Provinces';
 import { TravelPlan } from './src/screens/TravelPlan';
+import { Province } from './src/screens/province';
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -48,8 +49,8 @@ function App() {
         />
         <Stack.Screen name="updateProfile" component={UpdateProfile} /> 
         <Stack.Screen name="TravelPlan" component={TravelPlan} />
-        <Stack.Screen name="Provinces" component={Provinces} /> 
-       
+        <Stack.Screen name="Provinces" component={Provinces}  /> 
+        <Stack.Screen name="Province" component={Province} />
 
 
       </Stack.Navigator>
