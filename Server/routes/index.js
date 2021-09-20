@@ -24,6 +24,9 @@ router.get('/admin/getProvinceData/:pid', AdminController.getProvinceData)
 router.post('/admin/addImgtoProvinceData', AdminController.addImgtoProvinceData)
 router.post('/admin/signup',AdminController.signup)
 router.post('/admin/signin',AdminController.login)
+router.post('/admin/deleteProvinceImage', AdminController.deleteProvinceImage)
+router.post('/admin/descriptionUpdate', AdminController.descriptionUpdate)
+
 
 
 

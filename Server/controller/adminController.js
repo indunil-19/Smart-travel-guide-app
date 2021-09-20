@@ -5,7 +5,7 @@ const Province=mongoose.model("Province")
 
 
 class AdminController{
-    
+     
     static async signup(req,res){
         const {firstname,lastname,dob,email,password}=req.body;
         if(!firstname || !lastname || !dob || !email ||  !password){
@@ -80,12 +80,15 @@ class AdminController{
                 })
         }
         static async addImgtoProvinceData(req,res){
+           const  provinceList ={"p1":"Northern Province", "p2":"North Western Province", "p3":"Western Province", "p4":"North Central Province",
+                        "p5":"Central Province", "p6":"Sabaragamuwa Province", "p7":"Eastern Province", "p8":"Uva Province", "p9":"Southern Province"}
+   
             Province.findOne({pid:req.body.pid})
             .then((saveData)=>{
                 if(!saveData){
                     const province=new Province({
                         pid:req.body.pid,
-                        name:req.body.name,
+                        name:provinceList[req.params.pid],
                         description:req.body.description,
                         images:[req.body.image]
                     })
@@ -112,13 +115,16 @@ class AdminController{
             })
         }
         static async getProvinceData(req,res){
-            
+           const provinceList ={"p1":"Northern Province", "p2":"North Western Province", "p3":"Western Province", "p4":"North Central Province",
+                        "p5":"Central Province", "p6":"Sabaragamuwa Province", "p7":"Eastern Province", "p8":"Uva Province", "p9":"Southern Province"}
+
+
             Province.findOne({pid:req.params.pid})
             .then((saveData)=>{
                 if(!saveData){
                     const province=new Province({
                         pid:req.params.pid,
-                        name:"",
+                        name:provinceList[req.params.pid],
                         description:"",
                         images:[]
                     })
@@ -133,6 +139,46 @@ class AdminController{
                 }
                 if(saveData){
                     return res.json(saveData)
+                }
+            }).catch(err=>{
+                console.log(err)
+            })
+        }
+
+        static async deleteProvinceImage(req,res){
+            Province.findOne({pid:req.body.pid})
+            .then((saveData)=>{
+                if(!saveData){   
+                    return res.json({error:"bad request"})
+                }
+                if(saveData){
+                    Province.findOneAndUpdate({pid:req.body.pid},{$pull:{images:req.body.image}}).
+                    then(result=>{
+                        return res.json({message:"delete image successfully", result})
+                    }).
+                    catch(err=>{
+                        console.log(err)
+                    })
+                }
+            }).catch(err=>{
+                console.log(err)
+            })
+        }
+
+        static async descriptionUpdate(req,res){
+            Province.findOne({pid:req.body.pid})
+            .then((saveData)=>{
+                if(!saveData){   
+                    return res.json({error:"bad request"})
+                }
+                if(saveData){
+                    Province.findOneAndUpdate({pid:req.body.pid},{description:req.body.description}).
+                    then(result=>{
+                        return res.json({message:"update description successfully", result})
+                    }).
+                    catch(err=>{
+                        console.log(err)
+                    })
                 }
             }).catch(err=>{
                 console.log(err)

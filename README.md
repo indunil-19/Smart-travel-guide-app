@@ -17,23 +17,23 @@ First clone this project directory.
 Then Go to the project Directory
   ```cd directory/project ```
  
- The system may have two components:
+ The system has main 3 components:
   1. Back End server
   
-      To configure server first goto adminPortal directory
+      To configure server first goto server directory
           ```cd directory/server ```
       Then run ```npm install ```
        Then use nodemon or node to start server.Nodemon is recommended
  
        ```
-       nodemon start # If nodemon is installed
-       node index.js # otherwise
+       nodemon app # If nodemon is installed
+       node app.js # otherwise
       ```
 
       Then console will display 'app is working on port 5000'
  2. Admin portal
     
-    To configure server first goto adminPortal directory
+    To configure admin portal first goto adminPortal directory
           ```cd directory/adminPortal ```
           
       Then run ```npm install ```
