@@ -1,18 +1,37 @@
 import React from "react";
 
 import { BottomNavigation } from "react-native-paper";
-import AddPlan from "./AddPlan";
+import PreferenceSelection from "./PreferenceSelection";
 import SavedPlans from "./SavedPlans";
 import Map from "./Map";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { theme } from "../core/theme";
+import { TravelPlan } from "./TravelPlan";
+import { Provinces } from "./Provinces";
+import AppLoading from "./AppLoading";
 
 const AddPlanStack = createNativeStackNavigator();
 
 function AddPlanStackScreen() {
   return (
-    <AddPlanStack.Navigator>
-      <AddPlanStack.Screen name="Create New Plan" component={AddPlan} />
-      <AddPlanStack.Screen name="Details" component={Map} />
+    <AddPlanStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: theme.colors.primary,
+        },
+      }}
+    >
+      <AddPlanStack.Screen
+        name="Create New Plan"
+        component={PreferenceSelection}
+      />
+      <AddPlanStack.Screen
+        name="Travel Plan"
+        component={TravelPlan}
+        options={{ headerBackVisible: false }}
+      />
+      <AddPlanStack.Screen name="Provinces" component={Provinces} />
+      <AddPlanStack.Screen name="App Loading" component={AppLoading} />
     </AddPlanStack.Navigator>
   );
 }

@@ -124,128 +124,132 @@ const RegisterScreen = (props) => {
   return (
     <ScrollView>
       <Background>
-        {/* <BackButton goBack={() => navigation.navigate("HomeScreen")} /> */}
-        <Logo />
+        <View style={styles.registerContainer}>
+          {/* <BackButton goBack={() => navigation.navigate("HomeScreen")} /> */}
+          <Logo />
 
-        <Header>Create Account</Header>
+          <Header>Create Account</Header>
 
-        <TextInput
-          label="FIRST NAME"
-          returnKeyType="next"
-          value={firstName.value}
-          onChangeText={(text) => setFirstName({ value: text, error: "" })}
-          error={!!firstName.error}
-          errorText={firstName.error}
-        />
-        <TextInput
-          label="LAST NAME"
-          returnKeyType="next"
-          value={lastName.value}
-          onChangeText={(text) => setLastName({ value: text, error: "" })}
-          error={!!lastName.error}
-          errorText={lastName.error}
-        />
-        <DatePicker
-          style={{
-            width: 300,
-            marginTop: 15,
-            marginBottom: 15,
-            borderColor: "black",
-            borderWidth: 1,
-            borderRadius: 5,
-          }}
-          date={DOB}
-          mode="date"
-          placeholder="SELECT DATE OF BIRTH"
-          format="YYYY-MM-DD"
-          minDate="1970-05-01"
-          // maxDate="2016-06-01"
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          customStyles={{
-            dateIcon: {
-              position: "absolute",
-              left: 0,
-              top: 4,
-              marginLeft: 0,
-            },
-            dateInput: {
-              marginLeft: 36,
-            },
-            // ... You can check the source to find the other keys.
-          }}
-          onDateChange={(date) => {
-            setDOB(date);
-          }}
-        />
-        <View
-          style={{
-            marginTop: 15,
-            marginBottom: 15,
-            borderColor: "black",
-            borderWidth: 1,
-            borderRadius: 5,
-          }}
-        >
-          <Text>RELIGION:</Text>
-          <Picker
-            selectedValue={religion}
-            style={{ height: 50, width: 300 }}
-            onValueChange={(itemValue, itemIndex) => setReligion(itemValue)}
+          <TextInput
+            label="FIRST NAME"
+            returnKeyType="next"
+            value={firstName.value}
+            onChangeText={(text) => setFirstName({ value: text, error: "" })}
+            error={!!firstName.error}
+            errorText={firstName.error}
+          />
+          <TextInput
+            label="LAST NAME"
+            returnKeyType="next"
+            value={lastName.value}
+            onChangeText={(text) => setLastName({ value: text, error: "" })}
+            error={!!lastName.error}
+            errorText={lastName.error}
+          />
+          <DatePicker
+            style={{
+              width: 300,
+              marginTop: 15,
+              marginBottom: 15,
+              borderColor: "black",
+              borderWidth: 1,
+              borderRadius: 5,
+            }}
+            date={DOB}
+            mode="date"
+            placeholder="SELECT DATE OF BIRTH"
+            format="YYYY-MM-DD"
+            minDate="1970-05-01"
+            // maxDate="2016-06-01"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: "absolute",
+                left: 0,
+                top: 4,
+                marginLeft: 0,
+              },
+              dateInput: {
+                marginLeft: 36,
+              },
+              // ... You can check the source to find the other keys.
+            }}
+            onDateChange={(date) => {
+              setDOB(date);
+            }}
+          />
+          <View
+            style={{
+              marginTop: 15,
+              marginBottom: 15,
+              borderColor: "black",
+              borderWidth: 1,
+              borderRadius: 5,
+            }}
           >
-            <Picker.Item label="Buddhist" value="Buddhist" />
-            <Picker.Item label="Catholic" value="Catholic" />
-            <Picker.Item label="Hindu" value="Hindu" />
-            <Picker.Item label="Islam" value="Islam" />
-            <Picker.Item label="Another" value="Another" />
-            <Picker.Item label="None" value="None" />
-          </Picker>
-        </View>
-        <TextInput
-          label="COUNTRY"
-          returnKeyType="next"
-          value={country}
-          onChangeText={(text) => {
-            findCountry(text);
-          }}
-        />
+            <Text>RELIGION:</Text>
+            <Picker
+              selectedValue={religion}
+              style={{ height: 50, width: 300 }}
+              onValueChange={(itemValue, itemIndex) => setReligion(itemValue)}
+            >
+              <Picker.Item label="Buddhist" value="Buddhist" />
+              <Picker.Item label="Catholic" value="Catholic" />
+              <Picker.Item label="Hindu" value="Hindu" />
+              <Picker.Item label="Islam" value="Islam" />
+              <Picker.Item label="Another" value="Another" />
+              <Picker.Item label="None" value="None" />
+            </Picker>
+          </View>
+          <TextInput
+            label="COUNTRY"
+            returnKeyType="next"
+            value={country}
+            onChangeText={(text) => {
+              findCountry(text);
+            }}
+          />
 
-        <TextInput
-          label="EMAIL ADDRESS"
-          returnKeyType="next"
-          value={email.value}
-          onChangeText={(text) => setEmail({ value: text, error: "" })}
-          error={!!email.error}
-          errorText={email.error}
-          autoCapitalize="none"
-          autoCompleteType="email"
-          textContentType="emailAddress"
-          keyboardType="email-address"
-        />
+          <TextInput
+            label="EMAIL ADDRESS"
+            returnKeyType="next"
+            value={email.value}
+            onChangeText={(text) => setEmail({ value: text, error: "" })}
+            error={!!email.error}
+            errorText={email.error}
+            autoCapitalize="none"
+            autoCompleteType="email"
+            textContentType="emailAddress"
+            keyboardType="email-address"
+          />
 
-        <TextInput
-          label="PASSWORD"
-          returnKeyType="done"
-          value={password.value}
-          onChangeText={(text) => setPassword({ value: text, error: "" })}
-          error={!!password.error}
-          errorText={password.error}
-          secureTextEntry
-        />
+          <TextInput
+            label="PASSWORD"
+            returnKeyType="done"
+            value={password.value}
+            onChangeText={(text) => setPassword({ value: text, error: "" })}
+            error={!!password.error}
+            errorText={password.error}
+            secureTextEntry
+          />
 
-        <Button
-          mode="contained"
-          onPress={_onSignUpPressed}
-          style={styles.button}
-        >
-          Sign Up
-        </Button>
+          <Button
+            mode="contained"
+            onPress={_onSignUpPressed}
+            style={styles.button}
+          >
+            Sign Up
+          </Button>
 
-        <View style={styles.row}>
-          <Text style={styles.label}>Already have an account? </Text>
-          <TouchableOpacity onPress={() => props.navigation.navigate("Login")}>
-            <Text style={styles.link}>Login</Text>
-          </TouchableOpacity>
+          <View style={styles.row}>
+            <Text style={styles.label}>Already have an account? </Text>
+            <TouchableOpacity
+              onPress={() => props.navigation.navigate("Login")}
+            >
+              <Text style={styles.link}>Login</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Background>
     </ScrollView>
@@ -266,6 +270,14 @@ const styles = StyleSheet.create({
   link: {
     fontWeight: "bold",
     color: theme.colors.primary,
+  },
+  registerContainer: {
+    width: "100%",
+    maxWidth: 340,
+    // padding: 20,
+    alignItems: "center",
+    alignSelf: "center",
+    justifyContent: "center",
   },
 });
 

@@ -9,9 +9,7 @@ import { HomeScreen } from "./src/screens/Home";
 import { FontAwesome } from "@expo/vector-icons";
 import { UpdateProfile } from "./src/screens/updateProfile";
 import { AppProvider } from "./src/context/AppContext";
-import { UserPreferences } from "./src/screens/UserPreferences";
 import Provinces from "./src/screens/Provinces";
-import TravelPlan from "./src/screens/TravelPlan";
 import { Provider as PaperProvider } from "react-native-paper";
 import { theme } from "./src/core/theme";
 import DashBoardScreen from "./src/screens/DashBoard";
@@ -35,7 +33,7 @@ function App() {
           /> */}
 
           {/* <Stack.Screen name="Register" component={RegisterScreen} /> */}
-          {/* <Stack.Screen name="UserPreferences" component={UserPreferences} /> */}
+
           <Stack.Screen
             name="DashBoard"
             component={DashBoardScreen}
@@ -57,7 +55,7 @@ function App() {
             })}
           /> */}
 
-          <Stack.Screen name="updateProfile" component={UpdateProfile} />
+          {/* <Stack.Screen name="updateProfile" component={UpdateProfile} /> */}
 
           <Stack.Screen
             name="Home"
