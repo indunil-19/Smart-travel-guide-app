@@ -49,7 +49,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname,'/')));
 app.use(require('./routes'))
-
+app.set('view engine', 'html');
 
 app.get('*', (req, res) => {
     res.status(404).render('404');

@@ -13,6 +13,14 @@ import { UserPreferences } from './src/screens/UserPreferences';
 import { Provinces } from './src/screens/Provinces';
 import { TravelPlan } from './src/screens/TravelPlan';
 import { Province } from './src/screens/province';
+
+import { Test } from './src/screens/Test';
+
+
+
+
+
+
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -21,12 +29,14 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator>
 
+    
+      <Stack.Screen name="test" component={Test} />
      {/* <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} /> */}
 
 
 
-    <Stack.Screen name="Home" component={HomeScreen} 
+    {/* <Stack.Screen name="Home" component={HomeScreen} 
           options={({ navigation }) => ({
             headerRight: () => (
               <TouchableOpacity style={{}} onPress={()=>navigation.navigate("Profile")}>
@@ -50,7 +60,7 @@ function App() {
         <Stack.Screen name="updateProfile" component={UpdateProfile} /> 
         <Stack.Screen name="TravelPlan" component={TravelPlan} />
         <Stack.Screen name="Provinces" component={Provinces}  /> 
-        <Stack.Screen name="Province" component={Province} />
+        <Stack.Screen name="Province" component={Province} /> */}
 
 
       </Stack.Navigator>
