@@ -1,6 +1,5 @@
-const Config = {
-    Localhost: 'http://e4e6-103-21-164-101.ngrok.io',
+export const Config = {
+    Localhost: 'http://49d5-103-21-165-52.ngrok.io',
     
 }
 
-export default Config;

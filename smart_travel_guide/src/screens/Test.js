@@ -1,3 +1,82 @@
+import React  from "react"
+import { View ,Text} from "react-native"
+
+
+export const Test=()=>{
+    return(
+        <>
+        <View style={{flexDirection:"column", alignItems:"center"}}>
+
+            <View style={{width:"40%", height:"25%", backgroundColor:"black", alignItems:"center", borderRadius:5,justifyContent:"center"}}> 
+
+                <Text style={{color:"white", fontSize:20}}>Day 1
+                </Text>
+            </View>
+
+       
+
+
+
+
+        </View>
+          
+        
+        
+        
+        </>
+    )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // import  React, {useState} from 'react';
 // import { WebView } from 'react-native-webview';
 // import { StyleSheet, Text } from 'react-native';

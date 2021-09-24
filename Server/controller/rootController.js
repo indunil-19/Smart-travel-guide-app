@@ -7,30 +7,9 @@ const {Client} = require("@googlemaps/google-maps-services-js");
 
 class RootController{
     static async indexPage(req,res){
-        const client = new Client({});
-
-        // client
-        //   .textSearch({
-        //     params: {
-        //       location:  { lat: 7.291418, lng:80.636696},
-        //       query: "natural",
-        //       key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
-        //       type:['tourist_attraction', ],
-        //       radius:"5000",
-        //     //   rankBy :google.maps.places.RankBy.DISTANCE,
-        //       rating:4
-        //     },
-        //     timeout: 1000, // milliseconds
-        //   })
-        //   .then((r) => {
-        //     console.log(r.data.results.length);
-        //     res.send(r.data.results)
-        //   })
-        //   .catch((e) => {
-        //     console.log(e);
-        //   });
-
-    // const x= { origin: 'Chicago, IL',
+ 
+    //     const client = new Client({});
+    //     const x= { origin: 'Chicago, IL',
     //     destination: 'Los Angeles, CA',
     //     waypoints: [
     //       {
@@ -46,12 +25,11 @@ class RootController{
     //       departureTime: new Date(/* now, or future date */),
     //       trafficModel: 'pessimistic'
     //     },
+        
     //     // unitSystem: google.maps.UnitSystem.IMPERIAL
-
     // }
 
-
-    //     client
+    //  client
     //   .directions({params:{
     //       origin:{lat:6.927079,lng:79.857750},
     //       destination:{lat:6.927079,lng:79.857750},
@@ -59,27 +37,17 @@ class RootController{
     //       waypoints: [],
     //       travelMode: 'DRIVING',
     //       key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
-
     //     }})
     //     .then((response) => {
-    //       // directionsRenderer.setDirections(response);
-          
-    //       console.log(response.data);
+    //       // directionsRenderer.setDirections(response);    
+    //       console.log(response.data.routes[0].legs);
     //       res.send(response.data)
-          
-         
     //     //  console.log(pois[0])
     //     })
-    //      .catch((e) =>{ console.log(e)
+    //      .catch((e) =>{ 
+    //          console.log(e)
     //         // window.alert("Directions request failed due to " + e)
     //     });
-
-
-
-
-
-
-
 
 
     }

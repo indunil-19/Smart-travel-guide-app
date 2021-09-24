@@ -10,17 +10,32 @@ export function TravelPlan(){
     const [plan,setPlan]=useState([])
   
        useEffect( ()=>{  
-         console.log(state)       
         getTravelPlan(state.userPreferences.climate,state.userPreferences.provinces,state.userPreferences.days,state.userPreferences.religion,state.userPreferences.thingsLike,state.userPreferences.placesLike).then((r)=>{
-        //  console.log(r)
          setPlan(r)
        }) } ,[state] )
      
     return (
       <>
-     {plan.map((Item, index)=>{
-       return (
-        <Text key={index}>{Item.name}</Text>
+     {plan.map((Item=[], index)=>{
+     
+         return (
+           <>
+           <Text>{index}</Text>
+           {
+             Item.map( (subItem, index)=>{
+                return(
+                  <>
+                 
+                  <Text>{subItem.name}</Text>
+                  </>
+                )
+             }
+
+             )
+           }
+           </>
+         
+         
        )
      })}
       

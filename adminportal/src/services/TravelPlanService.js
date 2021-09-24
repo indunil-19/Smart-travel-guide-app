@@ -174,7 +174,6 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
           
          }
 
-       
 
          if(number_of_days==1) return [[day1],route.legs]
          else if(number_of_days==2) return [[day1,day2],route.legs]
