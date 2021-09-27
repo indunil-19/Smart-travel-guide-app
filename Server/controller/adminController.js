@@ -102,7 +102,7 @@ class AdminController{
 
                 }
                 if(saveData){
-                    Province.findOneAndUpdate({pid:req.body.pid},{$push:{images:req.body.image}}).
+                    Province.findOneAndUpdate({pid:req.body.pid},{$push:{images:req.body.image}},{new:true}).
                     then(result=>{
                         return res.json({message:"upload image successfully", result})
                     }).
@@ -152,7 +152,7 @@ class AdminController{
                     return res.json({error:"bad request"})
                 }
                 if(saveData){
-                    Province.findOneAndUpdate({pid:req.body.pid},{$pull:{images:req.body.image}}).
+                    Province.findOneAndUpdate({pid:req.body.pid},{$pull:{images:req.body.image}},{new:true}).
                     then(result=>{
                         return res.json({message:"delete image successfully", result})
                     }).
@@ -172,7 +172,7 @@ class AdminController{
                     return res.json({error:"bad request"})
                 }
                 if(saveData){
-                    Province.findOneAndUpdate({pid:req.body.pid},{description:req.body.description}).
+                    Province.findOneAndUpdate({pid:req.body.pid},{description:req.body.description},{new:true}).
                     then(result=>{
                         return res.json({message:"update description successfully", result})
                     }).

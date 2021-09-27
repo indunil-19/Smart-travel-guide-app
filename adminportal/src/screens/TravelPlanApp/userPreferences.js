@@ -3,6 +3,7 @@ import { Box, Text,Heading ,Stack, VStack, HStack} from "@chakra-ui/layout"
 import { Radio, RadioGroup , Button, Checkbox, CheckboxGroup, Select , AlertDialog,AlertDialogBody,AlertDialogFooter,AlertDialogHeader,AlertDialogContent,AlertDialogOverlay,} from "@chakra-ui/react"
 import { useHistory } from "react-router"
 import { TravelContext } from "../../context/TravelContext"
+import { Link } from "react-router-dom"
 
 export const UserPreferences=()=>{
 
@@ -90,6 +91,7 @@ export const UserPreferences=()=>{
 
         <Box maxW="60%" borderWidth="1px" borderRadius="lg" overflow="hidden" m="auto" padding="25" boxShadow="dark-lg" display={q2}>
                 <Heading>2.Select at most 3 Provinces you like to visit in Sri Lanka?</Heading>
+                <Link to="/travelPlan/provinces"><Text color="blue" textDecoration="underline">refer informations about provinces</Text></Link>
                 <Box pt={10} pb={10}>
                 <CheckboxGroup colorScheme="green" onChange={(e)=>setProvinces(e)} >
                 <VStack alignItems="start">

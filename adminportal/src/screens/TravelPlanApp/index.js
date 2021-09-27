@@ -19,6 +19,7 @@ import { SignIn } from "./signIn"
 import { SignUp } from "./signUp"
 import { About } from "./about"
 import { Contact } from "./contact"
+import { Provinces } from "./provinces"
 
 export const TravelPlanRoutes=()=>{
     return(
@@ -27,6 +28,13 @@ export const TravelPlanRoutes=()=>{
         <NavBar/>
         <Box minHeight="100vh" >
         <Switch >
+
+
+            <Route path="/travelPlan/provinces">
+                <Provinces />
+            </Route>
+
+
             <Route path="/travelPlan/about">
                 <About/>
             </Route>
