@@ -14,7 +14,7 @@ mongoose.connect(mongouri,{
 
 })
 mongoose.connection.on('connected',()=>{
-    console.log("conneted to mongo yeahh")
+    console.log("conneted to mongo db")
 })
 mongoose.connection.on('error',(err)=>{
     console.log("err connecting",err)
@@ -43,10 +43,22 @@ app.use(require('express-session')({
 require('./models/user')
 require('./models/admin')
 require('./models/Province')
+require('./models/TravelPlan')
 
-app.use(express.json())
-app.use(bodyParser.urlencoded({ extended: true })); 
-app.use(bodyParser.json());
+
+app.set('view engine', 'html');
+
+
+
+app.use(express.json({limit: '50mb',}))
+
+
+app.use(express.urlencoded({
+  limit: '50mb',
+  extended: true
+}));
+// app.use(bodyParser.urlencoded({limit: '50mb', extended: true })); 
+// app.use(bodyParser.json({limit: '50mb'}));
 app.use(express.static(path.join(__dirname,'/')));
 app.use(require('./routes'))
 app.set('view engine', 'html');

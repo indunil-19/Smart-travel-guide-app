@@ -40,7 +40,17 @@ export const Travelreducer =(state,action)=>{
         case "set_travelPlan":
             return{
                 ...state,
-                travelPlan:action.payload.travelPlan
+                travelPlan:action.payload.travelPlan,
+            }
+        case "set_pois":
+            return{
+                ...state,
+                allpois:action.payload.allpois
+            }
+        case "set_planId":
+            return{
+                ...state,
+                planId:action.payload.planId
             }
         default :
            return state

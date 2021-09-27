@@ -1,14 +1,12 @@
 import React , {useContext,useEffect,useState}from "react"
 import { useHistory } from "react-router"
-import { Box, Flex ,HStack,Stack, VStack} from "@chakra-ui/layout"
-import { Image,Heading,Button,Text,Badge, Avatar , Skeleton ,Divider} from "@chakra-ui/react"
+import { Box, Flex ,HStack, VStack} from "@chakra-ui/layout"
+import { Button,Text,Badge ,Divider} from "@chakra-ui/react"
 import {IoLocationSharp} from "react-icons/io5"
 import {MdDriveEta} from "react-icons/md"
 import { TravelContext } from "../../context/TravelContext"
-import { getTravelPlan } from "../../services/TravelPlanService"
 import { PlaceCard } from "../../components/TravelPlanApp/placeCard"
-import { FiEdit, FiSave} from "react-icons/fi";
-import { AiFillDelete } from "react-icons/ai";
+import { AiFillDelete , AiOutlineCheck} from "react-icons/ai";
 import { FaExchangeAlt } from "react-icons/fa";
 import { DeletePOI , DeleteDay} from "../../services/EditPlanServices"
 import { IoMdCloseCircleOutline } from "react-icons/io";
@@ -42,23 +40,15 @@ export const EditPlan=()=>{
 
     const deleteDay=(day)=>{
             DeleteDay(day,plan).then((res)=>{
-                console.log(res)
+                dispatch({type:"set_travelPlan" , payload:{travelPlan:res}})
+                setPlan(res)
             })
     }
-
-
-
-
-
-
     var i=0;
     var accomodation=""
     return(
         <>
-      
-        
-
-
+       
         <Flex flexDirection="column" alignItems="center">
 
             <HStack> 
@@ -116,7 +106,7 @@ export const EditPlan=()=>{
                         }   
                             
                             <Button colorScheme="red" variant="outline" m={15} width="50%" onClick={()=>{
-                                            history.push('/travelPlan/addMorePlaces')
+                                            history.push('/travelPlan/addMorePlaces/'+(index+1))
                                         }}>
                                 Add more places
                            </Button>
@@ -147,7 +137,14 @@ export const EditPlan=()=>{
             </HStack>
 
 
-            
+        <VStack position="fixed" bottom="0" right="0" p={3} >
+        <Button colorScheme="teal" size="lg" borderRadius="50%" onClick={()=>{
+            history.push("/travelPlan/travelPlan")
+        }}>
+            <AiOutlineCheck/>
+        </Button>
+
+        </VStack>
 
 
 

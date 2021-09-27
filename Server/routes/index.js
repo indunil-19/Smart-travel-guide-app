@@ -10,12 +10,24 @@ router.get('/test' , UserController.getTouristAttractions)
 
 router.get('/', RootController.indexPage)
 router.get('/logout', RootController.logout)
-    
+
+
+router.get('/user/getTravelPlans',UserController.getTravelPlans)
+router.post('/user/getReview',UserController.getReviews)
+router.post('/user/updateTravelPlan', UserController.updateTravelPlan)
+router.post('/user/sharePlan', UserController.shareTravelPlan)
+router.delete('/user/deleteTravelPlan', UserController.deleteTravelPlan)
+router.post('/user/addReview', UserController.addReview)
+
+
 
 router.post('/signup',RootController.signup)
 router.post('/signin',RootController.login)
 router.post('/updateUser',UserController.updateUser)
 
+
+
+router.post('/user/saveTravelPlan',UserController.saveTravelPlan)
 
 
 router.get('/admin/viewAdmins',AdminController.viewAdmins)

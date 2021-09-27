@@ -1,6 +1,10 @@
 const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose')
 const User = mongoose.model("User")
+const TravelPlan=mongoose.model("TravelPlan")
+const {ObjectId} = mongoose.Schema.Types
+
+
 const {Client} = require("@googlemaps/google-maps-services-js");
 
 class UserController{
@@ -233,6 +237,127 @@ class UserController{
         //           // window.alert("Directions request failed due to " + e)
         //       });
         //   }
+    }
+
+    static async saveTravelPlan(req,res){
+
+             req.user={
+                _id:"6130fec5f7e9e71fc487f211"
+             }
+            
+             const travelPlan=new TravelPlan({
+                 travelPlan:req.body.travelPlan,
+                 ownedBy:req.user
+
+             })  
+             travelPlan.save().then((result)=>{
+                 res.json({result})
+             }).catch((error)=>{
+                 console.log(error)
+             })
+    }
+    static async getTravelPlans(req,res){
+        req.user={
+            _id:"6130fec5f7e9e71fc487f211"
+        }
+        TravelPlan.find({ownedBy:req.user._id})
+        .populate("OwnedBy","_id")
+        .sort('-createdAt')
+        .then(myPlans=>{
+            res.json({myPlans})
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+
+    static async updateTravelPlan(req,res){
+        req.user={
+            _id:"6130fec5f7e9e71fc487f211"
+        }
+        TravelPlan.findOneAndUpdate({_id:req.body.planId,ownedBy:req.user._id },{
+            travelPlan:req.body.travelPlan
+        }).then(data=>{
+                if(data){
+                    return res.json({data})
+                }
+                return res.json({data:"you can't update this"})
+                
+        }).catch(e=>{
+            console.log(e)
+        })
+
+    }
+
+    static async deleteTravelPlan(req,res){
+        req.user={
+            _id:"6130fec5f7e9e71fc487f211"
+        }
+        TravelPlan.findOneAndRemove({_id:req.body.planId,ownedBy:req.user._id}).then(data=>{
+            return res.json({data})
+        }).catch(e=>{
+            console.log(e)
+        })
+    }
+    static async addReview(req,res){
+        req.user={
+            _id:"6130fec5f7e9e71fc487f211"
+        }
+        TravelPlan.findOneAndUpdate({_id:req.body.planId,ownedBy:req.user._id},{
+            rate:req.body.rate,
+            review:req.body.review
+
+        },{new:true}).then(data=>{
+            if(data){
+                return res.json({data})
+            }
+            return res.json({data:"you can't do this"})
+        }).catch(e=>{
+            console.log(e)
+        })
+    
+
+    }
+    static async getReviews(req,res){
+        console.log(req.body.planId)
+        req.user={
+            _id:"6130fec5f7e9e71fc487f211"
+        }
+        TravelPlan.findOne({_id:req.body.planId,ownedBy:req.user._id}).then(data=>{
+                return res.json({data})         
+        }).catch(e=>{
+            console.log(e)
+        })
+    }
+
+    static async shareTravelPlan(req,res){
+        req.user={
+            _id:"6130fec5f7e9e71fc487f211"
+        }
+        TravelPlan.findOne({_id:req.body.planId,ownedBy:req.user._id}).then(data=>{
+            console.log(data)
+            // 6131020c334d393094db1e4a
+            const travelPlan=new TravelPlan({
+                travelPlan:data.travelPlan,
+                review:data.review,
+                rate:data.rate,
+                ownedBy:{
+                    _id:"6131020c334d393094db1e4a"
+                }
+
+            })  
+            travelPlan.save().then((result)=>{
+
+                res.json({result})
+
+            }).catch((error)=>{
+
+                console.log(error)
+            })
+
+        }).catch(e=>{
+            console.log(e)
+        })
     }
 
     

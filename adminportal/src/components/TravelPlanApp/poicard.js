@@ -18,7 +18,7 @@ export const PoiCard=({data={}})=>{
 
             <Carousal photos={data.photos} />
 
-            <HStack spacing={6} marginTop="-220" p={2}> 
+            <HStack spacing={6}  p={2}> 
                 {(data.types)  && data.types.map((type)=>{
                     return(
                         <Tag  variant="solid" colorScheme="teal">

@@ -10,8 +10,11 @@ import {
   Center,
   Button
 } from "@chakra-ui/react";
+import { Heading } from "@chakra-ui/layout";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-
+import { Link } from "react-router-dom";
+import { Footer } from "../components/TravelPlanApp/Footer";
+import { Footer2 } from "../components/TravelPlanApp/Footer2";
 
 
 const TravelApp=()=>{    
@@ -89,7 +92,9 @@ const TravelApp=()=>{
   return (
     <>
     <Center bg="tomato" h="100px" color="white" fontSize="50px">
+      <Heading>
       Smart Travel Guide
+      </Heading>
     </Center>
     <Flex
       w="full"
@@ -99,7 +104,7 @@ const TravelApp=()=>{
       justifyContent="center"
     >
       <Flex w="full" pos="relative" overflow="hidden">
-        <Flex h="550px" w="full" {...carouselStyle}>
+        <Flex h="650px" w="full" {...carouselStyle}>
           {slides.map((slide, sid) => (
             <Box key={`slide-${sid}`} boxSize="full" shadow="md" flex="none">
               <Text
@@ -111,7 +116,7 @@ const TravelApp=()=>{
               >
                 {sid + 1} / {slidesCount}
               </Text>
-              <Image src={slide.img} boxSize="full" backgroundSize="cover" />
+              <Image src={slide.img} boxSize="full" backgroundSize="cover" objectFit="cover" />
               <Stack
                 p="8px 12px"
                 pos="absolute"
@@ -153,11 +158,19 @@ const TravelApp=()=>{
     </Flex>
     
     
-    <Box justifyContent="center" alignItems="center" display="flex" p={10} mt="-350px">
-    <Button rightIcon={<ArrowForwardIcon />} mx="auto" colorScheme="teal" variant="solid" size="lg">
+    <Box flexDirection="column" display="flex" p={10} mt="-350px" alignItems="center">
+    <Button rightIcon={<ArrowForwardIcon />} mx="auto" colorScheme="teal" variant="solid" size="lg" mb={5}>
        Download App form Here
     </Button>
+    <Link to="/travelPlan" >
+      <Button rightIcon={<ArrowForwardIcon />} mx="auto" colorScheme="teal" variant="solid" size="lg">
+        Vist our Web site
+      </Button>
+    </Link>
     </Box>
+
+    <Footer/>
+    <Footer2/>
     
     </>
   );

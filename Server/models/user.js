@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const {ObjectId} = mongoose.Schema.Types
 const userSchema = new mongoose.Schema({
     firstname:{
         type:String,
@@ -32,7 +31,8 @@ const userSchema = new mongoose.Schema({
     pic:{
      type:String,
      default:"https://res.cloudinary.com/dm36weewi/image/upload/v1630596425/5311083-middle_glqrak.png"
-    }
+    },
+    
 })
 
 mongoose.model("User",userSchema)
