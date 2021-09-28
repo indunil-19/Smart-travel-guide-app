@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import M from "materialize-css";
+// import M from "materialize-css";
 import NavBar from "../components/navbar";
 import { Button } from "@chakra-ui/button";
 import { ViewIcon } from "@chakra-ui/icons";
@@ -11,7 +11,7 @@ const AdminList=()=>{
     .then(result=>{
         console.log(result)
        if(result.error){
-          M.toast({html: result.error,classes:"#c62828 red darken-3"})
+        //   M.toast({html: result.error,classes:"#c62828 red darken-3"})
        }
        else{
             console.log(result.admins)

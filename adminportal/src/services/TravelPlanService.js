@@ -35,6 +35,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
     }
     
     var pois=new Array()
+    var Allpois=new Array()
     
     // user preferences analysis
     function userPreferencesAnalysis(){
@@ -97,7 +98,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
               findPOIS(x)
         })
         await new Promise(r => setTimeout(r, 6000));
-        return await calculateAndDisplayRoute();
+        return  [ await calculateAndDisplayRoute(),Allpois];
         
       
     }
@@ -127,6 +128,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
         for (var i = 0; i < results.length; i++) {
         var place = results[i];
         if(results[i].rating>=4.3){
+          Allpois.push(place)
           if(pois.length<=number_of_days*8){
             if(Math.random()>0.5) {
               pois.push(place)
@@ -140,7 +142,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
     async function calculateAndDisplayRoute() {
       const waypts = [];
       
-    
+
       for (let i = 0; i < pois.length; i++) {
           waypts.push(
              pois[i].geometry.location,
@@ -168,17 +170,27 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
 
            for (let i = 0; i < route.legs.length-1; i++) {
              time=time+route.legs[i].duration.value+3600
-             if(time<32400) day1.push(pois[route.waypoint_order[i]])
-             else if(time<64800) day2.push(pois[route.waypoint_order[i]])
-             else if(time<97200)  day3.push(pois[route.waypoint_order[i]])
+
+             if(time<32400) {
+               day1.push(pois[route.waypoint_order[i]]); 
+
+               }
+             else if(time<64800) {
+               day2.push(pois[route.waypoint_order[i]]); 
+
+                 }
+             else if(time<97200)  {
+               day3.push(pois[route.waypoint_order[i]]);
+
+                }
           
          }
 
 
-         if(number_of_days==1) return [[day1],route.legs]
-         else if(number_of_days==2) return [[day1,day2],route.legs]
-         else if (number_of_days==3) return [[day1,day2,day3],route.legs]
-         else return [[],[]]
+         if(number_of_days==1) return [[day1],route.legs.slice(0, day1.length)]
+         else if(number_of_days==2) return [[day1,day2],route.legs.slice(0, day1.length+day2.length)]
+         else if (number_of_days==3) return [[day1,day2,day3],route.legs.slice(0,day1.length+day2.length+day3.length)]
+         else return [[[]],[]]
 
         })
          .catch((e) =>{ 

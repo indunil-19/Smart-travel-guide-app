@@ -166,3 +166,88 @@ export const DeleteDay=async(day, travelPlan)=>{
   return;
 
 }
+
+
+export const findPois=async(day,travelPlan,allpois)=>{
+    const client = new Client({});
+
+    // console.log(allpois)
+    const allpoisDays=travelPlan[0].length
+    const num_pois_in_day=travelPlan[0][day-1].length
+    var start_location={}
+    var end_location={}
+    if(num_pois_in_day==0){
+      if(day==1){
+        start_location={lat:6.927079,lng:79.857750}
+      }
+      else{
+        start_location=travelPlan[0][day-2][travelPlan[0][day-2].length-1].geometry.location
+      }
+    }
+    else{
+       start_location=travelPlan[0][day-1][num_pois_in_day-1].geometry.location
+    }
+
+
+    var remaining_time=0
+
+    for(let i=0; i<travelPlan[0][day-1].length; i++){
+          remaining_time+=travelPlan[1][i].duration.value
+    }
+    remaining_time-=3600
+    console.log(remaining_time)
+
+
+    var poisRoute=new Array()
+    var pois=new Array()
+    var poisRouteSuitable=new Array()
+
+      for(var i=0; i<allpois.length;i++){
+        end_location=allpois[i].geometry.location
+      client
+      .directions({params:{
+          origin:start_location,
+          destination:end_location,
+          optimizeWaypoints: true,
+          travelMode: 'DRIVING',
+          key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
+
+        }
+      })
+        .then((response) => {
+          const route = response.data.routes[0];
+          // console.log(route)  
+          poisRoute.push(route.legs[0])
+        })
+         .catch((e) =>{ 
+           console.log(e)
+        })   
+      }
+      await new Promise(r => setTimeout(r, 6000));
+      
+       for(let i=0; i<poisRoute.length;i++){
+
+        if(poisRoute[i].duration.value<=remaining_time){
+            pois.push(allpois[i])
+            poisRouteSuitable.push(poisRoute[i])
+      }
+    }
+      
+     
+     return [pois,poisRouteSuitable]
+    // return allpois
+}
+
+
+export const addPoiToPlan=async(day,poi, route,travelPlan)=>{
+  var pivot=0
+  for(let i=0;i<day-1;i++){
+    pivot=pivot+travelPlan[0][i].length
+  }
+
+  travelPlan[0][day-1].push(poi)
+  travelPlan[1].splice(pivot, 0, route)
+
+  return travelPlan
+
+}

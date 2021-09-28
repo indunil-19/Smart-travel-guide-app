@@ -19,8 +19,8 @@ export const PlaceCard=({photo,index,name,address, types=[], rating, place_id})=
                            <Image src={link}  width="400px" height="300px" objectFit="cover" borderRadius="lg"  />
                            <VStack spacing={3.5} alignItems="start" p={5}>
                                  <Avatar name={index.toString()}  />
-                                <Box lineHeight="tall" fontWeight="semibold" as="h4"> {name}</Box>
-                                <Box color="gray.600" fontSize="sm">{address}</Box>
+                                 <Box lineHeight="tall" fontWeight="semibold" as="h4"> {name}</Box>
+                                 <Box color="gray.600" fontSize="sm">{address}</Box>
                                 <HStack>
                                         <>    {types.map((item)=>{
                                                 return(
@@ -48,6 +48,6 @@ export const PlaceCard=({photo,index,name,address, types=[], rating, place_id})=
 
                            </VStack>
 
-                        </Flex>
+        </Flex>
     )
 }
