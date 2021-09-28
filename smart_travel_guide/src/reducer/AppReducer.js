@@ -1,8 +1,7 @@
-export const initialState=[
-]
+export const initialState = [];
 
-export const reducer =(state,action)=>{
-   switch(action.type){
+export const reducer = (state, action) => {
+  switch (action.type) {
     //    case "ADD":
     //        return [...state, {id:Math.random() ,title:action.payload.title, content:action.payload.content}]
     //    case "REMOVE" :
@@ -12,29 +11,34 @@ export const reducer =(state,action)=>{
     //            if(record.id ==action.payload.id) return action.payload
     //            else return record
     //        })
-        case "USER":
-            return action.payload
+    case "USER":
+      return action.payload;
 
-        case "UPDATE":
-            return {
-                ...state,
-                firstname:action.payload.firstname,
-                lastname:action.payload.lastname,
-                dob:action.payload.dob,
-                country:action.payload.country,
-                religion:action.payload.religion,
-                email:action.payload.email,
-                pic:action.payload.pic
-                // password:action.payload.password
-            }
-        case "USER_PREFERENCES":
-            return{
-                ...state,
-                userPreferences:action.payload.userPreferences
-            }
-        default :
-           return state
-   }
+    case "UPDATE":
+      return {
+        ...state,
+        firstname: action.payload.firstname,
+        lastname: action.payload.lastname,
+        dob: action.payload.dob,
+        country: action.payload.country,
+        religion: action.payload.religion,
+        email: action.payload.email,
+        pic: action.payload.pic,
+        // password:action.payload.password
+      };
+    case "USER_PREFERENCES":
+      return {
+        ...state,
+        userPreferences: action.payload.userPreferences,
+      };
+    case "set_travelPlan":
+      return {
+        ...state,
+        travelPlan: action.payload.travelPlan,
+      };
+    default:
+      return state;
+  }
 
-    return state
-}
+  return state;
+};

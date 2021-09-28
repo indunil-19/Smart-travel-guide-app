@@ -8,7 +8,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { theme } from "../core/theme";
 import { TravelPlan } from "./TravelPlan";
 import { Provinces } from "./Provinces";
-import AppLoading from "./AppLoading";
 
 const AddPlanStack = createNativeStackNavigator();
 
@@ -31,7 +30,6 @@ function AddPlanStackScreen() {
         options={{ headerBackVisible: false }}
       />
       <AddPlanStack.Screen name="Provinces" component={Provinces} />
-      <AddPlanStack.Screen name="App Loading" component={AppLoading} />
     </AddPlanStack.Navigator>
   );
 }

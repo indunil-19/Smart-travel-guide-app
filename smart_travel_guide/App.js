@@ -24,15 +24,16 @@ function App() {
             headerStyle: {
               backgroundColor: theme.colors.primary,
             },
+            headerTitleAlign: "center",
           }}
         >
           {/* <Stack.Screen
             name="Login"
             component={LoginScreen}
             options={{ headerShown: false }}
-          /> */}
+          />
 
-          {/* <Stack.Screen name="Register" component={RegisterScreen} /> */}
+          <Stack.Screen name="Register" component={RegisterScreen} /> */}
 
           <Stack.Screen
             name="DashBoard"
@@ -55,7 +56,7 @@ function App() {
             })}
           /> */}
 
-          {/* <Stack.Screen name="updateProfile" component={UpdateProfile} /> */}
+          {/* <Stack.Screen name="updateProfile" component={UpdateProfile} />
 
           <Stack.Screen
             name="Home"
@@ -70,7 +71,7 @@ function App() {
                 </TouchableOpacity>
               ),
             })}
-          />
+          /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

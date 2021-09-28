@@ -118,7 +118,7 @@ const PreferenceSelection = (props) => {
   return (
     <Background>
       <View style={styles.preferenceContainer}>
-        <Snackbar
+        {/* <Snackbar
           visible={visible}
           style={styles.barContainer}
           onDismiss={() => {
@@ -132,7 +132,7 @@ const PreferenceSelection = (props) => {
           }}
         >
           Do know about the provinces in Sri Lanka?
-        </Snackbar>
+        </Snackbar> */}
         <PreferenceCard
           question="What Climate Condition would you expect while travelling?"
           checkerOptions={["Dry", "Intermediate", "Wet"]}

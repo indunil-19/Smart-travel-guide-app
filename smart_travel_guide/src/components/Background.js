@@ -22,14 +22,15 @@ const Background = (props) => (
 );
 
 Background.defaultProps = {
-  backgroundImage: require("../assets/background_dot.png"),
-  resizeMode: "repeat",
+  // backgroundImage: require("../assets/background_dot.png"),
+  // resizeMode: "repeat",
 };
 
 const styles = StyleSheet.create({
   background: {
     flex: 1,
     width: "100%",
+    backgroundColor: "#FFFFFF",
   },
   container: {
     flexGrow: 1,
