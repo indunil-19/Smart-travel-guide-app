@@ -27,6 +27,10 @@ import { HamburgerIcon,ChevronDownIcon,BellIcon,SmallAddIcon, AttachmentIcon } f
 const LinkItems = [
     { name: 'Add a admin', icon: SmallAddIcon, linkto:"/admin/addAdmin" },
     { name: 'Provinces data', icon: AttachmentIcon,  linkto:"/admin/provinces"},
+    { name: 'View user list', icon: AttachmentIcon,  linkto:"/admin/Viewuserlist"},
+    { name: 'Editquestions', icon: AttachmentIcon,  linkto:"/admin/editquestions"},
+    { name: 'ViewAdmin', icon: AttachmentIcon,  linkto:"/admin/ViewAdmin"},
+    { name: 'TravelplanList', icon: AttachmentIcon,  linkto:"/admin/ViewTravelplanlist"}
   
   ];
 

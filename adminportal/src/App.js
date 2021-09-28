@@ -10,7 +10,11 @@ import { ChakraProvider } from "@chakra-ui/react"
 import {TestPage} from "./screens/testPage"
 import { Provinces } from './screens/Provinces';
 import { ViewProvince } from './screens/viewProvince';
-import {TravelPlanRoutes} from './screens/TravelPlanApp'
+import {TravelPlanRoutes} from './screens/TravelPlanApp';
+import Editquestions from './screens/Editquestions';
+import Viewuserlist from './screens/Viewuserlist';
+import ViewAdmin from './screens/ViewAdmin';
+import Travelplanlist from './screens/Travelplanlist';
 function App() {
   const history = useHistory()
   return (
@@ -33,9 +37,18 @@ function App() {
           <Route path="/admin/addAdmin">
               <SignUp/>
           </Route>
+          <Route path="/admin/ViewTravelplanlist">
+              <Travelplanlist/>
+          </Route>
 
           <Route path="/admin/viewAdmins">
             <AdminList/>
+          </Route>
+          <Route path="/admin/editquestions">
+            <Editquestions/>
+          </Route>
+          <Route path="/admin/ViewAdmin">
+            <ViewAdmin/>
           </Route>
 
           <Route path="/test">
@@ -44,6 +57,9 @@ function App() {
 
           <Route path="/admin/provinces">
             <Provinces/>
+          </Route>
+          <Route path="/admin/Viewuserlist">
+            <Viewuserlist/>
           </Route>
 
           <Route path="/admin/viewProvinces/:pid">
