@@ -160,6 +160,7 @@ export const TravelPlan = () => {
             padding="10px"
             marginBottom="300px"
           >
+            {plan[0].length} Day Trip in
           </Heading>
           <Stack direction="row" spacing={4} align="center">
             <Button colorScheme="teal" variant="outline" m="5px">
