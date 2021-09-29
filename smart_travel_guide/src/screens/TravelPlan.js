@@ -1,25 +1,28 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Text, ActivityIndicator, Divider } from "react-native-paper";
+import { ActivityIndicator, Drawer, Chip, FAB } from "react-native-paper";
 import { AppContext } from "../context/AppContext";
 import { getTravelPlan } from "../services/TravelPlanService";
-import AppLoading from "expo-app-loading";
+
 import {
+  Text,
   SafeAreaView,
-  ScrollView,
   View,
   StyleSheet,
-  FlatList,
+  SectionList,
   TouchableOpacity,
 } from "react-native";
 import Background from "../components/Background";
-import { theme } from "../core/theme";
-import LocationCard from "../components/LocationCard";
 
-export function TravelPlan() {
+import { LocationInfoCard } from "../components/LocationInfoCard";
+
+import { theme } from "../core/theme";
+
+export function TravelPlan({ navigation }) {
   const { state, dispatch } = useContext(AppContext);
   const [isLoading, setLoading] = useState(false);
   const [plan, setPlan] = useState([[], []]);
-  const [selectedId, setSelectedId] = useState(null);
+  const [data, setData] = useState([]);
+  const [distanceTime, setDistanceTime] = useState({});
 
   useEffect(() => {
     if (state.travelPlan) {
@@ -29,12 +32,36 @@ export function TravelPlan() {
       getTravelPlan(
         "wet",
         [],
-        "2",
+        "3",
         "buddhsism",
         [],
         ["ancient", "natural", "parks"]
       ).then((r) => {
         setPlan(r);
+        setData((curData) => {
+          var dataDict = [];
+          for (let i = 0; i < r[0].length; i++) {
+            dataDict.push({ title: i + 1, data: r[0][i] });
+          }
+
+          return dataDict;
+        });
+        // Distance and Duration
+        var index = 0;
+
+        for (let i = 0; i < r[0].length; i++) {
+          for (let j = 0; j < r[0][i].length; j++) {
+            index = index + 1;
+            setDistanceTime((curData) => {
+              curData[r[0][i][j].place_id] = [
+                r[1][index - 1].distance.text,
+                r[1][index - 1].duration.text,
+              ];
+
+              return curData;
+            });
+          }
+        }
         setLoading(true);
         dispatch({ type: "set_travelPlan", payload: { travelPlan: r } });
 
@@ -75,44 +102,66 @@ export function TravelPlan() {
 
   // useEffect(() => {}, [state]);
 
-  const renderItem = ({ item }) => {
-    const backgroundColor =
-      item.place_id === selectedId ? "#00ff80" : "#638875";
-    const color = item.place_id === selectedId ? "white" : "black";
-
+  const renderItem = ({ item, index }) => {
     return (
-      <Item
-        item={item}
-        onPress={() => setSelectedId(item.place_id)}
-        backgroundColor={{ backgroundColor }}
-        textColor={{ color }}
-      />
+      <>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Location Detail", {
+              id: item.place_id,
+              name: item.name,
+            });
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              margin: 10,
+              justifyContent: "space-around",
+            }}
+          >
+            <Chip icon="road-variant">{distanceTime[item.place_id][0]}</Chip>
+            <Chip icon="timer">{distanceTime[item.place_id][1]}</Chip>
+          </View>
+
+          <LocationInfoCard location={item} />
+        </TouchableOpacity>
+      </>
     );
   };
 
   return (
     <Background>
       <SafeAreaView style={styles.container}>
-        <ScrollView contentContainerstyle={styles.planContainer}>
-          <ActivityIndicator
-            animating={!isLoading}
-            size="large"
-            theme={theme}
-          />
-          {plan[0] &&
-            plan[0].map((Item = [], index) => {
-              return (
-                <View key={index}>
-                  <Text> Day {index + 1}</Text>
-                  <FlatList
-                    data={Item}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item.place_id}
-                  />
-                </View>
-              );
-            })}
-        </ScrollView>
+        {!isLoading && (
+          <ActivityIndicator animating={true} size={80} theme={theme} />
+        )}
+
+        {isLoading && (
+          <>
+            <SectionList
+              sections={data}
+              keyExtractor={(item) => item.place_id}
+              renderItem={(item, index) => renderItem(item, index)}
+              initialNumToRender={2}
+              stickySectionHeadersEnabled={true}
+              renderSectionHeader={({ section: { title } }) => (
+                <Drawer.Item
+                  style={{ backgroundColor: "#64ffda" }}
+                  icon="calendar"
+                  label={"Day " + title}
+                  active={false}
+                />
+              )}
+            />
+            <FAB
+              style={styles.fab}
+              large
+              icon="bookmark-outline"
+              onPress={() => console.log("Pressed")}
+            />
+          </>
+        )}
       </SafeAreaView>
     </Background>
   );
@@ -120,30 +169,13 @@ export function TravelPlan() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    height: "100%",
     width: "100%",
     justifyContent: "center",
   },
-
-  planContainer: {
-    flexGrow: 1,
-    width: "100%",
-    justifyContent: "center",
-  },
-
-  item: {
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 20,
-  },
-  title: {
-    fontSize: 15,
+  fab: {
+    position: "absolute",
+    margin: 16,
+    right: 0,
+    bottom: 0,
   },
 });
-const Item = ({ item, onPress, backgroundColor, textColor }) => (
-  <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-    <Text style={[styles.title, textColor]}>{item.name}</Text>
-  </TouchableOpacity>
-);

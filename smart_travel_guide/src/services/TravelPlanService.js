@@ -41,6 +41,7 @@ export const getTravelPlan = async (
   };
 
   var pois = new Array();
+  var Allpois = new Array();
 
   // user preferences analysis
   function userPreferencesAnalysis() {
@@ -126,6 +127,7 @@ export const getTravelPlan = async (
     for (var i = 0; i < results.length; i++) {
       var place = results[i];
       if (results[i].rating >= 4.3) {
+        Allpois.push(place);
         if (pois.length <= number_of_days * 8) {
           if (Math.random() > 0.5) {
             pois.push(place);
@@ -168,10 +170,16 @@ export const getTravelPlan = async (
           else if (time < 97200) day3.push(pois[route.waypoint_order[i]]);
         }
 
-        if (number_of_days == 1) return [[day1], route.legs];
-        else if (number_of_days == 2) return [[day1, day2], route.legs];
-        else if (number_of_days == 3) return [[day1, day2, day3], route.legs];
-        else return [[], []];
+        if (number_of_days == 1)
+          return [[day1], route.legs.slice(0, day1.length)];
+        else if (number_of_days == 2)
+          return [[day1, day2], route.legs.slice(0, day1.length + day2.length)];
+        else if (number_of_days == 3)
+          return [
+            [day1, day2, day3],
+            route.legs.slice(0, day1.length + day2.length + day3.length),
+          ];
+        else return [[[]], []];
       })
       .catch((e) => {
         console.log(e);

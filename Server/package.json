@@ -16,10 +16,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "mongoose": "^5.13.5",
-<<<<<<< HEAD
-=======
     "nodemon": "^2.0.13",
->>>>>>> main
     "path": "^0.12.7"
   },
   "devDependencies": {
