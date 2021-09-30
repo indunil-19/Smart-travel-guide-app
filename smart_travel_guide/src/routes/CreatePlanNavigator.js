@@ -5,6 +5,7 @@ import PreferenceSelection from "../screens/PreferenceSelection";
 import { TravelPlan } from "../screens/TravelPlan";
 import { Provinces } from "../screens/Provinces";
 import LocationDetail from "../screens/LocationDetail.js";
+import { Dashboard } from "../screens/Dashboard";
 
 import { theme } from "../core/theme";
 
@@ -18,6 +19,8 @@ export const CreatePlanNavigator = () => (
       },
     }}
   >
+    <Stack.Screen name="Dashboard" component={Dashboard} />
+    <Stack.Screen name="Create New Plan" component={PreferenceSelection} />
     <Stack.Screen
       name="Travel Plan"
       component={TravelPlan}
@@ -29,7 +32,6 @@ export const CreatePlanNavigator = () => (
       options={({ route }) => ({ title: route.params.name })}
     />
 
-    <Stack.Screen name="Create New Plan" component={PreferenceSelection} />
     <Stack.Screen name="Provinces" component={Provinces} />
   </Stack.Navigator>
 );

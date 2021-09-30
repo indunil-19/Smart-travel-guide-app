@@ -5,7 +5,7 @@ import { View, StyleSheet, ScrollView } from "react-native";
 
 import { getPoiData, getNearByPlaces } from "../services/ViewPOIServices";
 
-import ImageSlider from "../components/ImageSlider";
+import { ImageSlider } from "../components/ImageSlider";
 import { camelCase } from "../core/utils";
 import Background from "../components/Background";
 import { ReviewSlider } from "../components/ReviewSlider";

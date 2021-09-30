@@ -9,7 +9,46 @@ const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
 const ITEM_HEIGHT = Math.round((ITEM_WIDTH * 3) / 4);
 
-const ImageSlider = (props) => {
+export const DashboardSlider = () => {
+  const photoStack = [
+    require("../assets/img/1.jpg"),
+    require("../assets/img/2.jpg"),
+    require("../assets/img/3.jpg"),
+    require("../assets/img/4.jpg"),
+    require("../assets/img/5.jpg"),
+    require("../assets/img/6.jpg"),
+  ];
+  const render = ({ item, index }) => {
+    return (
+      <View style={styles.itemContainer}>
+        <Image
+          fadeDuration={2000} //* image fade in duration on 1st load after that image is cached in memory used in networkloaded images can be also used in loacl images
+          source={item}
+          style={styles.image}
+          resizeMode="cover"
+        />
+      </View>
+    );
+  };
+  return (
+    <View style={{ width: "100%" }}>
+      <Carousel
+        data={photoStack}
+        layout={"stack"}
+        renderItem={render}
+        sliderWidth={SLIDER_WIDTH}
+        itemWidth={ITEM_WIDTH}
+        containerCustomStyle={styles.carouselContainer}
+        inactiveSlideShift={0}
+        scrollInterpolator={scrollInterpolator}
+        slideInterpolatedStyle={animatedStyles}
+        useScrollView={true}
+      />
+    </View>
+  );
+};
+
+export const ImageSlider = (props) => {
   const [imgRef, setImgRef] = useState([]);
 
   const [refLoading, setRefLoading] = useState(true);
@@ -85,5 +124,3 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
-export default ImageSlider;
