@@ -1,11 +1,16 @@
 import React, { useContext, useState, useEffect } from "react";
-import { ActivityIndicator, Drawer, Chip, FAB } from "react-native-paper";
+import {
+  ActivityIndicator,
+  Snackbar,
+  Drawer,
+  Chip,
+  FAB,
+} from "react-native-paper";
 import { AppContext } from "../context/AppContext";
 import { getTravelPlan } from "../services/TravelPlanService";
 import { Config } from "../config/config";
 
 import {
-  Text,
   SafeAreaView,
   View,
   StyleSheet,
@@ -26,10 +31,40 @@ export function TravelPlan({ navigation }) {
   const [data, setData] = useState([]);
   const [distanceTime, setDistanceTime] = useState({});
 
+  const display = (r) => {
+    setData((curData) => {
+      var dataDict = [];
+      for (let i = 0; i < r[0].length; i++) {
+        dataDict.push({ title: i + 1, data: r[0][i] });
+      }
+
+      return dataDict;
+    });
+    // Distance and Duration
+    var index = 0;
+
+    for (let i = 0; i < r[0].length; i++) {
+      for (let j = 0; j < r[0][i].length; j++) {
+        index = index + 1;
+        setDistanceTime((curData) => {
+          curData[r[0][i][j].place_id] = [
+            r[1][index - 1].distance.text,
+            r[1][index - 1].duration.text,
+          ];
+
+          return curData;
+        });
+      }
+    }
+  };
+
   useEffect(() => {
     if (state.travelPlan) {
+      console.log("Hello");
       setLoading(false);
+
       setPlan(state.travelPlan);
+      display(state.travelPlan);
     } else {
       getTravelPlan(
         state.userPreferences.climate,
@@ -74,19 +109,23 @@ export function TravelPlan({ navigation }) {
     }
   }, [state]);
   const confirmSave = () => {
-    Alert.alert("Confirm preferences", "Submit the selected prefernces.", [
-      {
-        text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
-        style: "cancel",
-      },
-      {
-        text: "Confirm",
-        onPress: () => {
-          savePlan();
+    Alert.alert(
+      "Do you want to save this plan ?",
+      "Press Confirm to save the travel plan.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
         },
-      },
-    ]);
+        {
+          text: "Confirm",
+          onPress: () => {
+            savePlan();
+          },
+        },
+      ]
+    );
   };
 
   const savePlan = () => {
@@ -104,43 +143,13 @@ export function TravelPlan({ navigation }) {
         if (data.error) {
           console.log(data.error);
         } else {
-          navigation.navigate("Saved Plans");
+          navigation.navigate("Dashboard");
         }
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
-  // const fetchPlan = () => {
-  //   getTravelPlan(
-  //     state.userPreferences.climate,
-  //     state.userPreferences.provinces,
-  //     state.userPreferences.days,
-  //     state.userPreferences.religion,
-  //     state.userPreferences.thingsLike,
-  //     state.userPreferences.placesLike
-  //   ).then((r) => {
-  //     setPlan(r);
-  //   });
-  // };
-  // const handleLoadingError = (error) => {
-  //   console.warn(error);
-  // };
-
-  // if (isLoading) {
-  //   return (
-  //     <>
-  //       <AppLoading
-  //         startAsync={fetchPlan}
-  //         onError={handleLoadingError}
-  //         onFinish={() => setLoading(false)}
-  //       />
-  //     </>
-  //   );
-  // }
-
-  // useEffect(() => {}, [state]);
 
   const renderItem = ({ item, index }) => {
     return (
@@ -195,7 +204,13 @@ export function TravelPlan({ navigation }) {
               )}
             />
             <FAB
-              style={styles.fab}
+              style={styles.fabOne}
+              large
+              icon="circle-edit-outline"
+              onPress={() => console.log("Edit Screen")}
+            />
+            <FAB
+              style={styles.fabTwo}
               large
               icon="bookmark-outline"
               onPress={() => confirmSave()}
@@ -212,7 +227,13 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
   },
-  fab: {
+  fabOne: {
+    position: "absolute",
+    margin: 16,
+    right: 0,
+    bottom: 70,
+  },
+  fabTwo: {
     position: "absolute",
     margin: 16,
     right: 0,
