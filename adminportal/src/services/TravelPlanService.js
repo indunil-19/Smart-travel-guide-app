@@ -192,6 +192,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
          else if (number_of_days==3) return [[day1,day2,day3],route.legs.slice(0,day1.length+day2.length+day3.length)]
          else return [[[]],[]]
 
+         
         })
          .catch((e) =>{ 
            console.log(e)

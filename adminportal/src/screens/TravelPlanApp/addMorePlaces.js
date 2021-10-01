@@ -25,6 +25,7 @@ export const AddMorePlaces=()=>{
 
     const addPoi=(day,poi, route)=>{
             addPoiToPlan(day,poi, route,state.travelPlan).then((res)=>{
+                // console.log(res)
                 dispatch({type:"set_travelPlan" , payload:{travelPlan:res}})
             })
     }

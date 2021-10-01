@@ -52,7 +52,7 @@ const TableRow=({index, name, province_id})=>{
         <Tr>
         <Td>{index}</Td>
         <Td>{name}</Td>
-        <Td isNumeric><Button colorScheme="teal" size="xs"><Link to={`/admin/viewProvinces/${province_id}`}><ViewIcon /></Link></Button></Td>
+        <Td isNumeric><Button colorScheme="teal" size="xs"><Link to={`/travelPlan/province/${province_id}`}><ViewIcon /></Link></Button></Td>
       </Tr>
     )
 }

@@ -8,7 +8,7 @@ import { TravelContext } from "../../context/TravelContext"
 import { PlaceCard } from "../../components/TravelPlanApp/placeCard"
 import { AiFillDelete , AiOutlineCheck} from "react-icons/ai";
 import { FaExchangeAlt } from "react-icons/fa";
-import { DeletePOI , DeleteDay} from "../../services/EditPlanServices"
+import { DeletePOI , DeleteDay,AddDay} from "../../services/EditPlanServices"
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
 
@@ -40,9 +40,17 @@ export const EditPlan=()=>{
 
     const deleteDay=(day)=>{
             DeleteDay(day,plan).then((res)=>{
+                console.log(res)
                 dispatch({type:"set_travelPlan" , payload:{travelPlan:res}})
                 setPlan(res)
             })
+    }
+    const AddADay=()=>{
+        AddDay(plan).then((res)=>{
+            console.log(res)
+            dispatch({type:"set_travelPlan" , payload:{travelPlan:res}})
+            setPlan(res)
+        })
     }
     var i=0;
     var accomodation=""
@@ -129,11 +137,17 @@ export const EditPlan=()=>{
                     )
                     })}             
              </>
-                 
+            
+             <Button colorScheme="blackAlpha" variant="solid" m={15} width="50%" onClick={()=>{
+                                                        AddADay();
+                                        }}>
 
+                            Add A Day
+            </Button>
+            
 
             <HStack> 
-                   <IoLocationSharp/> <Badge size="15">6.00 p.m</Badge> <Text fontSize="3xl">End - colombo</Text>                  
+                   <IoLocationSharp/> <Badge size="15">6.00 p.m</Badge> <Text fontSize="3xl">End - {plan[1].length ? plan[1][plan[1].length-1].end_address : ""}</Text>                  
             </HStack>
 
 

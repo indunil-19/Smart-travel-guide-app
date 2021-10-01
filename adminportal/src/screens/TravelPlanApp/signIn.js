@@ -1,11 +1,85 @@
 import { Flex,Heading, VStack ,Text} from "@chakra-ui/layout"
-import { Input, InputGroup, InputLeftAddon ,Button, Checkbox} from "@chakra-ui/react"
+import { Input, InputGroup, InputLeftAddon ,Button, Checkbox,useToast} from "@chakra-ui/react"
+import { useState ,useContext,useEffect } from "react";
 import { BiUserCircle } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
-
+import { Link, } from "react-router-dom";
+import { useHistory } from "react-router";
+import { TravelContext } from "../../context/TravelContext";
 
 export const SignIn=()=>{
+  
+    
+    const {state, dispatch}=useContext(TravelContext)
+    const history=useHistory()
+    const toast=useToast()
+    const [email, setEmail]=useState("")
+    const [password,setPassword]=useState("")
+
+
+    useEffect(()=>{
+      
+        if(state._id){
+            
+            history.push('/travelPlan')
+        }else{
+               history.push('/travelPlan/signin')
+        }
+      },[])
+
+
+
+    const sign=()=>{
+        if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
+            toast({
+                title: "Enter valid email",
+                position:"top-right",
+                status:"error",
+                duration: 4000,
+                isClosable: true,
+              })
+            return
+        }
+            fetch("/signin",{
+                method:"post",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    password,
+                    email
+                })
+            }).then(res=>res.json())
+            .then(data=>{
+                console.log(data)
+                if(data.error){
+
+                    toast({
+                        title: data.error,
+                        position:"top-right",
+                        status:"error",
+                        duration: 4000,
+                        isClosable: true,
+                      })
+                }
+                else{
+
+                    toast({
+                        title: data.message,
+                        position:"top-right",
+                        status:"success",
+                        duration: 4000,
+                        isClosable: true,
+                      })
+                    localStorage.setItem("user",JSON.stringify(data.user))
+                    dispatch({type:"USER",payload:data.user})
+                    history.push('/travelPlan')
+                }
+            }).catch(err=>{
+                console.log(err)
+            })
+
+    }
     return(
         <>
         
@@ -19,18 +93,18 @@ export const SignIn=()=>{
 
                 <InputGroup >
                     <BiUserCircle  />
-                    <Input type="text" placeholder="name" />
+                    <Input type="email" placeholder="email"  value={email}   onChange={(e)=>setEmail(e.target.value)}  />
                 </InputGroup>
 
                 {/* If you add the size prop to `InputGroup`, it'll pass it to all its children. */}
                 <InputGroup >
                     <RiLockPasswordLine/>
-                    <Input placeholder="password" type="password" />
+                    <Input placeholder="password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
                 </InputGroup>
 
-                <Checkbox defaultIsChecked>Remember me</Checkbox>
+                {/* <Checkbox defaultIsChecked>Remember me</Checkbox> */}
 
-                <Button colorScheme="blue">Sign In</Button>
+                <Button colorScheme="blue" onClick={()=>sign()}>Sign In</Button>
                 <Text >you don't have an account?<Link to="/travelPlan/signup" >SignUp</Link></Text>
                 
             </VStack>

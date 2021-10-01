@@ -126,7 +126,7 @@ export const DeleteDay=async(day, travelPlan)=>{
   if(day==travelDays){
     remove_count=travelPlan[0][day-1].length
     travelPlan[0].splice(day-1,1)
-    travelPlan[1].splice(pivot-1,remove_count)
+    travelPlan[1].splice(pivot,remove_count)
     return travelPlan
   }
 
@@ -136,7 +136,7 @@ export const DeleteDay=async(day, travelPlan)=>{
     end_location=travelPlan[0][day][0].geometry.location
     remove_count=travelPlan[0][day-1].length
     travelPlan[0].splice(day-1,1)
-    travelPlan[1].splice(pivot-1,remove_count)
+    travelPlan[1].splice(pivot,remove_count)
   }
   return client
       .directions({params:{
@@ -189,10 +189,10 @@ export const findPois=async(day,travelPlan,allpois)=>{
     }
 
 
-    var remaining_time=0
+    var remaining_time=32400
 
     for(let i=0; i<travelPlan[0][day-1].length; i++){
-          remaining_time+=travelPlan[1][i].duration.value
+          remaining_time-=travelPlan[1][i].duration.value+3600
     }
     remaining_time-=3600
     console.log(remaining_time)
@@ -201,23 +201,36 @@ export const findPois=async(day,travelPlan,allpois)=>{
     var poisRoute=new Array()
     var pois=new Array()
     var poisRouteSuitable=new Array()
-
+    
       for(var i=0; i<allpois.length;i++){
-        end_location=allpois[i].geometry.location
+        const waypts = [];
+        if(day<allpoisDays){
+           end_location=travelPlan[0][day][0].geometry.location
+           waypts.push(allpois[i].geometry.location)
+        }else{
+          end_location=allpois[i].geometry.location
+        }
+        
       client
       .directions({params:{
+          
           origin:start_location,
           destination:end_location,
           optimizeWaypoints: true,
           travelMode: 'DRIVING',
+          waypoints:waypts,
           key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
 
         }
       })
         .then((response) => {
           const route = response.data.routes[0];
-          // console.log(route)  
-          poisRoute.push(route.legs[0])
+          const poisLegs=[]
+          for (let i = 0; i < route.legs.length; i++) {
+            poisLegs.push(route.legs[i])
+          }
+          // console.log(poisLegs)  
+          poisRoute.push(poisLegs)
         })
          .catch((e) =>{ 
            console.log(e)
@@ -226,11 +239,24 @@ export const findPois=async(day,travelPlan,allpois)=>{
       await new Promise(r => setTimeout(r, 6000));
       
        for(let i=0; i<poisRoute.length;i++){
+        if(Array.isArray(poisRoute[i])){
+            var t=3600
+            for(let j=0; j<poisRoute[i].length;j++){
+                t+=poisRoute[i][j].duration.value
+            }
+            if(t<=remaining_time){
+              pois.push(allpois[i])
+              poisRouteSuitable.push(poisRoute[i])
+            }
 
-        if(poisRoute[i].duration.value<=remaining_time){
+        }
+        else{
+          if(poisRoute[i].duration.value<=remaining_time){
             pois.push(allpois[i])
             poisRouteSuitable.push(poisRoute[i])
-      }
+          }
+        }
+        
     }
       
      
@@ -242,12 +268,30 @@ export const findPois=async(day,travelPlan,allpois)=>{
 export const addPoiToPlan=async(day,poi, route,travelPlan)=>{
   var pivot=0
   for(let i=0;i<day-1;i++){
-    pivot=pivot+travelPlan[0][i].length
+    pivot+=travelPlan[0][i].length
   }
 
   travelPlan[0][day-1].push(poi)
-  travelPlan[1].splice(pivot, 0, route)
+  if(Array.isArray(route)){
+    if(route.length==1){
+      travelPlan[1].splice(pivot+1, 0, route[0])
+    }
+    else{
+      travelPlan[1].splice(pivot+1, 1)
+      travelPlan[1].splice(pivot+1, 0, route[0],route[1])
+    }
+    
 
+  }
+  // else{
+  //   travelPlan[1].splice(pivot+1, 0, route)
+  // }
+  
   return travelPlan
 
+}
+
+export const AddDay=async(travelPlan)=>{
+  travelPlan[0].push([])
+  return travelPlan
 }
