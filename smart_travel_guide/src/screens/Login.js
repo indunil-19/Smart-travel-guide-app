@@ -59,7 +59,6 @@ const LoginScreen = (props) => {
       resizeMode="cover"
       imageStyle={{ opacity: 0.6 }}
     >
-      {/* <BackButton goBack={() => navigation.navigate('HomeScreen')} /> */}
       <View style={styles.loginContainer}>
         <Logo />
 
