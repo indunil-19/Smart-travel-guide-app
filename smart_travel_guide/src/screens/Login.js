@@ -10,11 +10,12 @@ import { theme } from "../core/theme";
 import { emailValidator, passwordValidator } from "../core/utils";
 import { AppContext } from "../context/AppContext";
 import { Config } from "../config/config";
+import { AsyncStorage } from "react-native";
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
-  const { state, dispatch } = useContext(AppContext);
+  const { onLogin, state, dispatch } = useContext(AppContext);
 
   const _onLoginPressed = () => {
     const emailError = emailValidator(email.value);
@@ -25,7 +26,7 @@ const LoginScreen = (props) => {
       setPassword({ ...password, error: passwordError });
       return;
     }
-    fetch(`${Config.Localhost}/signin`, {
+    fetch(`${Config.localhost}/signin`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -39,18 +40,12 @@ const LoginScreen = (props) => {
       .then((data) => {
         console.log(data);
         if (data.error) {
-          // M.toast({html: data.error,classes:"#c62828 red darken-3"})
-          console.log(data.error);
-          Alert.alert(`${data.error}`);
+          setEmail({ ...email, error: data.error });
+          setPassword({ ...password, error: data.error });
         } else {
-          // localStorage.setItem("jwt",data.token)
-          // localStorage.setItem("user",JSON.stringify(data.user))
+          AsyncStorage.setItem("user", JSON.stringify(data.user));
           dispatch({ type: "USER", payload: data.user });
-          // M.toast({html:"signedin success",classes:"#43a047 green darken-1"})
-          // history.push('/')
-          console.log("sign in sucess");
-          Alert.alert(`sign in sucessfull`);
-          props.navigation.navigate("Home");
+          onLogin();
         }
       })
       .catch((err) => {

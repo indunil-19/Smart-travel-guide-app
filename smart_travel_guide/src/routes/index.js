@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 
 import { AppNavigator } from "./AppNavigator";
 import { AccountNavigator } from "./AccountNavigator";
+import { AsyncStorage } from "react-native";
+
+import { AppContext } from "../context/AppContext";
 
 export const Navigation = () => {
-  // * need to add real authentication sequence here for refernce look yummeals github
-  const isAuthenticated = true;
+  const { isAuthenticated, state, dispatch } = useContext(AppContext);
+
   return (
     <NavigationContainer>
       {isAuthenticated ? <AppNavigator /> : <AccountNavigator />}
