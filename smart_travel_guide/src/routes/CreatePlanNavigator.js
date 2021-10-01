@@ -6,7 +6,8 @@ import { TravelPlan } from "../screens/TravelPlan";
 import { Provinces } from "../screens/Provinces";
 import LocationDetail from "../screens/LocationDetail.js";
 import { Dashboard } from "../screens/Dashboard";
-import { ProfileScreen } from "../screens/Profile";
+import { ProfileScreen } from "../screens/profile";
+import { UpdateProfile } from "../screens/updateProfile";
 import { HeaderAvatar } from "../components/HeaderAvatar";
 
 import { theme } from "../core/theme";
@@ -25,6 +26,7 @@ export const CreatePlanNavigator = () => {
     >
       <Stack.Screen name="Dashboard" component={Dashboard} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="Edit Profile" component={UpdateProfile} />
       <Stack.Screen name="Create New Plan" component={PreferenceSelection} />
       <Stack.Screen
         name="Travel Plan"
