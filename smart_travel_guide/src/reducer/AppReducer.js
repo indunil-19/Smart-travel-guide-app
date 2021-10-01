@@ -14,6 +14,9 @@ export const reducer = (state, action) => {
     case "USER":
       return action.payload;
 
+    case "CLEAR":
+      return null;
+
     case "UPDATE":
       return {
         ...state,
