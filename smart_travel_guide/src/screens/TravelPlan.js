@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { ActivityIndicator, Drawer, Chip, FAB } from "react-native-paper";
 import { AppContext } from "../context/AppContext";
 import { getTravelPlan } from "../services/TravelPlanService";
+import { Config } from "../config/config";
 
 import {
   Text,
@@ -10,6 +11,7 @@ import {
   StyleSheet,
   SectionList,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import Background from "../components/Background";
 
@@ -71,6 +73,44 @@ export function TravelPlan({ navigation }) {
       });
     }
   }, [state]);
+  const confirmSave = () => {
+    Alert.alert("Confirm preferences", "Submit the selected prefernces.", [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      {
+        text: "Confirm",
+        onPress: () => {
+          savePlan();
+        },
+      },
+    ]);
+  };
+
+  const savePlan = () => {
+    fetch(`${Config.localhost}/user/saveTravelPlan`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        travelPlan: state.travelPlan,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          console.log(data.error);
+        } else {
+          navigation.navigate("Saved Plans");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   // const fetchPlan = () => {
   //   getTravelPlan(
@@ -158,7 +198,7 @@ export function TravelPlan({ navigation }) {
               style={styles.fab}
               large
               icon="bookmark-outline"
-              onPress={() => console.log("Pressed")}
+              onPress={() => confirmSave()}
             />
           </>
         )}
