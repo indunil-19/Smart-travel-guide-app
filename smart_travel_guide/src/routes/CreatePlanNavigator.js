@@ -1,5 +1,6 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { IconButton, Colors } from "react-native-paper";
 
 import PreferenceSelection from "../screens/PreferenceSelection";
 import { TravelPlan } from "../screens/TravelPlan";
@@ -14,6 +15,14 @@ const Stack = createNativeStackNavigator();
 export const CreatePlanNavigator = () => (
   <Stack.Navigator
     screenOptions={{
+      headerRight: () => (
+        <IconButton
+          icon="account"
+          color="white"
+          size={20}
+          onPress={() => console.log("Pressed")}
+        />
+      ),
       headerStyle: {
         backgroundColor: theme.colors.primary,
       },

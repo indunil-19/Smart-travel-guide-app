@@ -19,23 +19,23 @@ import { theme } from "../core/theme";
 
 export function TravelPlan({ navigation }) {
   const { state, dispatch } = useContext(AppContext);
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const [plan, setPlan] = useState([[], []]);
   const [data, setData] = useState([]);
   const [distanceTime, setDistanceTime] = useState({});
 
   useEffect(() => {
     if (state.travelPlan) {
-      setLoading(true);
+      setLoading(false);
       setPlan(state.travelPlan);
     } else {
       getTravelPlan(
-        "wet",
-        [],
-        "3",
-        "buddhsism",
-        [],
-        ["ancient", "natural", "parks"]
+        state.userPreferences.climate,
+        state.userPreferences.provinces,
+        state.userPreferences.days,
+        state.userPreferences.religion,
+        state.userPreferences.thingsLike,
+        state.userPreferences.placesLike
       ).then((r) => {
         setPlan(r);
         setData((curData) => {
@@ -62,7 +62,7 @@ export function TravelPlan({ navigation }) {
             });
           }
         }
-        setLoading(true);
+        setLoading(false);
         dispatch({ type: "set_travelPlan", payload: { travelPlan: r } });
 
         //  console.log(r[0][0][0].photos[0].photo_reference)
@@ -133,11 +133,11 @@ export function TravelPlan({ navigation }) {
   return (
     <Background>
       <SafeAreaView style={styles.container}>
-        {!isLoading && (
+        {isLoading && (
           <ActivityIndicator animating={true} size={80} theme={theme} />
         )}
 
-        {isLoading && (
+        {!isLoading && (
           <>
             <SectionList
               sections={data}
