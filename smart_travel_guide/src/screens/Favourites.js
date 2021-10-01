@@ -4,7 +4,7 @@ import Background from "../components/Background";
 
 const Favourites = () => (
   <Background>
-    <Text>Search Locations and Look up details</Text>
+    <Text>Top Rated Plans</Text>
   </Background>
 );
 
