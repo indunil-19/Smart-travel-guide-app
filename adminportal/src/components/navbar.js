@@ -26,10 +26,11 @@ import {
 import { HamburgerIcon,ChevronDownIcon,BellIcon,SmallAddIcon, AttachmentIcon } from '@chakra-ui/icons';
 const LinkItems = [
     { name: 'Add a admin', icon: SmallAddIcon, linkto:"/admin/addAdmin" },
+    { name: 'Adminlist', icon: SmallAddIcon, linkto:"/admin/viewAdmins" },
     { name: 'Provinces data', icon: AttachmentIcon,  linkto:"/admin/provinces"},
     { name: 'View user list', icon: AttachmentIcon,  linkto:"/admin/Viewuserlist"},
     { name: 'Editquestions', icon: AttachmentIcon,  linkto:"/admin/editquestions"},
-    { name: 'ViewAdmin', icon: AttachmentIcon,  linkto:"/admin/ViewAdmin"},
+    { name: 'Genaratereport', icon: AttachmentIcon,  linkto:"/admin/genarate"},
     { name: 'TravelplanList', icon: AttachmentIcon,  linkto:"/admin/ViewTravelplanlist"}
   
   ];

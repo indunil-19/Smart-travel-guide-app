@@ -14,10 +14,11 @@ import {
   
   } from '@chakra-ui/react';
 const SignIn  = ()=>{
-    // const {state,dispatch} = useContext(UserContext)
+     //const {state,dispatch} = useContext(UserContext)
     const history = useHistory()
     const [password,setPasword] = useState("")
     const [email,setEmail] = useState("")
+    
     const PostData = ()=>{
         
         if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){

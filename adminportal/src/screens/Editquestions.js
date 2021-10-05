@@ -11,26 +11,32 @@ export default function Editquestions() {
         const[Questionset,setQuestion]=useState(list1)  
     return (
         <div>
-            <NavBar>
+            <>
             {list1.map((item1)=>(
                <Question item={item1}/>
             ))}
-            </NavBar>
+            </>
         </div>
     )
 }
 const list1=[{
-    'sentences':"Preferd weather",
-    'Options':['hot','rainy','cold']
+    'sentences':"Climate Condition Would you Expect While travelling",
+    'Options':['Dry','Intermediate','wet']
 },{
-    'sentences':"Preferd weather",
-    'Options':['hot','rainy','cold']
+    'sentences':"Select at most 3 Provinces you like to visit in srilanka",
+    'Options':['Northern','North Western','Western','North Central','Central','Sabaragamuwa','Eastern','Uva','Southern']
 },{
-    'sentences':"Preferd weather",
-    'Options':['hot','rainy','cold']
+    'sentences':"NUmber of days,you Hope to travel",
+    'Options':['1','2','3']
 },{
-    'sentences':"Preferd weather",
-    'Options':['hot','rainy','cold']
+    'sentences':"Any religion you would like to see in your travel",
+    'Options':['Buddhism','Hindu','catholic','Muslem']
+},{
+    'sentences':"Select at most 3 places you like to visit in srilanka",
+    'Options':['Naturel','Animals','Botenical gardens','parks','beaches','ancient',"Reliogous"]
+},{
+    'sentences':"Select at most 3 places you like to visit in srilanka",
+    'Options':['Hiking','Surfings','Camping','parks','Swimming','Riding boats',]
 }]
 
 const Question=(item)=>{
@@ -68,7 +74,7 @@ const Question=(item)=>{
                         <Button style={{width:"100px"}} onClick={Editsentence}>Edit</Button>
                     
                         </div> </div> : <div >
-                            <input onChange={(e)=>setnewSentence(e.target.value)} defaultValue={Sentence}  style={{height:"50px",width:"500px"}}></input>
+                            <input onChange={(e)=>setnewSentence(e.target.value)} defaultValue={Sentence}  style={{paddingLeft:"10px",height:"50px",width:"500px"}}></input>
                             <div style={{display:"flex" ,flexDirection:"row",justifyContent:"space-evenly",paddingTop:"20px"}}>
                             <Button onClick={()=>(setsentence(newSentence),setediting(false))}>Okay</Button>
                             <Button onClick={()=>setediting(false)}><CloseIcon/>Close</Button>

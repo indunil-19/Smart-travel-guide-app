@@ -31,6 +31,9 @@ router.post('/user/saveTravelPlan',UserController.saveTravelPlan)
 
 
 router.get('/admin/viewAdmins',AdminController.viewAdmins)
+router.get('/admin/viewAdmin/:pid',AdminController.viewAdmin)
+router.get('/admin/viewUsers',AdminController.viewUser)
+router.get('/admin/viewTravelplan',AdminController.Travelplan)
 router.get('/admin/getProvinceData/:pid', AdminController.getProvinceData)
 
 router.post('/admin/addImgtoProvinceData', AdminController.addImgtoProvinceData)

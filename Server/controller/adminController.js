@@ -2,7 +2,8 @@ const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose')
 const Admin = mongoose.model("Admin")
 const Province=mongoose.model("Province")
-
+const User = mongoose.model("User")
+const Travelplan=mongoose.model("TravelPlan")
 
 class AdminController{
      
@@ -58,7 +59,7 @@ class AdminController{
                 if(doMatch){
                     req.session.user={}
                     req.session.user.email=email;
-                   res.json({message:"successfully signed in"})
+                   res.json({message:"successfully signed in",data:savedUser})
                 }
                 else{
                     return res.status(422).json({error:"Invalid Email or password"})
@@ -79,6 +80,33 @@ class AdminController{
                     console.log(err)
                 })
         }
+        static async viewAdmin(req,res){
+            Admin.find().
+            then((admins)=>{
+                res.json({admins,pid:req.params.pid})
+            }).
+            catch(err=>{
+                console.log(err)
+            })
+    }
+        static async viewUser(req,res){
+            User.find().
+            then((users)=>{
+                res.json({users})
+            }).
+            catch(err=>{
+                console.log(err)
+            })
+    }
+    static async Travelplan(req,res){
+        Travelplan.find().
+        then((travelplan)=>{
+            res.json({travelplan})
+        }).
+        catch(err=>{
+            console.log(err)
+        })
+}
         static async addImgtoProvinceData(req,res){
            const  provinceList ={"p1":"Northern Province", "p2":"North Western Province", "p3":"Western Province", "p4":"North Central Province",
                         "p5":"Central Province", "p6":"Sabaragamuwa Province", "p7":"Eastern Province", "p8":"Uva Province", "p9":"Southern Province"}

@@ -82,7 +82,7 @@ const SignUp  = ()=>{
    return (
       <>
       
-      <NavBar>
+      <>
                     <Box bg={useColorModeValue("gray.50", "inherit")} p={10}>
                     
                     <Box visibility={{ base: "hidden", sm: "visible" }} aria-hidden="true">
@@ -275,7 +275,7 @@ const SignUp  = ()=>{
 
                     
                     </Box>
-      </NavBar>
+      </>
       
       
       </>

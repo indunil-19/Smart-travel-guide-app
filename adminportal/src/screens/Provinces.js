@@ -17,7 +17,7 @@ import { ViewIcon } from "@chakra-ui/icons"
 export const Provinces=()=>{
     return(
         <>
-        <NavBar>
+        <>
                 <Flex p={6} backgroundColor="white" boxShadow="xl" flexDirection="column" alignItems="center">
                 <Heading fontStyle="oblique" mb={4}>Sri Lanka's Provonces</Heading>
 
@@ -45,7 +45,7 @@ export const Provinces=()=>{
   
 </Table>
                 </Flex>
-        </NavBar>
+        </>
         </>
     )
 }

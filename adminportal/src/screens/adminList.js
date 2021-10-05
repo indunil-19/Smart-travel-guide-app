@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useContext } from "react";
+import { Link } from "react-router-dom";
 // import M from "materialize-css";
 
 import NavBar from "../components/navbar";
@@ -17,6 +18,7 @@ import {
     PopoverCloseButton,
   } from "@chakra-ui/react"
 const AdminList=()=>{
+    
    const [data,setData]=useState([])
    useEffect(()=>{
     fetch("/admin/viewAdmins")
@@ -27,15 +29,21 @@ const AdminList=()=>{
         //   M.toast({html: result.error,classes:"#c62828 red darken-3"})
        }
        else{
-            console.log(result.admins)
+            //console.log(result.admins)
              setData(result.admins)
+            //dispatch({type:"Adminlist" , payload:{Adminlist:result.admins}})
+            //console.log(state.Adminlist[0].firstname)
        }
     }).catch(err=>{
         console.log(err)
     })
    },[])
+   //const setAdminprofile=(i)=>dispatch({type:"SelectAdmin" , payload:{SelectAdmin:state.Adminlist[i]}})
+   const viewitem=()=>{
+
+   }
     return(
-       <NavBar>
+       
              <div className="container"> 
             <table>
                 <thead>
@@ -53,14 +61,14 @@ const AdminList=()=>{
                         {
                             data.map((item,index)=>{
                                 return(
-                                    <tr >
+                                    <tr key={index}>
                                         <td >{index+1}</td>
                                         <td style={{padding:"30px"}}><Profile value={item.pic} firstname1={item.firstname}/></td>
                                         <td style={{padding:"30px"}}>{item.firstname}</td>
                                         <td style={{padding:"30px"}}>{item.lastname}</td>
-                                        <td style={{padding:"30px"}}><Button colorScheme="teal" size="xs">
-                                                <ViewIcon/>
-                                            </Button></td>
+                                        <td style={{padding:"30px"}}>
+                                                
+                                        <Button ><Link to={`/admin/viewAdmin/${index}`}>Show</Link></Button></td>
                                     </tr>
                                 )
                             })
@@ -68,7 +76,7 @@ const AdminList=()=>{
                 </tbody>
             </table>
              </div>
-             </NavBar>
+             
 
        
           
@@ -77,6 +85,7 @@ const AdminList=()=>{
       
     )
 }
+
 
 const Profile=(props)=>(<Popover  >
     <PopoverTrigger>

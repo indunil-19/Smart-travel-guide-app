@@ -1,6 +1,8 @@
-import {React,useState,useMemo,useEffect} from 'react';
+import {React,useState,useEffect} from 'react';
+import { useMemo } from 'react';
 import {useTable,useGlobalFilter,useFilters} from 'react-table';
 import NavBar from '../components/navbar';
+import ReactTable from 'react-table';
 import { ViewIcon } from "@chakra-ui/icons";
 import { Avatar } from '@chakra-ui/avatar';
 import { Input } from '@chakra-ui/input';
@@ -35,204 +37,149 @@ import {
   } from "@chakra-ui/react"
 import { Link } from 'react-router-dom';
 export default function Viewuserlist() {
+    const[fetchdata,setfetchdata]=useState([])
+    const[filterfirstname,setfilterfirstname]=useState("")
     const [userlist, setuserlist] = useState([]);
+    const[filterlastname,setfilterlastname]=useState("")
+    const[filtercountry,setfiltercountry]=useState("")
+    const[filterreligion,setfilterreligion]=useState("")
     const [Currentuser,setcurrentuser]=useState([])
-    
- 
-    return (
-        <NavBar>
-                
-                <div>
-                    <BasicTableComponent data1={list1} column={columns}/>
-           
-            </div>
-
-        </NavBar>
-        
-    )
-
-}
-const handle1=(e)=> console.log(e)
- 
-const Useritem=(item)=>{
-    return(
-        
-    <Tr>
-      <Td>{item.item.Index}</Td>
-      <Td>
-      <Popover>
-        <PopoverTrigger>
-            <Avatar src={item.item.Picture}/>
-        </PopoverTrigger>
-        <PopoverContent>
-            <PopoverArrow />
-            <PopoverCloseButton />
-            <PopoverHeader>{item.item.Username}</PopoverHeader>
-            <PopoverBody>
-                
-            <div><Image src={item.item.Picture} alt="Segun Adebayo"  style={{objectFit:"contain"}}/></div>
-                
-            
-                </PopoverBody>
-        </PopoverContent>
-        </Popover>
-      
-      </Td>
-      <Td>{item.item.Username}</Td>
-      <Th>{item.item.Country}</Th>
-      <Th>{item.item.Religion}</Th>
-     <Td isNumeric><Button><Link to={"/admin/Viewsingleuser"}> <ViewIcon /></Link></Button></Td>
-    </Tr>
-
-  
-    );
-
-}
-const list1=[{'index':1,'username':"Varatharajan",'country':"Srilanka",'religion':"Hindu",'picture':"https://bit.ly/sage-adebayo"},
-    {'index':2,'username':"kamal",'country':"Srilanka",'religion':"Hindu",'picture':"https://bit.ly/dan-abramov"},
-    {'index':1,'username':"Varatharajan",'country':"Srilanka",'religion':"Hindu",'picture':"https://bit.ly/sage-adebayo"},
-    {'index':2,'username':"kamal",'country':"Srilanka",'religion':"Hindu",'picture':"https://bit.ly/dan-abramov"},
-    {'index':1,'username':"Varatharajan",'country':"Srilanka",'religion':"Hindu",'picture':"https://bit.ly/sage-adebayo"},
-    {'index':2,'username':"kamal",'country':"Srilanka",'religion':"Hindu",'picture':"https://bit.ly/dan-abramov"},
-    
-
-];
-const list2=[{"index":1,"username":"Varatharajan","country":"srilanka","religion":"Hindu"},
-    {"index":2,"username":"kamal","country":"Srilanka","religion":"Hindu"},
-    
-
-];
-const ColumnFilter=({
-    column: { filterValue, preFilteredRows, setFilter },
-})=> {
-    const count = preFilteredRows.length
-
-    return (
-        <input
-            className="form-control"
-            value={filterValue || ''}
-            onChange={e => {
-                setFilter(e.target.value || undefined)
-            }}
-            placeholder={`Search ${count} records...`}
-        />
-    )
-}
-const columns = [
-   
-    {Header:'Profile',
-    width:200,
-    accessor:'picture',
-    Cell:(props)=>(<Popover >
-        <PopoverTrigger>
-            <Avatar src={props.value}/>
-        </PopoverTrigger>
-        <PopoverContent>
-            <PopoverArrow />
-            <PopoverCloseButton />
-            <PopoverHeader style={{backgroundColor:"grey"}}>View Profile</PopoverHeader>
-            <PopoverBody style={{backgroundColor:"grey"}}>
-                
-            <div><Image src={props.value} alt="Segun Adebayo"  style={{objectFit:"contain"}}/></div>
-                
-            
-                </PopoverBody>
-        </PopoverContent>
-        </Popover>)
-},
-
-    {Header:'Username',
-    accessor:'username',
-    Filter:ColumnFilter
-    },
-    {Header:'Country',
-    accessor:'country',
-    Filter:ColumnFilter
-
-    },
-    {Header:'Religion',
-    accessor:'religion',
-    Filter:ColumnFilter
+    const [isloading,setloading]=useState(true)
+    const filterbyfirstname=(filterfirstname)=>{
+        if(filterfirstname===""){
+            return userlist
+        }
+        else{
+            return []
+        }
     }
+    const filteredbyfirstname =(filterfirstname)=>{ 
+        if(!filterfirstname.length)
+        return fetchdata 
+        else{
+            console.log(filterfirstname)
+            console.log(userlist.map(person => (person.firstname) == filterfirstname))
+            return userlist.filter(person => (person.firstname.toLowerCase()).includes(filterfirstname.toLowerCase()))}
 
-]
+    }
+    const filteredbycountry =(filtercountry)=>{ 
+        if(!filtercountry.length)
+        return fetchdata 
+        else{
+            console.log(filterfirstname)
+            console.log(userlist.map(person => (person.country) == filtercountry))
+            return userlist.filter(person => (person.country.toLowerCase()).includes(filtercountry.toLowerCase()))}
 
+    }
+    const filteredbylastname =(filterlastname)=>{ 
+        if(!filterlastname.length)
+        return fetchdata 
+        else{
+            console.log(filterlastname)
+            console.log(userlist.map(person => (person.lastname) == filterlastname))
+            return fetchdata.filter(person => (person.lastname.toLowerCase()).includes(filterlastname.toLowerCase()))}
 
-
-
-function BasicTableComponent({column,data1}) {
-        const columns=useMemo(()=>column,[]);
-        const data=useMemo(()=>data1,[])
-        const defaultColumn = useMemo(
-            () => ({
-              // Let's set up our default Filter UI
-              Filter: ColumnFilter,
-            }),
-            []
-          )  
+    }
     
-           
+    const filteredbyreligion =(filterreligion)=>{ 
+        if(!filterreligion.length)
+        return fetchdata 
+        else{
+            console.log(filterlastname)
+            console.log(userlist.map(person => (person.religion) == filterreligion))
+            return fetchdata.filter(person => (person.religion.toLowerCase()).includes(filterreligion.toLowerCase()))}
+
+    }
         
-    
-
-    
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-        state,setGlobalFilter
-    } = useTable({
-         columns,
-         data,defaultColumn
-    },useFilters,useGlobalFilter)
-const {globalfilter}=state
-    return (
-        <>
+    useEffect(()=>{
+        fetch("/admin/viewUsers")
+        .then(res=>res.json())
+        .then(result=>{
             
-            <table className="table" {...getTableProps()}>
-            <thead>
-                {headerGroups.map(headerGroup => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
-                        <th>Index</th>
-                        {headerGroup.headers.map(column => (
-                            <th {...column.getHeaderProps()}>{column.render('Header')}
-                            <div>{column.canFilter ? column.render('Filter') : null}</div>
-                            </th>
-                            
-                        ))}
-                    </tr>
-                ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-                {rows.map((row, i) => {
-                    prepareRow(row)
-                    const Id=i
-                    const handle=()=>(handle1(Id))
-                    return (
-                        <tr {...row.getRowProps()}>
-                            <td>{i}</td>
-                            {row.cells.map(cell => {
-                                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                            })}
-                            <td><Button onClick={handle}><Link to={"/admin/Viewsingleuser"}>Show</Link></Button></td>
-                        </tr>
-                    )
-                })}
-            </tbody>
-        </table>
-        </>
-    )
-}
+           if(result.error){
+            //   M.toast({html: result.error,classes:"#c62828 red darken-3"})
+           }
+           else{
+                //console.log(result)
+                //let dat=result.users
+                setuserlist(result.users)
+                setfetchdata(result.users)
+                console.log(userlist)
+           }
+        }).catch(err=>{
+            console.log(err)
+        })
+       },[])
+    
+    
+    return (
+        <div>
+        
+          
+                
+        <table style={{minWidth:"300px",maxWidth:"500px"}}>
+                <thead>
 
-const GlobalFilter=({filter,setfilter})=>{
-    return(
-        <span>
-            Search:{''}
-            <input  value={filter || ' '}
-                onChange={e =>setfilter(e.target.value) } />
-        </span>
-    )
-}
+                <tr >
+                    <th> Id</th>
+                    <th style={{padding:"10px"}}>Profile</th>
+                    <th style={{padding:"10px"}}>First Name <input placeholder="firstname"  onChange={(e)=>setuserlist(filteredbyfirstname(e.target.value))}></input></th>
+                    <th style={{padding:"10px"}}>Last Nmae<input placeholder="lastname" onChange={(e)=>setuserlist(filteredbylastname(e.target.value))}></input></th>
+                    <th style={{padding:"10px"}}>Religion<input placeholder="Religion" onChange={(e)=>setuserlist(filteredbyreligion(e.target.value))}>
+                    
+                
+              </input>
+                    </th>
+                    <th style={{padding:"10px"}}>Country<input placeholder="country" onChange={(e)=>setuserlist(filteredbycountry(e.target.value))}></input></th>
+                </tr>
+                </thead>
 
+                <tbody>
+                    
+                        {
+                            userlist.map((item,index)=>{
+                                return(
+                                    <tr key={index}>
+                                        <td >{index+1}</td>
+                                        <td style={{padding:"10px"}}><Profile value={item.pic} firstname1={item.firstname}/></td>
+                                        <td style={{padding:"10px"}}>{item.firstname}</td>
+                                        <td style={{padding:"10px"}}>{item.lastname}</td>
+                                        <td style={{padding:"10px"}}>{item.religion}</td>
+                                        <td style={{padding:"10px"}}>{item.country}</td>
+                                        <td style={{padding:"10px"}}>
+                                                
+                                        <Button ><Link to={`/admin/viewUser/${index}`}>Show</Link></Button>
+                                        </td>
+                                        <td style={{padding:"10px"}}>
+                                                
+                                        <Button ><Link to={`/admin/viewUser/${index}`}>delete</Link></Button>
+                                        </td>
+                                        
+                                    </tr>
+                                )
+                            })
+                        }
+                </tbody>
+            </table>
+             
+          </div>
+        
+    )
+
+}
+const Profile=(props)=>(<Popover  >
+    <PopoverTrigger>
+        <Avatar src={props.value}/>
+    </PopoverTrigger>
+    <PopoverContent>
+        <PopoverArrow />
+        <PopoverCloseButton />
+        <PopoverHeader style={{backgroundColor:"grey"}}>{props.firstname1}</PopoverHeader>
+        <PopoverBody style={{backgroundColor:"grey"}}>
+            
+        <div><Image src={props.value} alt="Segun Adebayo"  style={{objectFit:"contain"}}/></div>
+            
+        
+            </PopoverBody>
+    </PopoverContent>
+    </Popover>)
