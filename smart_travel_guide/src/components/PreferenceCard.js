@@ -3,6 +3,7 @@ import { View, StyleSheet, Alert } from "react-native";
 import { Button, Card, Paragraph, Checkbox } from "react-native-paper";
 import { theme } from "../core/theme";
 import { Picker } from "@react-native-picker/picker";
+import { LinearGradient } from "expo-linear-gradient";
 
 const showAlert = () =>
   Alert.alert(
@@ -134,6 +135,7 @@ const PreferenceCard = (props) => {
     } else {
       return (
         <Picker
+          dropdownIconColor={"#202422"}
           selectedValue={selectedValue}
           onValueChange={(itemValue) => setSelectedValue(itemValue)}
         >
@@ -169,11 +171,16 @@ const PreferenceCard = (props) => {
 
   return (
     <Card mode="outlined" style={{ ...styles.card, display: props.display }}>
-      <Card.Content>
-        <Paragraph style={styles.question}>{props.question}</Paragraph>
+      <LinearGradient
+        colors={["#8af4e5", "white"]}
+        style={styles.linearGradient}
+      >
+        <Card.Content>
+          <Paragraph style={styles.question}>{props.question}</Paragraph>
 
-        {renderOptions()}
-      </Card.Content>
+          {renderOptions()}
+        </Card.Content>
+      </LinearGradient>
 
       <Card.Actions
         style={{
@@ -191,12 +198,16 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 10,
     width: "90%",
-
     alignSelf: "center",
     borderRadius: 20,
     elevation: 10,
     alignItems: "center",
     justifyContent: "flex-end",
+  },
+  linearGradient: {
+    borderRadius: 20,
+    justifyContent: "center",
+    paddingVertical: 10,
   },
   question: {
     paddingBottom: 10,

@@ -18,9 +18,11 @@ export const PlanCard = ({
   createdDate,
   onDelete,
   travelPlan,
+  displayAlert,
 }) => {
   const { state, dispatch } = useContext(AppContext);
   const navigation = useNavigation();
+
   const links = [
     require("../assets/img/1.jpg"),
     require("../assets/img/2.jpg"),
@@ -43,6 +45,7 @@ export const PlanCard = ({
       .then((result) => {
         if (result.data) {
           onDelete(result.data);
+          displayAlert();
         }
 
         console.log(result);

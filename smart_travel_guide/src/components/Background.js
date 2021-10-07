@@ -8,6 +8,7 @@ import {
 const Background = (props) => (
   <ImageBackground
     source={props.backgroundImage}
+    imageStyle={{ opacity: 0.5 }}
     resizeMode={props.resizeMode}
     style={{ ...styles.background, ...props.style }}
     {...props}

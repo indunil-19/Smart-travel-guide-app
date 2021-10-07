@@ -12,6 +12,14 @@ import PreferenceCard from "../components/PreferenceCard";
 ! Fix the back from travel plan 
 */
 
+const links = [
+  require("../assets/img/1.jpg"),
+  require("../assets/img/2.jpg"),
+  require("../assets/img/3.jpg"),
+  require("../assets/img/4.jpg"),
+  require("../assets/img/5.jpg"),
+  require("../assets/img/6.jpg"),
+];
 const PreferenceSelection = (props) => {
   const [cardState, setCardState] = useState([
     "flex",
@@ -44,6 +52,9 @@ const PreferenceSelection = (props) => {
       });
     }
   }, [preference]);
+  const backgroundImageSelector = () => {
+    return links[cardState.indexOf("flex")];
+  };
 
   const confirmPrefernces = (value) => {
     Alert.alert("Confirm preferences", "Submit the selected prefernces.", [
@@ -116,7 +127,7 @@ const PreferenceSelection = (props) => {
   };
 
   return (
-    <Background>
+    <Background backgroundImage={backgroundImageSelector()}>
       <View style={styles.preferenceContainer}>
         {/* <Snackbar
           visible={visible}
