@@ -11,7 +11,7 @@ export const LocationInfoCard = (props) => {
 
   useEffect(() => {
     setImgLink(
-      `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${props.location.photos[0].photo_reference}&key=AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY`
+      `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${props.location.photos[0].photo_reference}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`
     );
     setLoaded(false);
   }, [props.location.photos[0].photo_reference]);

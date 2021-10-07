@@ -50,7 +50,7 @@ export const ReviewSlider = (props) => {
       {!isLoading && (
         <Carousel
           layout={"tinder"}
-          layoutCardOffset={`9`}
+          layoutCardOffset={9}
           data={props.reviews}
           sliderWidth={300}
           itemWidth={300}

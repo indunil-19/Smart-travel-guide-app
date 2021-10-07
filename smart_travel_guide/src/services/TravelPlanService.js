@@ -63,7 +63,7 @@ export const getTravelPlan = async (
           query: x,
           type: ["tourist_attraction"],
           //
-          key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
+          key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
           rating: 4,
         };
         reqArr.push(req);
@@ -76,7 +76,7 @@ export const getTravelPlan = async (
             query: x + religion,
             type: ["tourist_attraction"],
             // rankBy :google.maps.places.RankBy.DISTANCE,
-            key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
+            key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
             rating: 4,
           };
           reqArr.push(req);
@@ -87,7 +87,7 @@ export const getTravelPlan = async (
             query: x,
             type: ["tourist_attraction"],
             // rankBy :google.maps.places.RankBy.DISTANCE,
-            key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
+            key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
             rating: 4,
           };
           reqArr.push(req);
@@ -152,7 +152,7 @@ export const getTravelPlan = async (
           optimizeWaypoints: true,
           waypoints: waypts,
           travelMode: "DRIVING",
-          key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
+          key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
         },
       })
       .then((response) => {

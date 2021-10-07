@@ -65,7 +65,7 @@ export const ImageSlider = (props) => {
             <Image
               fadeDuration={2000} //* image fade in duration on 1st load after that image is cached in memory used in networkloaded images can be also used in loacl images
               source={{
-                uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=${imgRef[index]}&key=AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY`,
+                uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=${imgRef[index]}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`,
               }}
               style={styles.image}
               resizeMode="cover"
