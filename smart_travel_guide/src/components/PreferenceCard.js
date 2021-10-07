@@ -135,7 +135,7 @@ const PreferenceCard = (props) => {
     } else {
       return (
         <Picker
-          dropdownIconColor={"#202422"}
+          dropdownIconColor="#000000"
           selectedValue={selectedValue}
           onValueChange={(itemValue) => setSelectedValue(itemValue)}
         >
@@ -195,8 +195,8 @@ const PreferenceCard = (props) => {
 };
 const styles = StyleSheet.create({
   card: {
-    paddingVertical: 20,
-    paddingHorizontal: 10,
+    // paddingVertical: 20,
+    // paddingHorizontal: 10,
     width: "90%",
     alignSelf: "center",
     borderRadius: 20,
