@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, Alert } from "react-native";
-import { Button, Card, Paragraph, Checkbox } from "react-native-paper";
+import {
+  Button,
+  Card,
+  Paragraph,
+  Checkbox,
+  IconButton,
+} from "react-native-paper";
 import { theme } from "../core/theme";
 import { Picker } from "@react-native-picker/picker";
 import { LinearGradient } from "expo-linear-gradient";
+import { icon } from "../components/Icon";
 
 const showAlert = () =>
   Alert.alert(
@@ -34,6 +41,9 @@ const PreferenceCard = (props) => {
       setButtonStyle("space-between");
     }
   });
+  const renderIcon = (option) => {
+    return <IconButton icon={icon(option)} color="green" size={22} disabled />;
+  };
 
   const checkHandler = (key, restriction) => {
     if (
@@ -125,11 +135,13 @@ const PreferenceCard = (props) => {
             status={checkedState[index] ? "checked" : "unchecked"}
             label={option}
             color={theme.colors.primary}
+            position="leading"
             uncheckedColor={theme.colors.secondary}
             onPress={() => {
               checkHandler(index, props.restriction);
             }}
           />
+          {renderIcon(option)}
         </View>
       ));
     } else {
@@ -216,8 +228,12 @@ const styles = StyleSheet.create({
   },
 
   optionContainer: {
-    width: "80%",
+    width: "75%",
+    flexDirection: "row",
     alignSelf: "center",
+    alignItems: "center",
+
+    justifyContent: "space-between",
   },
 });
 
