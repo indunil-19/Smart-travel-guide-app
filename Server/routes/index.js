@@ -33,7 +33,6 @@ router.post('/user/saveTravelPlan',ifNotLoggedIn, ifTraveller, UserController.sa
 
 
 
-
 router.get('/addAdmin', RootController.addAdmin)
 router.get('/admin/viewAdmins',AdminController.viewAdmins)
 router.get('/admin/getProvinceData/:pid', AdminController.getProvinceData)
@@ -46,6 +45,10 @@ router.post('/admin/signin',AdminController.login)
 router.post('/admin/deleteProvinceImage', AdminController.deleteProvinceImage)
 router.post('/admin/descriptionUpdate', AdminController.descriptionUpdate)
 router.post('/admin/getsharedPlans', AdminController.getSharedPlans)
+router.delete('/admin/deleteTravelPlan', AdminController.deleteTravelPlan)
+router.post('/admin/setPublicPlan', AdminController.setPublicPlan)
+router.post('/admin/removePublic', AdminController.removePublicPlan)
+
 
 
 

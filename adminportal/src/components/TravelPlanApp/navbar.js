@@ -24,7 +24,7 @@ const NavBar=()=>{
         <HStack spacing="24px" justifyContent="space-between" alignItems="center"> 
             <Box>
 
-            {state._id ? <>
+            {state && state._id ? <>
                 <Link to="/travelPlan">
                     <Heading>Travel Guide</Heading>
                 </Link> 

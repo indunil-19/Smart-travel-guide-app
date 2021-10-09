@@ -1,7 +1,7 @@
 import React , {useContext,useEffect,useState}from "react"
 import { useHistory } from "react-router"
 import { Box, Flex ,HStack, VStack} from "@chakra-ui/layout"
-import { Button,Text,Badge ,Divider} from "@chakra-ui/react"
+import { Button,Text,Badge ,Divider,useToast} from "@chakra-ui/react"
 import {IoLocationSharp} from "react-icons/io5"
 import {MdDriveEta} from "react-icons/md"
 import { TravelContext } from "../../context/TravelContext"
@@ -13,7 +13,7 @@ import { IoMdCloseCircleOutline } from "react-icons/io";
 
 
 export const EditPlan=()=>{
-
+    const toast=useToast()
     const history=useHistory()
     const {state, dispatch}=useContext(TravelContext)
     const [plan,setPlan]=useState([[], []])
@@ -30,7 +30,6 @@ export const EditPlan=()=>{
 
 
     const deletePOI=(index,index1)=>{
-
         DeletePOI(index,index1,plan).then((res)=>{
             console.log(res)
             dispatch({type:"set_travelPlan" , payload:{travelPlan:res}})
@@ -100,7 +99,9 @@ export const EditPlan=()=>{
                                                 Delete
                                             </Button>
 
-                                            <Button leftIcon={<FaExchangeAlt />} colorScheme="teal" variant="solid">
+                                            <Button leftIcon={<FaExchangeAlt />} colorScheme="teal" variant="solid" onClick={()=>{
+                                                    history.push(`/travelPlan/switchpois/${index}/${index1}`)
+                                            }}>
                                             change
                                             </Button>
 
@@ -114,6 +115,17 @@ export const EditPlan=()=>{
                         }   
                             
                             <Button colorScheme="red" variant="outline" m={15} width="50%" onClick={()=>{
+                                            if(index!=0){
+                                                if(plan[0][index-1].length==0){
+                                                    toast({
+                                                        title:"add places to previous days first",
+                                                        duration:4000,
+                                                        status:"error",
+                                                        isClosable:true
+                                                    })
+                                                    return 
+                                                }
+                                            }
                                             history.push('/travelPlan/addMorePlaces/'+(index+1))
                                         }}>
                                 Add more places

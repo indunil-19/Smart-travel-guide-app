@@ -59,7 +59,7 @@ export const MyPlans=()=>{
 
     return(
         <>
-                <AlertDialog
+         <AlertDialog
                 isOpen={isOpen}
                 leastDestructiveRef={cancelRef}
                 onClose={onClose}

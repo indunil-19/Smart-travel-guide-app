@@ -187,7 +187,7 @@ class AdminController{
         }
 
         static async getSharedPlans(req,res){
-            TravelPlan.find({ownedBy:"6131020c334d393094db1e4a", public:false})
+            TravelPlan.find({ownedBy:"6131020c334d393094db1e4a", rate:req.body.rate, public:false})
                 .populate("OwnedBy","_id")
                 .sort('-createdAt')
                 .then(myPlans=>{
@@ -207,6 +207,33 @@ class AdminController{
                 .catch(err=>{
                     console.log(err)
                 })
+        }
+        static async deleteTravelPlan(req,res){
+            TravelPlan.findOneAndRemove({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"}).then(data=>{
+                return res.json({data})
+            }).catch(e=>{
+                console.log(e)
+            })
+        }
+
+        static async setPublicPlan(req,res){
+            
+            TravelPlan.findOneAndUpdate({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"},{public:true},{new:true}).
+                    then(data=>{
+                        return res.json({data})
+                    }).
+                    catch(err=>{
+                        console.log(err)
+                    })
+        }
+        static async removePublicPlan(req,res){
+            TravelPlan.findOneAndUpdate({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"},{public:false},{new:true}).
+            then(data=>{
+                return res.json({data})
+            }).
+            catch(err=>{
+                console.log(err)
+            })
         }
 
 }

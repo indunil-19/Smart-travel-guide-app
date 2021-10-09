@@ -19,7 +19,7 @@ export const SignIn=()=>{
 
     useEffect(()=>{
       
-        if(state._id){
+        if(state && state._id){
             
             history.push('/travelPlan')
         }else{

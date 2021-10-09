@@ -91,7 +91,7 @@ export const DeletePOI=async(index, index1, travelPlan=[[[],[]] ,[]])=>{
           destination:end_location,
           optimizeWaypoints: true,
           travelMode: 'DRIVING',
-          key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
+          key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
 
         }})
         .then((response) => {
@@ -144,7 +144,7 @@ export const DeleteDay=async(day, travelPlan)=>{
           destination:end_location,
           optimizeWaypoints: true,
           travelMode: 'DRIVING',
-          key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
+          key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
 
         }})
         .then((response) => {
@@ -170,7 +170,6 @@ export const DeleteDay=async(day, travelPlan)=>{
 
 export const findPois=async(day,travelPlan,allpois)=>{
     const client = new Client({});
-
     // console.log(allpois)
     const allpoisDays=travelPlan[0].length
     const num_pois_in_day=travelPlan[0][day-1].length
@@ -188,11 +187,17 @@ export const findPois=async(day,travelPlan,allpois)=>{
        start_location=travelPlan[0][day-1][num_pois_in_day-1].geometry.location
     }
 
+    
+    var l=0
+    for (let i=0; i<day-1;i++){
+      l+=travelPlan[0][i].length
+    }
+    console.log(travelPlan[1])
 
     var remaining_time=32400
 
     for(let i=0; i<travelPlan[0][day-1].length; i++){
-          remaining_time-=travelPlan[1][i].duration.value+3600
+          remaining_time-=travelPlan[1][l+i].duration.value+3600
     }
     remaining_time-=3600
     console.log(remaining_time)
@@ -219,7 +224,7 @@ export const findPois=async(day,travelPlan,allpois)=>{
           optimizeWaypoints: true,
           travelMode: 'DRIVING',
           waypoints:waypts,
-          key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
+          key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
 
         }
       })
@@ -248,7 +253,6 @@ export const findPois=async(day,travelPlan,allpois)=>{
               pois.push(allpois[i])
               poisRouteSuitable.push(poisRoute[i])
             }
-
         }
         else{
           if(poisRoute[i].duration.value<=remaining_time){
@@ -257,9 +261,7 @@ export const findPois=async(day,travelPlan,allpois)=>{
           }
         }
         
-    }
-      
-     
+    }   
      return [pois,poisRouteSuitable]
     // return allpois
 }
@@ -270,7 +272,6 @@ export const addPoiToPlan=async(day,poi, route,travelPlan)=>{
   for(let i=0;i<day-1;i++){
     pivot+=travelPlan[0][i].length
   }
-
   travelPlan[0][day-1].push(poi)
   if(Array.isArray(route)){
     if(route.length==1){
@@ -279,9 +280,7 @@ export const addPoiToPlan=async(day,poi, route,travelPlan)=>{
     else{
       travelPlan[1].splice(pivot+1, 1)
       travelPlan[1].splice(pivot+1, 0, route[0],route[1])
-    }
-    
-
+    } 
   }
   // else{
   //   travelPlan[1].splice(pivot+1, 0, route)
@@ -294,4 +293,191 @@ export const addPoiToPlan=async(day,poi, route,travelPlan)=>{
 export const AddDay=async(travelPlan)=>{
   travelPlan[0].push([])
   return travelPlan
+}
+
+
+   
+export const switchPOI=async(index, index1, travelPlan=[[[],[]] ,[]],allpois)=>{
+  const client = new Client({});
+  var start_location={}
+  var end_location={}
+  
+  
+  var travelDays=travelPlan[0].length
+  var plan=travelPlan[0]
+
+  if(index>0){
+    if(index1>0){
+      console.log("1")
+      start_location=plan[index][index1-1].geometry.location
+      // travelPlan[0][index].pop(index1)
+    }
+    else if(index1==0){
+      console.log("2")
+      if(plan[index-1].length==0){
+        start_location={lat:6.927079,lng:79.857750}
+      }
+      else{
+        start_location=plan[index-1][plan[index-1].length-1].geometry.location
+      }
+      
+      // travelPlan[0][index].pop(index1)
+    }
+    
+  }
+  else if(index==0){
+    if(index1==0){
+      start_location={lat:6.927079,lng:79.857750}
+      // travelPlan[0][index].pop(index1)
+
+    }
+    else if(index1>0){
+      console.log("4")
+      start_location=plan[index][index1-1].geometry.location
+      // travelPlan[0][index].pop(index1)
+    }
+    
+  }
+
+
+  if(index<travelDays-1){
+    if(index1==plan[index].length-1){
+      console.log("5")
+      end_location=plan[index+1][0].geometry.location
+      // travelPlan[0][index].splice(index1,1)
+      
+    }
+    else if(index1<plan[index].length-1){
+      console.log("6")
+      console.log(plan[index])
+      console.log(index1)
+      end_location=plan[index][index1+1].geometry.location
+      
+      // travelPlan[0][index].splice(index1,1)
+      
+    }
+  }
+  else if(index==travelDays-1){
+     if(index1==plan[index].length-1){
+
+      console.log("7")
+      // travelPlan[0][index].splice(index1,1)
+      // travelPlan[1].pop(l-1)
+      return findPois(index+1,travelPlan,allpois)
+     }
+     else if (index1<plan[index].length-1){
+       console.log("8")
+        end_location=plan[index][index1+1].geometry.location
+        // travelPlan[0][index].splice(index1,1)
+      
+     }
+  }
+  
+
+  var remaining_time=32400
+
+  var pivot=0
+  for(let i=0;i<index;i++){
+    pivot+=travelPlan[0][i].length
+  }
+  
+  for(let i=0; i<travelPlan[0][index].length; i++){
+      if(index1!=i) remaining_time-=travelPlan[1][pivot+i].duration.value+3600
+        
+  }
+  remaining_time-=3600
+  // console.log(remaining_time)
+
+
+  var poisRoute=new Array()
+  var pois=new Array()
+  var poisRouteSuitable=new Array()
+    for(var i=0; i<allpois.length;i++){
+      const waypts = [allpois[i].geometry.location];
+      
+      
+    client
+    .directions({params:{
+        
+        origin:start_location,
+        destination:end_location,
+        optimizeWaypoints: true,
+        travelMode: 'DRIVING',
+        waypoints:waypts,
+        key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+
+      }
+    })
+      .then((response) => {
+        const route = response.data.routes[0];
+        // console.log(route)
+        const poisLegs=[]
+        for (let i = 0; i < route.legs.length; i++) {
+          poisLegs.push(route.legs[i])
+        }
+        // console.log(poisLegs)  
+        poisRoute.push(poisLegs)
+      })
+       .catch((e) =>{ 
+         console.log(e)
+      })   
+    }
+    await new Promise(r => setTimeout(r, 6000));
+    
+     for(let i=0; i<poisRoute.length;i++){
+      if(Array.isArray(poisRoute[i])){
+          var t=3600
+          for(let j=0; j<poisRoute[i].length;j++){
+              t+=poisRoute[i][j].duration.value
+          }
+          if(t<=remaining_time){
+            pois.push(allpois[i])
+            poisRouteSuitable.push(poisRoute[i])
+          }
+      }
+      else{
+        if(poisRoute[i].duration.value<=remaining_time){
+          pois.push(allpois[i])
+          poisRouteSuitable.push(poisRoute[i])
+        }
+      }
+      
+  } 
+  console.log(pois,poisRouteSuitable)  
+   return [pois,poisRouteSuitable]
+}
+
+
+
+export const addPoiToPlan1=async(index,index1,poi, route,travelPlan)=>{
+  var k=0
+  var l=0
+  for(var i=0; i<=index;i++){
+    for (var j=0; j<travelPlan[i].length;j++){
+      var k=k+1
+      if(i==index && j==index1){
+          l=k
+      }
+    }
+  } 
+
+ 
+  travelPlan[0][index][index1]=poi;
+  if(Array.isArray(route)){
+    if(route.length==1){
+      travelPlan[1].splice(l, 1)
+      travelPlan[1].splice(l, 0, route[0])
+    }
+    else{
+      travelPlan[1].splice(l, 1)
+      travelPlan[1].splice(l, 1)
+      travelPlan[1].splice(l, 0, route[0],route[1])
+    } 
+  }
+  // else{
+  //   travelPlan[1].splice(pivot+1, 0, route)
+  // }
+  
+  return travelPlan
+
 }

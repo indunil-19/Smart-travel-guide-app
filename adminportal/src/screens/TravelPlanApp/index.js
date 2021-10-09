@@ -24,6 +24,7 @@ import { Province } from "./province"
 import { CustomPlan } from "./customPlan"
 import { TravelContext } from "../../context/TravelContext"
 import {useContext,useEffect} from "react"
+import { SwitchPois } from "./switchPois"
 
 
 
@@ -45,6 +46,9 @@ const TravelPlanApp=()=>{
         <NavBar/>
         <Box minHeight="100vh" >
         <Switch >
+            <Route path="/travelPlan/switchpois/:index/:index1">
+                <SwitchPois />
+            </Route>
             <Route path="/travelPlan/customPlan">
                 <CustomPlan/>
             </Route>

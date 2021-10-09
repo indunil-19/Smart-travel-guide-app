@@ -25,7 +25,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Switch>
-          {/* <AdminProvider> */}
+          <AdminProvider>
           <Route exact path="/">
             <TravelApp/>
           </Route>
@@ -74,7 +74,7 @@ function App() {
             <PublicPlans />
          </Route>
 
-         {/* </AdminProvider> */}
+         </AdminProvider>
 
           <Route>
             <TravelPlanRoutes path="/travelPlan" />
