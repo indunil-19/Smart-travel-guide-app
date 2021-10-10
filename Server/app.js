@@ -68,6 +68,8 @@ app.get('*', (req, res) => {
 });
 
 
-app.listen(5000, function(){
+const server=app.listen(5000, function(){
     console.log("app is working on port 5000")
 })
+
+module.exports={server}

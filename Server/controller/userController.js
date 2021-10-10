@@ -10,26 +10,29 @@ const {Client} = require("@googlemaps/google-maps-services-js");
 class UserController{
     static async updateUser(req,res){
 
-            User.findOne({email:req.body.email})
+         return User.findOne({email:req.body.email})
             .then((savedUser)=>{
-                if(savedUser._id!=req.body._id){
-                    return res.status(422).json({error:"user already exists with that email"})
+                if(savedUser && savedUser._id!=req.body._id){
+                    return res.json({error:"user already exists with that email"})
                 }
+                return User.findByIdAndUpdate(req.body._id,{
+                    firstname:req.body.firstname,
+                    lastname:req.body.lastname,
+                    dob:req.body.dob,
+                    country:req.body.country,
+                    religion:req.body.religion,
+                    email:req.body.email,
+                    pic:req.body.pic,
+                    password:req.body.password
+                }).
+                then(data=>{
+                   return res.json(data)
+                }).catch(err=>{
+                   return res.json({error:"update error"})
+                })
+
             })       
-            User.findByIdAndUpdate(req.body._id,{
-                                    firstname:req.body.firstname,
-                                    lastname:req.body.lastname,
-                                    dob:req.body.dob,
-                                    country:req.body.country,
-                                    religion:req.body.religion,
-                                    email:req.body.email,
-                                    pic:req.body.pic
-            }).
-            then(data=>{
-                res.json(data)
-            }).catch(err=>{
-                return res.status(422).json({error:"update error"})
-            })    
+                
         }
 
     static async getTouristAttractions(req,res){
