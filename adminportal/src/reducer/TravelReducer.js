@@ -3,15 +3,7 @@ export const initialState=[
 
 export const Travelreducer =(state,action)=>{
    switch(action.type){
-    //    case "ADD":
-    //        return [...state, {id:Math.random() ,title:action.payload.title, content:action.payload.content}]
-    //    case "REMOVE" :
-    //        return state.filter((note)=>action.payload != note.id)
-    //    case "UPDATE":
-    //        return state.map( record =>{
-    //            if(record.id ==action.payload.id) return action.payload
-    //            else return record
-    //        })
+   
         case "USER":
             return action.payload
 
@@ -52,6 +44,8 @@ export const Travelreducer =(state,action)=>{
                 ...state,
                 planId:action.payload.planId
             }
+        case "CLEAR":
+            return null
         default :
            return state
    }

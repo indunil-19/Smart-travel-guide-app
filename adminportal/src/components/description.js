@@ -54,10 +54,8 @@ export const Description=({des, pid})=>{
     return(
       <>
       <Flex flexDirection="column" justifyContent="center" padding={5}>
-      <Textarea style={{marginTop:15, padding:10}} value={description1} placeholder="type description here" isDisabled={edit} onChange={(e)=>{ setDescription1(e.target.value); }}></Textarea>
-      
-      <Flex flexDirection="row" justifyContent="space-between" padding="10" >
-     
+      <Textarea style={{marginTop:15, padding:10}} value={description1} placeholder="type description here" isDisabled={edit} onChange={(e)=>{ setDescription1(e.target.value); }}></Textarea> 
+      <Flex flexDirection="row" justifyContent="space-between" padding="10" > 
       { edit ? <Button leftIcon={<EditIcon /> } colorScheme="teal" variant="solid" onClick={()=>setEdit(false)}>
        Edit
       </Button> : 
@@ -68,17 +66,12 @@ export const Description=({des, pid})=>{
       loadingText="saving" colorScheme="teal" variant="solid" onClick={()=>updateDescription()}>
        Save
       </Button>
-  
       {!isLoading ?  <Button leftIcon={<CloseIcon /> } colorScheme="teal" variant="solid" onClick={()=>setEdit(true)}>
        Cancel
-      </Button> : <></>}
-      
-      </>
-      
-      
+      </Button> : <></>} 
+      </>  
       } 
       </Flex>
-  
       </Flex>
       </>
     )

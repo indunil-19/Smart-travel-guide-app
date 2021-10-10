@@ -19,9 +19,9 @@ export const MyPlans=()=>{
     useEffect(()=>{
 
         fetch('/user/getTravelPlans').then(res=>res.json())
-        .then(result=>{
-            console.log(result)
-            setPlans(result.myPlans)
+        .then(data=>{
+            console.log(data)
+            setPlans(data.myPlans)
         })
 
      },[])
@@ -59,7 +59,7 @@ export const MyPlans=()=>{
 
     return(
         <>
-                <AlertDialog
+         <AlertDialog
                 isOpen={isOpen}
                 leastDestructiveRef={cancelRef}
                 onClose={onClose}

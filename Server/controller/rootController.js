@@ -108,8 +108,9 @@ class RootController{
                     const {_id, firstname, lastname, email,dob,country,religion,password}=savedUser
                     req.session.user={}
                     req.session.user.email=email;
-                    
-                    res.json({message:"successfully signed in", user:{_id,firstname,lastname,email, dob, country,religion,password}})
+                    req.session.user._id=_id;
+                    req.session.user.type="traveller"
+                   return  res.json({message:"successfully signed in", user:{_id,firstname,lastname,email, dob, country,religion, type:"traveller"}})
                 }
                 else{
                     return res.status(422).json({error:"Invalid Email or password",})
@@ -122,8 +123,9 @@ class RootController{
         }
 
         static async logout(req,res){
-            req.session={}
-            return
+            req.session.destroy();     
+            return res.json({message:"signout successfully"})
+            
 
         }
 

@@ -37,7 +37,9 @@ export const Home=()=>{
 
                 <Flex flexDirection="column" p={10} shadow="dark-lg" borderRadius="5px" width="80%">
                      <Image src={"https://images.unsplash.com/photo-1632429619634-3d97fc1693e9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80"}  width="400px" height="300px" objectFit="cover" borderRadius="lg"  /> 
-                    <Button colorScheme="teal" m={4}>
+                    <Button colorScheme="teal" m={4} onClick={()=>{
+                        history.push("/travelPlan/customPlan")
+                    }}>
                         Create your own Travel Plan
                     </Button>
 

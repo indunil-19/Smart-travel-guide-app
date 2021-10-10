@@ -58,7 +58,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
             query: x,
             type:['tourist_attraction', ],
             // 
-            key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
+            key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
             rating:4,
           };
           reqArr.push(req)
@@ -71,7 +71,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
               query: x+religion,
               type:['tourist_attraction', ],
               // rankBy :google.maps.places.RankBy.DISTANCE,
-              key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
+              key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
               rating:4,
             };
             reqArr.push(req)
@@ -82,7 +82,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
               query: x,
               type:['tourist_attraction', ],
               // rankBy :google.maps.places.RankBy.DISTANCE,
-              key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
+              key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
               rating:4,
     
           };
@@ -157,7 +157,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
           optimizeWaypoints: true,
           waypoints: waypts,
           travelMode: 'DRIVING',
-          key: "AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY",
+          key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
 
         }})
         .then((response) => {
@@ -192,10 +192,70 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
          else if (number_of_days==3) return [[day1,day2,day3],route.legs.slice(0,day1.length+day2.length+day3.length)]
          else return [[[]],[]]
 
+         
         })
          .catch((e) =>{ 
            console.log(e)
         });
 
     }
+}
+
+
+
+export const calculateAndDisplayRoute=async(pois)=> {
+  const client = new Client({});
+  const waypts = [];
+  
+
+  for (let i = 0; i < pois.length; i++) {
+      waypts.push(
+         {
+           lat:pois[i].geometry.location.lat(),
+           lng:pois[i].geometry.location.lng()
+         }
+        
+      );
+  }
+  
+
+  return client
+  .directions({params:{
+      origin:{lat:6.927079,lng:79.857750},
+      destination:{lat:6.927079,lng:79.857750},
+      optimizeWaypoints: true,
+      waypoints: waypts,
+      travelMode: 'DRIVING',
+      key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+
+    }})
+    .then((response) => {
+      // console.log(response)
+      const route = response.data.routes[0];
+      var time=0
+      let days=[[]]
+      
+       for (let i = 0; i < route.legs.length-1; i++) {
+         time=time+route.legs[i].duration.value+3600
+
+         if(time<32400*(days.length)) {
+           days[days.length-1].push(pois[route.waypoint_order[i]]); 
+         }
+         else{
+           days.push([])
+           days[days.length-1].push(pois[route.waypoint_order[i]]);
+         }
+      
+     }
+
+
+     
+     return [[days,route.legs],pois]
+
+     
+    })
+     .catch((e) =>{ 
+       console.log(e)
+    });
+
 }

@@ -4,146 +4,33 @@ import { Box, Flex ,HStack,Stack, VStack} from "@chakra-ui/layout"
 import { Image,Heading,Button,Text,Badge, Avatar , Skeleton ,Divider,AlertDialog, AlertDialogBody, AlertDialogFooter,AlertDialogHeader,AlertDialogContent,AlertDialogOverlay,Tabs, TabList, TabPanels, Tab, TabPanel,useToast} from "@chakra-ui/react"
 import {IoLocationSharp} from "react-icons/io5"
 import {MdDriveEta} from "react-icons/md"
-import { TravelContext } from "../../context/TravelContext"
-import { getTravelPlan } from "../../services/TravelPlanService"
-import { PlaceCard } from "../../components/TravelPlanApp/placeCard"
-import { FiEdit, FiSave} from "react-icons/fi";
-import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow,DirectionsRenderer,Polyline } from "react-google-maps"
+import { PlaceCard } from "../../components/AdminComponents/placeCard"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker,Polyline } from "react-google-maps"
+import { AdminContext } from "../../context/AdminContext"
+import NavBar from "../navbar"
 
 
 
 export const TravelPlan=()=>{
-    const toast=useToast()
     const history=useHistory()
-    const {state, dispatch}=useContext(TravelContext)
-    const [isloading,setLoading]=useState(false)
+    const {state, dispatch}=useContext(AdminContext)
     const [plan,setPlan]=useState([[], []])
     useEffect( ()=>{ 
 
-        if(state.travelPlan){
-            setLoading(true)
             setPlan(state.travelPlan)
             
-        }
-        else{
-
-         getTravelPlan("wet",[],"2","buddhsism",[],["ancient", "natural", "parks"]).then((r)=>{
-         console.log(r[0])
-         setPlan(r[0])
-         setLoading(true)
-         dispatch({type:"set_travelPlan" , payload:{travelPlan:r[0]}})
-         dispatch({type:"set_pois" , payload:{allpois:r[1]}})
-         
-         
-        //  console.log(r[0][0][0].photos[0].photo_reference)
-        // "wet",[],"2","buddhsism",[],["ancient", "natural", "parks"]
-        // state.userPreferences.climate,state.userPreferences.provinces,state.userPreferences.days,state.userPreferences.religion,state.userPreferences.thingsLike,state.userPreferences.placesLike
-    })}
+      
  } ,[state] )
     var i=0;
     var accomodation=""
 
 
-    const [isOpen, setIsOpen] = useState(false)
-    const onClose = () => setIsOpen(false)
-    const cancelRef = useRef()
-
-
-    const savePlan=()=>{
-        fetch('/user/saveTravelPlan',{
-            method:"post",
-            headers:{
-                "Content-Type":"application/json",
-            },
-            body:JSON.stringify({
-                travelPlan:state.travelPlan
-            })
-        }).then(res=>res.json()).then((data)=>{
-                if(data.error){
-                    toast({
-                        title: data.error,
-                        position:"top-right",
-                        status:"error",
-                        duration: 4000,
-                        isClosable: true,
-                      })
-                }
-                else{
-                    toast({
-                        title: data.message,
-                        position:"top-right",
-                        status:"success",
-                        duration: 4000,
-                        isClosable: true,
-                      })
-                    history.push("/travelPlan/myplans")
-                }
-                
-        }).catch((err)=>{
-            console.log(err)
-        })
-    }
-
-    const updatePlan=()=>{
-        fetch('/user/updateTravelPlan',{
-            method:"post",
-            headers:{
-                "Content-Type":"application/json",
-            },
-            body:JSON.stringify({
-                planId:state.planId,
-                travelPlan:state.travelPlan
-            })
-        }).then(res=>res.json()).then((data)=>{
-                console.log(data)
-                history.push("/travelPlan/myplans")
-        }).catch((err)=>{
-            console.log(err)
-        })
-    }
+   
 
     return(
         <>
-                <>
-                
-                <AlertDialog
-                    isOpen={isOpen}
-                    leastDestructiveRef={cancelRef}
-                    onClose={onClose}
-                >
-                    <AlertDialogOverlay>
-                    <AlertDialogContent>
-                        <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                        {state.planId ? "update" : "save"} Travel Plan
-                        </AlertDialogHeader>
-
-                        <AlertDialogBody>
-                        Do you want to {state.planId ? "update" : "save"}?
-                        </AlertDialogBody>
-
-                        <AlertDialogFooter>
-                        <Button ref={cancelRef} onClick={onClose}>
-                            Cancel
-                        </Button>
-                        <Button colorScheme="blue" onClick={onClose} ml={3} onClick={()=>{
-                                if(state.planId){
-                                    updatePlan();
-                                }
-                                else{
-                                    savePlan();
-                                }
-                                        
-                        }}>
-                            save
-                        </Button>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                    </AlertDialogOverlay>
-                </AlertDialog>
-                </>
-
-
-      <Skeleton isLoaded={isloading}>
+              
+        <NavBar>
          <Tabs variant="soft-rounded" colorScheme="teal">
          <Flex alignItems="center" flexDirection="column" boxShadow="lg">
              <Image src="https://www.thexpressng.com/wp-content/uploads/2019/03/SriLanka_Slider.jpg" alt="Segun Adebayo"  height="400px" width="100%" objectFit="cover"/>
@@ -186,14 +73,14 @@ export const TravelPlan=()=>{
                                 )
                             })
                         }
-                           <Button colorScheme="teal" variant="solid" m={15} width="50%" onClick={()=>{
+                           {/* <Button colorScheme="teal" variant="solid" m={15} width="50%" onClick={()=>{
                                             dispatch({type:"accomodation_location", payload:{
                                                 accomodation_location:accomodation
                                             }})
                                             history.push('/travelPlan/nearbyhotels')
                                         }}>
                                 Find Accomodations
-                           </Button>
+                           </Button> */}
                            <Divider orientation="horizontal" mb={2} />
                         </>
                         
@@ -205,7 +92,7 @@ export const TravelPlan=()=>{
 
 
             <HStack> 
-                   <IoLocationSharp/> <Badge size="15">6.00 p.m</Badge> <Text fontSize="3xl">End - {plan[1].length ? plan[1][plan[1].length-1].end_address : ""}</Text>                  
+                   <IoLocationSharp/> <Badge size="15">6.00 p.m</Badge> <Text fontSize="3xl">End - colombo</Text>                  
             </HStack>
 
 
@@ -215,20 +102,6 @@ export const TravelPlan=()=>{
 
         </Flex>
 
-        <VStack position="fixed" bottom="0" right="0" p={3} >
-        <Button colorScheme="teal" size="lg" borderRadius="50%" onClick={()=>{
-            history.push("/travelPlan/editPlan")
-        }}>
-            <FiEdit/>
-        </Button>
-
-        <Button colorScheme="teal" size="lg" borderRadius="50%" onClick={()=>{
-             setIsOpen(true)
-
-        }}>
-            <FiSave />
-        </Button>
-        </VStack>
         </TabPanel>
 
 
@@ -244,9 +117,8 @@ export const TravelPlan=()=>{
 
         </TabPanels>
         </Tabs>
-        </Skeleton>
 
-         
+        </NavBar>
         </>
     )
 }
@@ -268,7 +140,7 @@ const Card=({distance,duration,photo,index,name,address, types=[], rating, place
     )
 }
 const Map=()=>{
-    const {state,dispatch}=useContext(TravelContext)
+    const {state,dispatch}=useContext(AdminContext)
     const [plan,setPlan]=useState([[[]],[]])
     useEffect(()=>{
         setPlan(state.travelPlan)
