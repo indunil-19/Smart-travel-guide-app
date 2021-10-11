@@ -28,13 +28,13 @@ export const ViewProvince = (props) => {
   },[])
           
   return (
-   <NavBar>
+   <>
      <Flex flexDirection="column" boxShadow="2xl" bg="white" p={10}>
      <Center><Heading mb={4}>{name}</Heading></Center>
      <Galary imarr={ima} pid={pid} />
      <Description des={description} pid={pid} />
      </Flex>
-   </NavBar>
+   </>
   )
 }
 

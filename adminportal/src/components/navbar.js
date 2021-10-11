@@ -26,7 +26,12 @@ import {
 import { HamburgerIcon,ChevronDownIcon,BellIcon,SmallAddIcon, AttachmentIcon } from '@chakra-ui/icons';
 const LinkItems = [
     { name: 'Add a admin', icon: SmallAddIcon, linkto:"/admin/addAdmin" },
+    { name: 'Adminlist', icon: SmallAddIcon, linkto:"/admin/viewAdmins" },
     { name: 'Provinces data', icon: AttachmentIcon,  linkto:"/admin/provinces"},
+    { name: 'View user list', icon: AttachmentIcon,  linkto:"/admin/Viewuserlist"},
+    { name: 'Editquestions', icon: AttachmentIcon,  linkto:"/admin/editquestions"},
+    { name: 'Genaratereport', icon: AttachmentIcon,  linkto:"/admin/genarate"},
+    { name: 'TravelplanList', icon: AttachmentIcon,  linkto:"/admin/ViewTravelplanlist"}
   
   ];
 
@@ -38,6 +43,7 @@ const logout1=()=>{
         // history.push("/admin/signin")
     )
 }
+
 const NavBar=({
   children,
 })=> {
@@ -203,7 +209,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
             <MenuList
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}>
-              <MenuItem>Profile</MenuItem>
+              <MenuItem >Profile</MenuItem>
               <MenuItem>Settings</MenuItem>
               <MenuDivider />
               <MenuItem  onClick={()=>logout1()}>Sign out</MenuItem>

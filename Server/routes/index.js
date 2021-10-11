@@ -35,6 +35,9 @@ router.post('/user/saveTravelPlan',ifNotLoggedIn, ifTraveller, UserController.sa
 
 router.get('/addAdmin', RootController.addAdmin)
 router.get('/admin/viewAdmins',AdminController.viewAdmins)
+router.get('/admin/viewAdmin/:pid',AdminController.viewAdmin)
+router.get('/admin/viewUsers',AdminController.viewUser)
+router.get('/admin/viewTravelplan',AdminController.Travelplan)
 router.get('/admin/getProvinceData/:pid', AdminController.getProvinceData)
 router.get('/admin/getPublicPlans', AdminController.getPublicPlans)
 
