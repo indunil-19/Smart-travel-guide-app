@@ -2,10 +2,8 @@ const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose')
 const User = mongoose.model("User")
 const TravelPlan=mongoose.model("TravelPlan")
-const {ObjectId} = mongoose.Schema.Types
 
 
-const {Client} = require("@googlemaps/google-maps-services-js");
 
 class UserController{
     static async updateUser(req,res){
@@ -15,22 +13,30 @@ class UserController{
                 if(savedUser && savedUser._id!=req.body._id){
                     return res.json({error:"user already exists with that email"})
                 }
-                return User.findByIdAndUpdate(req.body._id,{
-                    firstname:req.body.firstname,
-                    lastname:req.body.lastname,
-                    dob:req.body.dob,
-                    country:req.body.country,
-                    religion:req.body.religion,
-                    email:req.body.email,
-                    pic:req.body.pic,
-                    password:req.body.password
-                }).
-                then(data=>{
-                   return res.json(data)
-                }).catch(err=>{
-                   return res.json({error:"update error"})
-                })
+                    return User.findByIdAndUpdate(req.body._id,{
+                        firstname:req.body.firstname,
+                        lastname:req.body.lastname,
+                        dob:req.body.dob,
+                        country:req.body.country,
+                        religion:req.body.religion,
+                        email:req.body.email,
+                        pic:req.body.pic,
+                        password:req.body.password
+                    },{new:true}).
+                    then(data=>{
+                       if(data){
+                        return res.json(data)
+                       }
+                        return  res.json({error:"update fail"})
+                    }).catch(err=>{
+                        console.log(err)
+                        return res.json({error:"system error"})
+                    
+                    })
 
+            }).catch((e)=>{
+                console.log(e)
+                return res.json({error:"system error"})
             })       
                 
         }
@@ -44,34 +50,41 @@ class UserController{
                  ownedBy:req.session.user._id
 
              })  
-             travelPlan.save().then((result)=>{
+            return travelPlan.save().then((result)=>{
                  if(result){
                    return res.json({result, message:"your plan is saved sucessfully"})
                  }
-                 res.json({error:"your plan is not saved"})
+                 return res.json({error:"your plan is not saved"})
                  
              }).catch((error)=>{
                  console.log(error)
+                 return res.json({error:"system error"})
+                 
              })
     }
     static async getTravelPlans(req,res){
 
-        TravelPlan.find({ownedBy:req.session.user._id})
+       return  TravelPlan.find({ownedBy:req.session.user._id})
         .populate("OwnedBy","_id")
         .sort('-createdAt')
         .then(myPlans=>{
-            res.json({myPlans})
+            if(myPlans){
+                return res.json({myPlans})
+            }
         })
         .catch(err=>{
             console.log(err)
+            return res.json({error:"system error"})
+            
         })
     }
 
     static async updateTravelPlan(req,res){
        
-        TravelPlan.findOneAndUpdate({_id:req.body.planId,ownedBy:req.session.user._id},{
+        return TravelPlan.findOneAndUpdate({_id:req.body.planId,ownedBy:req.session.user._id},{
             travelPlan:req.body.travelPlan
         }).then(data=>{
+            console.log(data)
                 if(data){
                     return res.json({data})
                 }
@@ -79,6 +92,7 @@ class UserController{
                 
         }).catch(e=>{
             console.log(e)
+            return res.json({error:"system error"})
         })
 
     }
@@ -87,15 +101,18 @@ class UserController{
         // req.user={
         //     _id:"6130fec5f7e9e71fc487f211"
         // }
-        TravelPlan.findOneAndRemove({_id:req.body.planId,ownedBy:req.session.user._id}).then(data=>{
-            return res.json({data})
+       return TravelPlan.findOneAndRemove({_id:req.body.planId,ownedBy:req.session.user._id}).then(data=>{
+            if(data) return res.json({data})
+            return res.json({error:"you can't delete this"})
         }).catch(e=>{
             console.log(e)
+            return res.json({error:"system error"})
+
         })
     }
     static async addReview(req,res){
        
-        TravelPlan.findOneAndUpdate({_id:req.body.planId,ownedBy:req.session.user._id},{
+        return TravelPlan.findOneAndUpdate({_id:req.body.planId,ownedBy:req.session.user._id},{
             rate:req.body.rate,
             review:req.body.review
 
@@ -103,26 +120,31 @@ class UserController{
             if(data){
                 return res.json({data})
             }
-            return res.json({data:"you can't review for this"})
+            return res.json({error:"you can't review for this"})
         }).catch(e=>{
             console.log(e)
+            return res.json({error:"system error"})
         })
     
 
     }
     static async getReviews(req,res){
        
-        TravelPlan.findOne({_id:req.body.planId,ownedBy:req.session.user._id}).then(data=>{
-                return res.json({data})         
+        return TravelPlan.findOne({_id:req.body.planId,ownedBy:req.session.user._id}).then(data=>{
+                if(data)  return res.json({data})
+                return  res.json({error:"something went wrong"})
+                        
         }).catch(e=>{
             console.log(e)
+            return res.json({error:"system error"})
         })
     }
 
     static async shareTravelPlan(req,res){
        
-        TravelPlan.findOne({_id:req.body.planId,ownedBy:req.session.user._id}).then(data=>{
+         return TravelPlan.findOne({_id:req.body.planId,ownedBy:req.session.user._id}).then(data=>{
             // 6131020c334d393094db1e4a
+            if(data){  
             const travelPlan=new TravelPlan({
                 travelPlan:data.travelPlan,
                 review:data.review,
@@ -132,16 +154,22 @@ class UserController{
                 }
 
             })  
-            travelPlan.save().then((result)=>{
-                res.json({result})
+           return travelPlan.save().then((result)=>{
+               return res.json({result})
+
             }).catch((error)=>{
                 console.log(error)
+                return res.json({error:"system error"})
             })
+
+            }
+            return  res.json({error:"something went wrong"})
 
         }).catch(e=>{
             console.log(e)
+            return res.json({error:"system error"})
         })
-    }
+        }
 
     
     

@@ -14,7 +14,8 @@ const travelSchema = new mongoose.Schema({
     },
     ownedBy:{
         type:ObjectId,
-        ref:"User"
+        ref:"User",
+        required:true
     },
     rate:{
         type:Number
