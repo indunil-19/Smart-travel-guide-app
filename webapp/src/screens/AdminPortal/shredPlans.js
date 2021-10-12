@@ -1,10 +1,9 @@
-import NavBar from "../components/navbar"
 import { Select } from "@chakra-ui/select"
 import { InputGroup } from "@chakra-ui/input"
 import { Flex, HStack, Text } from "@chakra-ui/layout"
 import { useEffect, useState,useRef } from "react"
 import { BiSearch } from "react-icons/bi"
-import { PlanCard } from "../components/AdminComponents/planCard"
+import { PlanCard } from "../../components/AdminComponents/planCard"
 import { AiOutlineDelete } from "react-icons/ai"
 import { MdPublic } from "react-icons/md"
 import { Button, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay,} from "@chakra-ui/react"
@@ -172,7 +171,6 @@ export const SharedPlan=()=>{
                 </AlertDialogOverlay>
         </AlertDialog>
         
-        <NavBar>
         <Flex flexDirection="column" alignItems="center">
         <HStack width="full">
         <InputGroup>
@@ -233,7 +231,6 @@ export const SharedPlan=()=>{
 
 
 
-        </NavBar>
 
         
         

@@ -1,5 +1,4 @@
 import React from 'react'
-import NavBar from '../components/navbar'
 import { useState,useEffect } from 'react'
 import { Button, ButtonGroup,Box,Image } from "@chakra-ui/react";
 export default function Travelplanlist() {

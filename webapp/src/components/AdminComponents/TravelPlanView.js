@@ -30,7 +30,7 @@ export const TravelPlan=()=>{
     return(
         <>
               
-        <NavBar>
+     
          <Tabs variant="soft-rounded" colorScheme="teal">
          <Flex alignItems="center" flexDirection="column" boxShadow="lg">
              <Image src="https://www.thexpressng.com/wp-content/uploads/2019/03/SriLanka_Slider.jpg" alt="Segun Adebayo"  height="400px" width="100%" objectFit="cover"/>
@@ -118,7 +118,7 @@ export const TravelPlan=()=>{
         </TabPanels>
         </Tabs>
 
-        </NavBar>
+   
         </>
     )
 }

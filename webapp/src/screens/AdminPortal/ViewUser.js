@@ -1,7 +1,6 @@
 import React, { useState,useContext } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
-import NavBar from '../components/navbar'
 import { CCard,CCardImage,CCardBody,CCardText } from '@coreui/react'
 import { Text } from '@chakra-ui/layout'
 import { Avatar } from '@chakra-ui/avatar'

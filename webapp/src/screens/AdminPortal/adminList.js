@@ -2,7 +2,6 @@ import { useEffect, useState,useContext } from "react";
 import { Link } from "react-router-dom";
 // import M from "materialize-css";
 
-import NavBar from "../components/navbar";
 import { Avatar } from "@chakra-ui/avatar";
 import { Image } from "@chakra-ui/image";
 import { Button } from "@chakra-ui/button";

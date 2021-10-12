@@ -1,4 +1,3 @@
-import NavBar from "../components/navbar"
 import {
     Table,
     Thead,

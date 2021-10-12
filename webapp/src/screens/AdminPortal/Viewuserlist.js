@@ -1,7 +1,6 @@
 import {React,useState,useEffect} from 'react';
 import { useMemo } from 'react';
 import {useTable,useGlobalFilter,useFilters} from 'react-table';
-import NavBar from '../components/navbar';
 import ReactTable from 'react-table';
 import { ViewIcon } from "@chakra-ui/icons";
 import { Avatar } from '@chakra-ui/avatar';

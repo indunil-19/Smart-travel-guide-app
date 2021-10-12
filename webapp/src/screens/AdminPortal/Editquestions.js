@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import NavBar from '../components/navbar'
 import { Box } from '@chakra-ui/layout';
 import { CloseIcon } from '@chakra-ui/icons';
 import { CContainer } from '@coreui/react';

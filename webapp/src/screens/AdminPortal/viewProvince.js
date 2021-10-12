@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Heading,Center, Flex,   } from '@chakra-ui/layout'
-import NavBar from '../components/navbar'
 import { useParams } from 'react-router'
-import { Description } from '../components/description'
-import { Galary } from '../components/galary'
+import { Description } from '../../components/description'
+import { Galary } from '../../components/galary'
 
 
 export const ViewProvince = (props) => {

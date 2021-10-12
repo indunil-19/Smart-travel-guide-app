@@ -106,115 +106,115 @@ class AdminController{
         catch(err=>{
             console.log(err)
         })
-}
-        static async addImgtoProvinceData(req,res){
-           const  provinceList ={"p1":"Northern Province", "p2":"North Western Province", "p3":"Western Province", "p4":"North Central Province",
-                        "p5":"Central Province", "p6":"Sabaragamuwa Province", "p7":"Eastern Province", "p8":"Uva Province", "p9":"Southern Province"}
-   
-            Province.findOne({pid:req.body.pid})
-            .then((saveData)=>{
-                if(!saveData){
-                    const province=new Province({
-                        pid:req.body.pid,
-                        name:provinceList[req.params.pid],
-                        description:req.body.description,
-                        images:[req.body.image]
-                    })
-                    province.save()
-                                .then(result=>{
-                                   return res.json({message:"upload image successfully", result})
-                                })
-                                .catch(err=>{
-                                    console.log(err)
-                                })
+    }
+    static async addImgtoProvinceData(req,res){
+        const  provinceList ={"p1":"Northern Province", "p2":"North Western Province", "p3":"Western Province", "p4":"North Central Province",
+                    "p5":"Central Province", "p6":"Sabaragamuwa Province", "p7":"Eastern Province", "p8":"Uva Province", "p9":"Southern Province"}
 
-                }
-                if(saveData){
-                    Province.findOneAndUpdate({pid:req.body.pid},{$push:{images:req.body.image}},{new:true}).
-                    then(result=>{
-                        return res.json({message:"upload image successfully", result})
-                    }).
-                    catch(err=>{
-                        console.log(err)
-                    })
-                }
-            }).catch(err=>{
-                console.log(err)
-            })
-        }
-        static async getProvinceData(req,res){
-           const provinceList ={"p1":"Northern Province", "p2":"North Western Province", "p3":"Western Province", "p4":"North Central Province",
-                        "p5":"Central Province", "p6":"Sabaragamuwa Province", "p7":"Eastern Province", "p8":"Uva Province", "p9":"Southern Province"}
+        Province.findOne({pid:req.body.pid})
+        .then((saveData)=>{
+            if(!saveData){
+                const province=new Province({
+                    pid:req.body.pid,
+                    name:provinceList[req.params.pid],
+                    description:req.body.description,
+                    images:[req.body.image]
+                })
+                province.save()
+                            .then(result=>{
+                                return res.json({message:"upload image successfully", result})
+                            })
+                            .catch(err=>{
+                                console.log(err)
+                            })
+
+            }
+            if(saveData){
+                Province.findOneAndUpdate({pid:req.body.pid},{$push:{images:req.body.image}},{new:true}).
+                then(result=>{
+                    return res.json({message:"upload image successfully", result})
+                }).
+                catch(err=>{
+                    console.log(err)
+                })
+            }
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
+    static async getProvinceData(req,res){
+        const provinceList ={"p1":"Northern Province", "p2":"North Western Province", "p3":"Western Province", "p4":"North Central Province",
+                    "p5":"Central Province", "p6":"Sabaragamuwa Province", "p7":"Eastern Province", "p8":"Uva Province", "p9":"Southern Province"}
 
 
-            Province.findOne({pid:req.params.pid})
-            .then((saveData)=>{
-                if(!saveData){
-                    const province=new Province({
-                        pid:req.params.pid,
-                        name:provinceList[req.params.pid],
-                        description:"",
-                        images:[]
-                    })
-                    province.save()
-                                .then(result=>{
-                                   return res.json(result)
-                                })
-                                .catch(err=>{
-                                    console.log(err)
-                                })
+        Province.findOne({pid:req.params.pid})
+        .then((saveData)=>{
+            if(!saveData){
+                const province=new Province({
+                    pid:req.params.pid,
+                    name:provinceList[req.params.pid],
+                    description:"",
+                    images:[]
+                })
+                province.save()
+                            .then(result=>{
+                                return res.json(result)
+                            })
+                            .catch(err=>{
+                                console.log(err)
+                            })
 
-                }
-                if(saveData){
-                    return res.json(saveData)
-                }
-            }).catch(err=>{
-                console.log(err)
-            })
-        }
+            }
+            if(saveData){
+                return res.json(saveData)
+            }
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
 
-        static async deleteProvinceImage(req,res){
-            Province.findOne({pid:req.body.pid})
-            .then((saveData)=>{
-                if(!saveData){   
-                    return res.json({error:"bad request"})
-                }
-                if(saveData){
-                    Province.findOneAndUpdate({pid:req.body.pid},{$pull:{images:req.body.image}},{new:true}).
-                    then(result=>{
-                        return res.json({message:"delete image successfully", result})
-                    }).
-                    catch(err=>{
-                        console.log(err)
-                    })
-                }
-            }).catch(err=>{
-                console.log(err)
-            })
-        }
+    static async deleteProvinceImage(req,res){
+        Province.findOne({pid:req.body.pid})
+        .then((saveData)=>{
+            if(!saveData){   
+                return res.json({error:"bad request"})
+            }
+            if(saveData){
+                Province.findOneAndUpdate({pid:req.body.pid},{$pull:{images:req.body.image}},{new:true}).
+                then(result=>{
+                    return res.json({message:"delete image successfully", result})
+                }).
+                catch(err=>{
+                    console.log(err)
+                })
+            }
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
 
-        static async descriptionUpdate(req,res){
-            Province.findOne({pid:req.body.pid})
-            .then((saveData)=>{
-                if(!saveData){   
-                    return res.json({error:"bad request"})
-                }
-                if(saveData){
-                    Province.findOneAndUpdate({pid:req.body.pid},{description:req.body.description},{new:true}).
-                    then(result=>{
-                        return res.json({message:"update description successfully", result})
-                    }).
-                    catch(err=>{
-                        console.log(err)
-                    })
-                }
-            }).catch(err=>{
-                console.log(err)
-            })
-        }
+    static async descriptionUpdate(req,res){
+        Province.findOne({pid:req.body.pid})
+        .then((saveData)=>{
+            if(!saveData){   
+                return res.json({error:"bad request"})
+            }
+            if(saveData){
+                Province.findOneAndUpdate({pid:req.body.pid},{description:req.body.description},{new:true}).
+                then(result=>{
+                    return res.json({message:"update description successfully", result})
+                }).
+                catch(err=>{
+                    console.log(err)
+                })
+            }
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
 
         static async getSharedPlans(req,res){
-            TravelPlan.find({ownedBy:"6131020c334d393094db1e4a", rate:req.body.rate, public:false})
+            Travelplan.find({ownedBy:"6131020c334d393094db1e4a", rate:req.body.rate, public:false})
                 .populate("OwnedBy","_id")
                 .sort('-createdAt')
                 .then(myPlans=>{
@@ -225,7 +225,7 @@ class AdminController{
                 })
         }
         static async getPublicPlans(req,res){
-            TravelPlan.find({ownedBy:"6131020c334d393094db1e4a", public:true})
+            Travelplan.find({ownedBy:"6131020c334d393094db1e4a", public:true})
                 .populate("OwnedBy","_id")
                 .sort('-createdAt')
                 .then(myPlans=>{
@@ -236,7 +236,7 @@ class AdminController{
                 })
         }
         static async deleteTravelPlan(req,res){
-            TravelPlan.findOneAndRemove({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"}).then(data=>{
+            Travelplan.findOneAndRemove({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"}).then(data=>{
                 return res.json({data})
             }).catch(e=>{
                 console.log(e)
@@ -245,7 +245,7 @@ class AdminController{
 
         static async setPublicPlan(req,res){
             
-            TravelPlan.findOneAndUpdate({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"},{public:true},{new:true}).
+            Travelplan.findOneAndUpdate({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"},{public:true},{new:true}).
                     then(data=>{
                         return res.json({data})
                     }).
@@ -254,7 +254,7 @@ class AdminController{
                     })
         }
         static async removePublicPlan(req,res){
-            TravelPlan.findOneAndUpdate({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"},{public:false},{new:true}).
+            Travelplan.findOneAndUpdate({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"},{public:false},{new:true}).
             then(data=>{
                 return res.json({data})
             }).

@@ -1,10 +1,10 @@
-import NavBar from "../components/navbar";
+import NavBar from "../../components/navbar";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { CCard } from "@coreui/react";
 import { Fade } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 import { Slide } from 'react-slideshow-image';
-import Widgets from "../components/Widget";
+import Widgets from "../../components/Widget";
 
 //import image from '../../public/images/
 import {

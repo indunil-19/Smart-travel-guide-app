@@ -1,23 +1,24 @@
 import SignIn from './login';
-import TravelApp from './landingPage';
-import {BrowserRouter,Route,Switch,useHistory} from 'react-router-dom'
+import {Route,Switch,} from 'react-router-dom'
 import Dashboard from './dashboard';
 import SignUp from './Register';
 import AdminList from './adminList';
-import { ChakraProvider } from "@chakra-ui/react"
 import {TestPage} from "./testPage";
 import { Provinces } from './/Provinces';
 import { ViewProvince } from './viewProvince';
-//import {TravelPlanRoutes} from './screens/TravelPlanApp';
 import Editquestions from './Editquestions';
 import Viewuserlist from './Viewuserlist';
 import ViewAdmin from './ViewAdmin';
 import Travelplanlist from './Travelplanlist';
-//import { Admincontext } from '../context/AdminContext';
-import NavBar from '../components/navbar';
-//import { AdminProvider } from '../context/AdminContext';
+import NavBar from '../../components/navbar';
+import { AdminProvider } from '../../context/AdminContext';
 import ViewUser from './ViewUser';
 import Generatereports from './Generatereports';
+import { SharedPlan } from './shredPlans';
+import { TravelPlan } from '../../components/AdminComponents/TravelPlanView';
+import { ViewPois } from '../TravelPlanApp/ViewPOI';
+import { PublicPlans } from './publicPlans';
+
 export const Adminroutes=()=>{
     return(
         <>
@@ -25,9 +26,11 @@ export const Adminroutes=()=>{
         
         <NavBar>
         <Switch >
-            
-
-
+          
+          <Route path="/admin/signin">
+              <SignIn/>
+          </Route>
+          
           <Route path="/admin/dashboard">
               <Dashboard/>
           </Route>
@@ -72,9 +75,26 @@ export const Adminroutes=()=>{
           <Route path="/admin/viewProvinces/:pid">
             <ViewProvince/>
           </Route>
+
+          <Route path="/admin/sharedPlans">
+            <SharedPlan />
+         </Route>
+         
+         <Route path="/admin/viewMyTravelPlan">
+            <TravelPlan />
+         </Route>
+
+         <Route path="/admin/viewpoi/:place_id">
+            <ViewPois />
+         </Route>
+
+         <Route path="/admin/publicPlans">
+            <PublicPlans />
+         </Route>
+
+
         </Switch>
-        </NavBar>
-        
+        </NavBar>   
         </AdminProvider>
         </>
     )

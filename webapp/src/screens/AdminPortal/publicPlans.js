@@ -1,8 +1,7 @@
-import NavBar from "../components/navbar"
 import { Flex, HStack, Text } from "@chakra-ui/layout"
 import { useEffect, useState } from "react"
 import { Button } from "@chakra-ui/button"
-import { PlanCard } from "../components/AdminComponents/planCard"
+import { PlanCard } from "../../components/AdminComponents/planCard"
 import { IoRemoveCircleOutline } from "react-icons/io5"
 
 
@@ -54,7 +53,7 @@ export const PublicPlans=()=>{
     return(
         <>
         
-        <NavBar>
+   
        
         <>
         {plans && plans.map((plan,index)=>{
@@ -81,18 +80,6 @@ export const PublicPlans=()=>{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-        </NavBar>
 
         
         
