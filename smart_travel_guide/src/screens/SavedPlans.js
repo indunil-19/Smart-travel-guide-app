@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, SafeAreaView, ScrollView, StyleSheet } from "react-native";
-import { ActivityIndicator } from "react-native-paper";
+import { ActivityIndicator, Snackbar } from "react-native-paper";
 import Background from "../components/Background";
 import { Config } from "../config/config";
 import { PlanCard } from "../components/PlanCard";
@@ -8,6 +8,7 @@ import { theme } from "../core/theme";
 const SavedPlans = () => {
   const [plans, setPlans] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
     fetch(`${Config.localhost}/user/getTravelPlans`)
       .then((res) => res.json())
@@ -17,6 +18,12 @@ const SavedPlans = () => {
         setLoading(false);
       });
   }, []);
+  const onDismissSnackBar = () => {
+    setVisible(false);
+  };
+  const showDeleteAlert = () => {
+    setVisible(true);
+  };
   const updatePlans = (result) => {
     setPlans((curPlans) => {
       const newPlans = curPlans.filter((plan) => {
@@ -46,31 +53,17 @@ const SavedPlans = () => {
                       createdDate={plan.createdAt}
                       travelPlan={plan.travelPlan}
                       onDelete={updatePlans}
+                      displayAlert={showDeleteAlert}
                     />
                   </View>
                 );
               })}
-
-            {/* {plans && (
-        <FlatList
-          data={plans}
-          renderItem={(item, index) => {
-            item && (
-              <PlanCard
-                _id={item._id}
-                name={item.name ? item.name : `My plan ${index + 1}`}
-                days={item.travelPlan[0].length}
-                createdDate={item.createdAt}
-                travelPlan={item.travelPlan}
-              />
-            );
-          }}
-          keyExtractor={(item) => item._id}
-        />
-      )} */}
           </Background>
         </ScrollView>
       )}
+      <Snackbar visible={visible} onDismiss={onDismissSnackBar} duration={5000}>
+        Travel Plan was deleted
+      </Snackbar>
     </>
   );
 };
