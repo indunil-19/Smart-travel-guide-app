@@ -2,8 +2,21 @@ import { Box,HStack } from "@chakra-ui/layout"
 import { Button ,Heading, Menu,MenuButton,MenuList,MenuItem,MenuItemOption,MenuGroup,MenuOptionGroup,MenuIcon,MenuCommand,MenuDivider,} from "@chakra-ui/react"
 import { FaUserCircle} from "react-icons/fa";
 import {Link} from "react-router-dom"
+import { TravelContext } from "../../context/TravelContext";
+import { useHistory } from "react-router";
+import { useContext } from "react";
 
 const NavBar=()=>{
+    const {state,dispatch} = useContext(TravelContext)
+     const history = useHistory()
+
+     const logout=()=>{
+         fetch("/logout").then(res=>res.json()).
+         then(result=>console.log(result)).
+         catch(e=>{
+             console.log(e)
+         })
+     }
     return (
         <>
         
@@ -11,17 +24,47 @@ const NavBar=()=>{
         <HStack spacing="24px" justifyContent="space-between" alignItems="center"> 
             <Box>
 
-            <Link to="/travelPlan">
+            {state && state._id ? <>
+                <Link to="/travelPlan">
                     <Heading>Travel Guide</Heading>
-            </Link>    
+                </Link> 
+            
+            </>:
+            <>
+                <Link >
+                        <Heading>Travel Guide</Heading>
+                </Link> 
+            
+            </>}   
             
             </Box>
             <Box>
-                    <NavBarAccountItem />
-                    <Link to="/travelPlan/signin"><Button colorScheme="teal" variant="outline">
-                        Sign in
-                    </Button>
-                    </Link>
+                
+                {state._id ? <><NavBarAccountItem name={state ? state.firstname+" "+ state.lastname  : ""}  country={state ? state.country : ""}/>
+                          <Button colorScheme="teal" variant="outline" onClick={()=>{
+                              logout()
+                              localStorage.clear()
+                              dispatch({type:"CLEAR"})
+                              history.push('/travelPlan/signin')
+                          }}>
+                                Sign out
+                            </Button>
+
+                           
+                         </>
+                    :
+                         <>
+                        <Link to="/travelPlan/signin">
+                            <Button colorScheme="teal" variant="outline">
+                                Sign in
+                            </Button>
+
+                        </Link>
+                
+                
+                         </>
+                }
+                    
             </Box>
             
         </HStack>
@@ -36,7 +79,7 @@ export default NavBar
 
 
 
-const NavBarAccountItem=()=>{
+const NavBarAccountItem=({name,country})=>{
     return(
         <>
         
@@ -55,8 +98,8 @@ const NavBarAccountItem=()=>{
                 </MenuButton>
                 <MenuList>
 
-                    <MenuItem isDisabled={true}>K.D.L.I.udayangana</MenuItem>
-                    <MenuItem isDisabled={true}>SL</MenuItem>
+                    <MenuItem isDisabled={true}>{name}</MenuItem>
+                    <MenuItem isDisabled={true}>{country}</MenuItem>
                     
                     <MenuDivider />
 

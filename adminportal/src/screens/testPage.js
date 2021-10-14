@@ -1,35 +1,56 @@
-// import React, { Component } from 'react';
-// import GoogleMapReact from 'google-map-react';
+import { Flex } from '@chakra-ui/layout';
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
+import {useState} from "react";
 
-// const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
-// class TestPage extends Component {
-//   static defaultProps = {
-//     center: {
-//       lat: 59.95,
-//       lng: 30.33
-//     },
-//     zoom: 11
-//   };
+export const Map=(props)=>{
+  const [open,setOpen]=useState(false);
+    return(
+        <>
 
-//   render() {
-//     return (
-//       // Important! Always set the container height explicitly
-//       <div style={{ height: '100vh', width: '100%' }}>
-//         <GoogleMapReact
-//           bootstrapURLKeys={{ key: "" }}
-//           defaultCenter={this.props.center}
-//           defaultZoom={this.props.zoom}
-//         >
-//           <AnyReactComponent
-//             lat={59.955413}
-//             lng={30.337844}
-//             text="My Marker"
-//           />
-//         </GoogleMapReact>
-//       </div>
-//     );
-//   }
-// }
+    <GoogleMap
+      defaultZoom={8}
+      defaultCenter={{ lat: 7.291418, lng:80.636696}}
+      // defaultOptions={{ styles: mapStyles }}
+    >
+    <Marker position={{ lat: 7.291418, lng:80.636696}} label="1" onClick={()=>{setOpen(true)}}/>
+    <Marker position={{ lat: 6.291418, lng:80.636696}} label="2" />
 
-// export const TestPage;
+
+
+    {
+      open && <InfoWindow
+      onCloseClick={()=>setOpen(false)}
+        
+      position={
+        { lat: 7.291418, lng:80.636696}
+      }
+    >
+      <Flex>
+        sdjhfh
+      </Flex>
+    </InfoWindow>
+    }
+
+
+    </GoogleMap>
+        
+        </>
+    )
+}
+
+const MapWrapped = withScriptjs(withGoogleMap(Map));
+
+
+export  function TestPage() {
+    return (
+        <Flex width="80%" height="100vh" flexDirection="column" mx="auto" my="2" boxShadow="dark-lg">
+        <MapWrapped
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY`}
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `100%` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+        />
+      </Flex>
+    );
+  }

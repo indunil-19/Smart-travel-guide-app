@@ -24,7 +24,7 @@ mongoose.connection.on('error',(err)=>{
 const store = new MongoDBStore({
     uri: mongouri,
     collection: 'mySessions'
-  });
+});
 
 app.use(require('express-session')({
     secret: 'This is a secret',

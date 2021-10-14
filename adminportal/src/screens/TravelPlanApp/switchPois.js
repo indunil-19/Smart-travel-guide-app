@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react"
-import { findPois, addPoiToPlan } from "../../services/EditPlanServices"
+import { switchPOI, addPoiToPlan1 } from "../../services/EditPlanServices"
 import { useParams } from 'react-router'
 import { TravelContext } from "../../context/TravelContext"
 import { PlaceCard } from "../../components/TravelPlanApp/placeCard"
@@ -8,26 +8,28 @@ import { GrAddCircle } from "react-icons/gr";
 import { Button } from "@chakra-ui/button"
 import { useHistory } from "react-router"
 
-export const AddMorePlaces=()=>{
+export const SwitchPois=()=>{
+    const {index,index1}=useParams()
     const history=useHistory()
-    const {day}=useParams()
+    
     const [pois,setPois]=useState([])
     const [route,setRoute]=useState([])
     const {state, dispatch}=useContext(TravelContext)
     useEffect(() => {
-        findPois(day, state.travelPlan, state.allpois).then((res)=>{
-            console.log(res)
+        
+        switchPOI(parseInt(index), parseInt(index1), state.travelPlan, state.allpois).then((res)=>{
+            // console.log(res)
             setPois(res[0])
             setRoute(res[1])
         })
     }, [state])
 
 
-    const addPoi=(day,poi, route)=>{
-            addPoiToPlan(day,poi, route,state.travelPlan).then((res)=>{
+    const addPoi=(poi, route)=>{
+            addPoiToPlan1(index,index1,poi, route,state.travelPlan).then((res)=>{
                 // console.log(res)
                 dispatch({type:"set_travelPlan" , payload:{travelPlan:res}})
-            })
+            });
     }
 
     return(
@@ -41,7 +43,7 @@ export const AddMorePlaces=()=>{
                 <HStack m={3}>
 
                 <Button colorScheme="black" variant="outline" onClick={()=>{
-                                addPoi(day,Item, route[index]);
+                                addPoi(Item, route[index]);
                                 history.push("/travelPlan/editPlan")
 
                  }}>
