@@ -88,7 +88,7 @@ const LocationDetail = ({ route, navigation }) => {
                     {data.opening_hours.open_now ? "OPEN" : "CLOSED"}
                   </Chip>
                 )}
-                <Button
+                {/* <Button
                   mode="contained"
                   icon="delete"
                   onPress={() => {
@@ -98,7 +98,7 @@ const LocationDetail = ({ route, navigation }) => {
                   style={{ borderRadius: 20 }}
                 >
                   REMOVE
-                </Button>
+                </Button> */}
               </Card.Content>
             </Card>
             <ReviewSlider reviews={data.reviews} />
