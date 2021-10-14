@@ -60,8 +60,8 @@ export function TravelPlan({ navigation }) {
 
   useEffect(() => {
     if (state.travelPlan) {
-      console.log("Hello");
       setLoading(false);
+      // console.log(plan.length);
 
       setPlan(state.travelPlan);
       display(state.travelPlan);
@@ -84,15 +84,17 @@ export function TravelPlan({ navigation }) {
           return dataDict;
         });
         // Distance and Duration
-        var index = 0;
+        var index = -1;
 
         for (let i = 0; i < r[0].length; i++) {
           for (let j = 0; j < r[0][i].length; j++) {
             index = index + 1;
+
             setDistanceTime((curData) => {
+              console.log(r[1][index].distance.text);
               curData[r[0][i][j].place_id] = [
-                r[1][index - 1].distance.text,
-                r[1][index - 1].duration.text,
+                r[1][index].distance.text,
+                r[1][index].duration.text,
               ];
 
               return curData;
