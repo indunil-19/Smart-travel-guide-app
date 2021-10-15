@@ -7,7 +7,8 @@ const {Client} = require("@googlemaps/google-maps-services-js");
 
 
 class RootController{
-   
+    
+    
     static async signup(req,res){
         const {firstname,lastname,dob,country,religion,email,password}=req.body;
         if(!firstname || !lastname || !dob || !country || !religion || !email  || !password){
@@ -88,9 +89,6 @@ class RootController{
             req.session.destroy();     
             return res.json({message:"signout successfully"})
         }
-        
-
-
         
 
 
