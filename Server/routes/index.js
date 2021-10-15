@@ -8,15 +8,13 @@ const ifTraveller=require("../middleware/ifTraveller")
 
 
 // router.get('/test' , UserController.getTouristAttractions)
-
-
-router.get('/', RootController.indexPage)
+// router.get('/', RootController.indexPage)
 router.get('/logout', RootController.logout)
-
 router.post('/signup',RootController.signup)
 router.post('/signin',RootController.login)
-router.post('/updateUser',UserController.updateUser)
 
+
+router.post('/updateUser',UserController.updateUser)
 
 
 
@@ -32,8 +30,6 @@ router.post('/user/saveTravelPlan',ifNotLoggedIn, ifTraveller, UserController.sa
 
 
 
-
-router.get('/addAdmin', RootController.addAdmin)
 router.get('/admin/viewAdmins',AdminController.viewAdmins)
 router.get('/admin/viewAdmin/:pid',AdminController.viewAdmin)
 router.get('/admin/viewUsers',AdminController.viewUser)
