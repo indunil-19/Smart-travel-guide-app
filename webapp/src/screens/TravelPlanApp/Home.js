@@ -5,8 +5,18 @@ import { Image } from "@chakra-ui/image"
 import { useHistory } from "react-router"
 import { PlanCard } from "../../components/TravelPlanApp/planCard,"
 import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
 
 export const Home=()=>{
+    const [plans,setPlans]=useState([])
+    useEffect(()=>{
+            fetch("/user/getPublicTravelPlans").then(res=>res.json())
+            .then(result=>{
+                console.log(result)
+                setPlans(result.myPlans)
+            })
+    },[])
+    
     const history=useHistory()
     return(
         <>
@@ -64,18 +74,20 @@ export const Home=()=>{
             </Link>
 
             <Flex flexDirection="row" maxWidth="100vw" overflowX="scroll" p={3}>
-                <Flex minWidth="md">
-                  <PlanCard name="name 1" days={3} createdDate="2020/12/04" travelPlan={[[[]],[]]} />
-                </Flex>
-                <Flex minWidth="md">
-               <PlanCard name="name 1" days={3} createdDate="2020/12/04" travelPlan={[[[]],[]]}/> 
-               </Flex>
-               <Flex minWidth="md">
-               <PlanCard name="name 1" days={3} createdDate="2020/12/04" travelPlan={[[[]],[]]}/>
-               </Flex>
-               <Flex minWidth="md"> 
-               <PlanCard name="name 1" days={3} createdDate="2020/12/04" travelPlan={[[[]],[]]}/> 
-               </Flex>
+
+                {plans && 
+                    plans.map((plan , index)=>{
+                        return(
+                            <>
+                                <Flex minWidth="md">
+                                    <PlanCard  name={plan.name ? plan.name : `My plan ${index+1}`} days={plan.travelPlan[0].length} createdDate={plan.createdAt} travelPlan={plan.travelPlan}/>
+                                 </Flex>
+                            </>
+                        )
+                    })
+                }
+                
+               
  
             </Flex>
         </Flex>

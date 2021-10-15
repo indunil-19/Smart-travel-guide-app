@@ -143,10 +143,10 @@ export const PlanReview=()=>{
         
         <Flex flexDirection="column" justifyContent="center" alignItems="center" p={10}>
              <HStack spacing={5}>
-                <Flex minWidth="md" boxShadow="lg" borderRadius="lg" flexDirection="column" p={5} alignItems="center">
+                <Flex minWidth="md" boxShadow="dark-lg" borderRadius="lg" flexDirection="column" p={5} alignItems="center">
                     <VStack  minWidth="md">
                     <Heading size="xl" p={5}>
-                        Your review
+                        How do you feel about your travel plan????
                     </Heading>
                     <HStack p={4}>
                     <StarIcon color={rate>=1 ? "teal" : "gray.200"} onClick={()=>{
@@ -180,7 +180,7 @@ export const PlanReview=()=>{
                     <Textarea value={review}
                             onChange={(e)=>setReview(e.target.value)}
                         placeholder="Describe your expereince"
-                        size="md"
+                        size="lg"
                         isDisabled={!edit}
                     />
 

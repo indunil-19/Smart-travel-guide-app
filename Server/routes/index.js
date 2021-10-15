@@ -21,7 +21,7 @@ router.post('/updateUser',UserController.updateUser)
 
 
 router.get('/user/getTravelPlans',ifNotLoggedIn, ifTraveller, UserController.getTravelPlans)
-
+router.get('/user/getPublicTravelPlans',ifNotLoggedIn, ifTraveller, UserController.getPublicPlans)
 router.post('/user/getReview',ifNotLoggedIn,ifTraveller, UserController.getReviews)
 router.post('/user/updateTravelPlan',ifNotLoggedIn, ifTraveller, UserController.updateTravelPlan)
 router.post('/user/sharePlan',ifNotLoggedIn,ifTraveller, UserController.shareTravelPlan)

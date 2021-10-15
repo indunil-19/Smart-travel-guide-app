@@ -140,6 +140,20 @@ class UserController{
         })
     }
 
+    static async getPublicPlans(req,res){
+        TravelPlan.find({ownedBy:"6131020c334d393094db1e4a", public:true})
+            .populate("OwnedBy","_id")
+            .sort('-createdAt')
+            .then(myPlans=>{
+                res.json({myPlans})
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+    }
+
+    
+
     
     
 }

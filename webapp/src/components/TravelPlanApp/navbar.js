@@ -40,7 +40,7 @@ const NavBar=()=>{
             </Box>
             <Box>
                 
-                {state._id ? <><NavBarAccountItem name={state ? state.firstname+" "+ state.lastname  : ""}  country={state ? state.country : ""}/>
+                {state && state._id ? <><NavBarAccountItem name={state ? state.firstname+" "+ state.lastname  : ""}  country={state ? state.country : ""}/>
                           <Button colorScheme="teal" variant="outline" onClick={()=>{
                               logout()
                               localStorage.clear()
