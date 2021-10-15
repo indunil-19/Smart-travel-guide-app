@@ -1,7 +1,7 @@
 import React , {useContext,useEffect,useState, useRef}from "react"
 import { useHistory } from "react-router"
 import { Box, Flex ,HStack,Stack, VStack} from "@chakra-ui/layout"
-import { Image,Heading,Button,Text,Badge, Avatar , Skeleton ,Divider,AlertDialog, AlertDialogBody, AlertDialogFooter,AlertDialogHeader,AlertDialogContent,AlertDialogOverlay,Tabs, TabList, TabPanels, Tab, TabPanel,useToast} from "@chakra-ui/react"
+import { Image,Heading,Button,Text,Badge, Avatar , Skeleton ,Divider,AlertDialog, AlertDialogBody, AlertDialogFooter,AlertDialogHeader,AlertDialogContent,AlertDialogOverlay,Tabs, TabList, TabPanels, Tab, TabPanel,useToast,Spinner} from "@chakra-ui/react"
 import {IoLocationSharp} from "react-icons/io5"
 import {MdDriveEta} from "react-icons/md"
 import { TravelContext } from "../../context/TravelContext"
@@ -23,10 +23,11 @@ export const TravelPlan=()=>{
         if(state.travelPlan){
             setLoading(true)
             setPlan(state.travelPlan)
+           console.log(state.travelPlan)
             
         }
         else{
-
+            // setLoading(false)
          getTravelPlan("wet",[],"2","buddhsism",[],["ancient", "natural", "parks"]).then((r)=>{
          console.log(r[0])
          setPlan(r[0])
@@ -38,7 +39,9 @@ export const TravelPlan=()=>{
         //  console.log(r[0][0][0].photos[0].photo_reference)
         // "wet",[],"2","buddhsism",[],["ancient", "natural", "parks"]
         // state.userPreferences.climate,state.userPreferences.provinces,state.userPreferences.days,state.userPreferences.religion,state.userPreferences.thingsLike,state.userPreferences.placesLike
-    })}
+  
+    })
+}
  } ,[state] )
     var i=0;
     var accomodation=""
@@ -143,10 +146,22 @@ export const TravelPlan=()=>{
                 </>
 
 
-      <Skeleton isLoaded={isloading}>
+         {!isloading? 
+                <Flex justifyContent="center" alignItems="center">
+                <Spinner
+                thickness="7px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.500"
+                size="xl"
+                width="300px"
+                height="300px"
+                
+                /> </Flex>:
+
          <Tabs variant="soft-rounded" colorScheme="teal">
          <Flex alignItems="center" flexDirection="column" boxShadow="lg">
-             <Image src="https://www.thexpressng.com/wp-content/uploads/2019/03/SriLanka_Slider.jpg" alt="Segun Adebayo"  height="400px" width="100%" objectFit="cover"/>
+             <Image src="https://www.thexpressng.com/wp-content/uploads/2019/03/SriLanka_Slider.jpg"   height="400px" width="100%" objectFit="cover"/>
              <Heading  marginTop="-350px" boxShadow="dark-lg" borderRadius="5px" padding="10px" marginBottom="300px">{plan[0].length} Day Trip in </Heading>
              <Stack direction="row" spacing={4} align="center">                    
                     <TabList m="5px">
@@ -237,14 +252,10 @@ export const TravelPlan=()=>{
 
            <Route />
         </TabPanel>
-
-
-       
-
-
         </TabPanels>
         </Tabs>
-        </Skeleton>
+
+        }
 
          
         </>
@@ -263,6 +274,7 @@ const Card=({distance,duration,photo,index,name,address, types=[], rating, place
                             </VStack>
 
                         </HStack>
+                        
                         <PlaceCard  photo={photo} index={index} name={name} address={address} types={types} rating={rating} place_id={place_id}/>
         </Flex>
     )
@@ -326,7 +338,7 @@ const Route=()=>{
         <>
         <Flex width="80%" height="100vh" flexDirection="column" mx="auto" my="2" boxShadow="dark-lg">
         <MapWrapped
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY`}
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}

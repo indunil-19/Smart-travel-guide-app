@@ -12,7 +12,7 @@ export const PlaceCard=({photo,index,name,address, types=[], rating, place_id})=
     useEffect(() => {
         
       
-        setLink(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY`)
+        setLink(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`)
     }, [photo])
     return(
         <Flex flexDirection="row" margin={5} borderWidth="1px" borderRadius="lg" p={5} >

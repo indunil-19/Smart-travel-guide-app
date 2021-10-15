@@ -57,6 +57,11 @@ export const DeletePOI=async(index, index1, travelPlan=[[[],[]] ,[]])=>{
     if(index<travelDays-1){
       if(index1==plan[index].length-1){
         console.log("5")
+        if(plan[index+1].length==0){
+          travelPlan[0][index].splice(index1,1)
+          travelPlan[1].pop(l-1)
+          return travelPlan
+        }
         end_location=plan[index+1][0].geometry.location
         travelPlan[0][index].splice(index1,1)
         
@@ -131,8 +136,14 @@ export const DeleteDay=async(day, travelPlan)=>{
   }
 
   if(day<travelDays){
-    travelPlan[0].splice(day-1,1)
+    // travelPlan[0].splice(day-1,1)
     start_location=travelPlan[0][day-2][travelPlan[0][day-2].length-1].geometry.location
+    console.log(travelPlan[0][day])
+    if(travelPlan[0][day].length==0){
+      travelPlan[0].splice(day-1,1)
+      travelPlan[1].splice(pivot,remove_count)
+      return travelPlan
+    }
     end_location=travelPlan[0][day][0].geometry.location
     remove_count=travelPlan[0][day-1].length
     travelPlan[0].splice(day-1,1)
@@ -210,7 +221,12 @@ export const findPois=async(day,travelPlan,allpois)=>{
       for(var i=0; i<allpois.length;i++){
         const waypts = [];
         if(day<allpoisDays){
-           end_location=travelPlan[0][day][0].geometry.location
+          if(travelPlan[0][day].length==0){
+            end_location={lat:6.927079,lng:79.857750}
+          }
+          else{
+            end_location=travelPlan[0][day][0].geometry.location
+          }
            waypts.push(allpois[i].geometry.location)
         }else{
           end_location=allpois[i].geometry.location
@@ -343,7 +359,12 @@ export const switchPOI=async(index, index1, travelPlan=[[[],[]] ,[]],allpois)=>{
   if(index<travelDays-1){
     if(index1==plan[index].length-1){
       console.log("5")
-      end_location=plan[index+1][0].geometry.location
+      if(plan[index+1].length==0){
+        end_location={lat:6.927079,lng:79.857750}
+      }else{
+        end_location=plan[index+1][0].geometry.location
+      }
+     
       // travelPlan[0][index].splice(index1,1)
       
     }

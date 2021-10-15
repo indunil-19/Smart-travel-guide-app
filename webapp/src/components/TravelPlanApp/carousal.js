@@ -17,7 +17,7 @@ export const Carousal=({photos=[]})=>{
                     references.map((reference)=>{
                         return(
                             <div >
-                            <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=${reference.photo_reference}&key=AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY`} 
+                            <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=${reference.photo_reference}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`} 
                              />
                             
                         </div>

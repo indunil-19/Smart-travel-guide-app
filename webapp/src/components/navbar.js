@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom"
-import React  from 'react';
+import React ,{useContext} from 'react';
 import {
   IconButton,
   Avatar,
@@ -22,26 +22,27 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Image
 } from '@chakra-ui/react';
 import { HamburgerIcon,ChevronDownIcon,BellIcon,SmallAddIcon, AttachmentIcon } from '@chakra-ui/icons';
+import { AdminContext } from "../context/AdminContext";
 const LinkItems = [
-    { name: 'Add a admin', icon: SmallAddIcon, linkto:"/admin/addAdmin" },
-    { name: 'Adminlist', icon: SmallAddIcon, linkto:"/admin/viewAdmins" },
+    { name: 'Add a admin', icon: AttachmentIcon, linkto:"/admin/addAdmin" },
+    { name: 'Adminlist', icon: AttachmentIcon, linkto:"/admin/viewAdmins" },
     { name: 'Provinces data', icon: AttachmentIcon,  linkto:"/admin/provinces"},
     { name: 'View user list', icon: AttachmentIcon,  linkto:"/admin/Viewuserlist"},
     { name: 'Editquestions', icon: AttachmentIcon,  linkto:"/admin/editquestions"},
     { name: 'Genaratereport', icon: AttachmentIcon,  linkto:"/admin/genarate"},
-    { name: 'TravelplanList', icon: AttachmentIcon,  linkto:"/admin/ViewTravelplanlist"}
+    { name: 'TravelplanList', icon: AttachmentIcon,  linkto:"/admin/ViewTravelplanlist"},
+    { name: 'sharedPlans', icon: AttachmentIcon,  linkto:"/admin/publicPlans"},
+    { name: 'publicPlans', icon: AttachmentIcon,  linkto:"/admin/sharedPlans"}
   
   ];
 
-const logout1=()=>{
+const logout=()=>{
     
     console.log("sdsw")
-    fetch("/logout").
-    then(
-        // history.push("/admin/signin")
-    )
+    fetch("/logout")
 }
 
 const NavBar=({
@@ -95,7 +96,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
 
       <Link href="/admin/dashboard">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
+          Travel App
         </Text>
       </Link>
         
@@ -144,6 +145,8 @@ const NavItem = ({ icon, children, link, ...rest }) => {
 
 
 const MobileNav = ({ onOpen, ...rest }) => {
+  const {state,dispatch}=useContext(AdminContext)
+  const history=useHistory()
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -172,12 +175,12 @@ const MobileNav = ({ onOpen, ...rest }) => {
       </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
-        <IconButton
+        {/* <IconButton
           size="lg"
           variant="ghost"
           aria-label="open menu"
           icon={<BellIcon />}
-        />
+        /> */}
         <Flex alignItems={'center'}>
           <Menu>
             <MenuButton
@@ -196,7 +199,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
-                  <Text fontSize="sm">Justina Clark</Text>
+                  <Text fontSize="sm">{state ? state.firstname +" "+ state.lastname : ""}</Text>
                   <Text fontSize="xs" color="gray.600">
                     Admin
                   </Text>
@@ -212,7 +215,12 @@ const MobileNav = ({ onOpen, ...rest }) => {
               <MenuItem >Profile</MenuItem>
               <MenuItem>Settings</MenuItem>
               <MenuDivider />
-              <MenuItem  onClick={()=>logout1()}>Sign out</MenuItem>
+              <MenuItem  onClick={()=>{
+                   logout()
+                   localStorage.clear()
+                   dispatch({type:"CLEAR"})
+                   history.push('/admin/signin')
+              }}>Sign out</MenuItem>
              
             </MenuList>
           </Menu>

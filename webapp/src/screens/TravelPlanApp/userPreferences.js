@@ -4,6 +4,7 @@ import { Radio, RadioGroup , Button, Checkbox, CheckboxGroup, Select , AlertDial
 import { useHistory } from "react-router"
 import { TravelContext } from "../../context/TravelContext"
 import { Link } from "react-router-dom"
+import { getTravelPlan } from "../../services/TravelPlanService"
 
 export const UserPreferences=()=>{
 
@@ -263,10 +264,16 @@ export const UserPreferences=()=>{
                             thingsLike:thingsLike
                         }}}) ;
 
+                        getTravelPlan(climate,provinces,days,religion,thingsLike,placesLike).then((r)=>{
+                        dispatch({type:"set_travelPlan" , payload:{travelPlan:r[0]}})
+                        dispatch({type:"set_pois" , payload:{allpois:r[1]}})
+                        history.push("/travelPlan/travelPlan")
+                        });
 
 
 
-                    history.push("/travelPlan/travelPlan")}} >
+
+                    }} >
                     Submit
                 </Button>
                 </HStack >

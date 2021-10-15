@@ -47,7 +47,7 @@ class AdminController{
     static async login(req,res){
         const {email,password} = req.body
         if(!email || !password){
-        return res.status(422).json({error:"please add email or password"})
+        return res.json({error:"please add email or password"})
         }
         Admin.findOne({email:email})
         .then(savedUser=>{
@@ -57,12 +57,14 @@ class AdminController{
             bcrypt.compare(password,savedUser.password)
             .then(doMatch=>{
                 if(doMatch){
-                    req.session.user={}
-                    req.session.user.email=email;
+                    req.session.admin={}
+                    req.session.admin.email=email;
+                    req.session.admin._id=savedUser._id
+                    req.session.admin.type="admin"
                    res.json({message:"successfully signed in",data:savedUser})
                 }
                 else{
-                    return res.status(422).json({error:"Invalid Email or password"})
+                    return res.json({error:"Invalid Email or password"})
                 }
             })
             .catch(err=>{

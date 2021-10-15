@@ -8,7 +8,7 @@ import { Button, Heading,Image,AlertDialog,AlertDialogBody,AlertDialogFooter,Ale
 import { MdDeleteForever } from "react-icons/md";
 import { calculateAndDisplayRoute } from '../../services/TravelPlanService';
 
-export const CustomPlan=()=>{
+export const CustomPlanInner=()=>{
   const history=useHistory()
   const {state, dispatch}=useContext(TravelContext)
 
@@ -63,7 +63,7 @@ export const CustomPlan=()=>{
 
 
           if(place.geometry.location){
-            console.log(place)
+            // console.log(place.photos[0].getUrl())
             setP(p=>[...p,place])
           }
           
@@ -81,15 +81,17 @@ export const CustomPlan=()=>{
 
            
       </Flex>
+      <Flex justifyContent="center" flexDirection="column" alignItems="center">
      
         {p.map((i,index)=>{
           
           return(
             <>
+            
             <HStack p={3}>
             <Heading as="h5" size="md">
                 {index+1}
-                {"  "}
+                {".  "}
                 {i.name}
             </Heading>
 
@@ -106,6 +108,28 @@ export const CustomPlan=()=>{
           )
          
         })}
+
+
+            <GoogleMap
+                    defaultZoom={7}
+                    defaultCenter={{ lat: 7.291418, lng:80.636696}}
+                  >
+            
+                    {p && p.map((item=[],index)=>{
+                        return(
+                            <>
+                               
+                                        <>
+                                        <Marker position={item.geometry.location} label={`${index+1}`} />
+                                        
+                                        </>
+                            </>
+                        )
+                    })
+
+                    }     
+    
+            </GoogleMap>
 
 
 
@@ -129,9 +153,27 @@ export const CustomPlan=()=>{
         <></>
 
         }
-        
+        </Flex>
+
+
+
+
         </>
     )
+}
+const MapWrapped = withScriptjs(withGoogleMap(CustomPlanInner));
+
+export const CustomPlan=()=>{
+  return(
+    <Flex width="80%" height="180vh" flexDirection="column" mx="auto" my="2" boxShadow="dark-lg">
+        <MapWrapped
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`}
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `100%` }} />}
+          mapElement={<div style={{ height: `40%` }} />}
+        />
+        </Flex>    
+  )
 }
 
 

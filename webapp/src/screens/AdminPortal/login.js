@@ -1,4 +1,4 @@
-import React,{useState,useContext,} from 'react'
+import React,{useState,useContext,useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
 // import {UserContext} from '../../App'
 import M from 'materialize-css'
@@ -13,11 +13,24 @@ import {
     FormLabel,
   
   } from '@chakra-ui/react';
+import { AdminContext } from '../../context/AdminContext';
+
 const SignIn  = ()=>{
-     //const {state,dispatch} = useContext(UserContext)
+
+     const {state,dispatch} = useContext(AdminContext)
     const history = useHistory()
     const [password,setPasword] = useState("")
     const [email,setEmail] = useState("")
+
+
+    useEffect(()=>{
+        if(state && state._id){
+            
+            history.push('/admin/dashboard')
+        }else{
+               history.push('/admin/signin')
+        }
+      },[state])
     
     const PostData = ()=>{
         
@@ -41,9 +54,9 @@ const SignIn  = ()=>{
               M.toast({html: data.error,classes:"#c62828 red darken-3"})
            }
            else{
-            //    localStorage.setItem("jwt",data.token)
-            //    localStorage.setItem("user",JSON.stringify(data.user))
-            //    dispatch({type:"USER",payload:data.user})
+               
+               localStorage.setItem("Admin",JSON.stringify(data.data))
+               dispatch({type:"Admin",payload:data.data})
                M.toast({html:"signedin success",classes:"#43a047 green darken-1"})
                history.push('/admin/dashboard')
            }

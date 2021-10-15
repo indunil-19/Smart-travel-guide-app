@@ -1,5 +1,6 @@
 import SignIn from './login';
 import {Route,Switch,} from 'react-router-dom'
+import { useHistory } from 'react-router';
 import Dashboard from './dashboard';
 import SignUp from './Register';
 import AdminList from './adminList';
@@ -11,26 +12,37 @@ import Viewuserlist from './Viewuserlist';
 import ViewAdmin from './ViewAdmin';
 import Travelplanlist from './Travelplanlist';
 import NavBar from '../../components/navbar';
-import { AdminProvider } from '../../context/AdminContext';
+import { AdminContext, AdminProvider } from '../../context/AdminContext';
 import ViewUser from './ViewUser';
 import Generatereports from './Generatereports';
 import { SharedPlan } from './shredPlans';
 import { TravelPlan } from '../../components/AdminComponents/TravelPlanView';
 import { ViewPois } from '../TravelPlanApp/ViewPOI';
 import { PublicPlans } from './publicPlans';
+import { useContext,useEffect } from 'react';
 
-export const Adminroutes=()=>{
+export const AdminPortal=()=>{
+  const history=useHistory()
+  const {state, dispatch}=useContext(AdminContext)
+  useEffect(()=>{  
+    const admin = JSON.parse(localStorage.getItem("Admin"))
+    if(admin){
+      dispatch({type:"Admin",payload:admin})
+    }else{
+           history.push('/admin/signin')
+    }
+  },[])
     return(
         <>
-        <AdminProvider>
         
-        <NavBar>
+        
+        
         <Switch >
           
           <Route path="/admin/signin">
               <SignIn/>
-          </Route>
-          
+          </Route>         
+          <NavBar>
           <Route path="/admin/dashboard">
               <Dashboard/>
           </Route>
@@ -61,10 +73,6 @@ export const Adminroutes=()=>{
             <ViewUser/>
           </Route>
 
-          <Route path="/test">
-            <TestPage/>
-          </Route>
-
           <Route path="/admin/provinces">
             <Provinces/>
           </Route>
@@ -92,10 +100,25 @@ export const Adminroutes=()=>{
             <PublicPlans />
          </Route>
 
+         <Route path="/test">
+            <TestPage/>
+          </Route>
+
+         </NavBar>
 
         </Switch>
-        </NavBar>   
-        </AdminProvider>
+          
+        
         </>
+    )
+}
+
+export const Adminroutes=()=>{
+    return(
+      <>
+       <AdminProvider>
+          <AdminPortal />
+      </AdminProvider>
+      </>
     )
 }
