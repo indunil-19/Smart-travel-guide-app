@@ -1,4 +1,4 @@
-const ifNotLoggedIn=(req,res,next)=>{
+const ifUserNotLoggedIn=(req,res,next)=>{
     if(req.session.user){
         next()
     }
@@ -6,4 +6,4 @@ const ifNotLoggedIn=(req,res,next)=>{
         return res.json({error:"you are not logged in, please log in first"})
     }
 }
-module.exports=ifNotLoggedIn;
+module.exports=ifUserNotLoggedIn;
