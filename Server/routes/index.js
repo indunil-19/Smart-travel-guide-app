@@ -21,7 +21,7 @@ router.post('/updateUser',UserController.updateUser)
 
 
 router.get('/user/getTravelPlans',ifNotLoggedIn, ifTraveller, UserController.getTravelPlans)
-
+router.get('/user/getPublicTravelPlans',ifNotLoggedIn, ifTraveller, UserController.getPublicPlans)
 router.post('/user/getReview',ifNotLoggedIn,ifTraveller, UserController.getReviews)
 router.post('/user/updateTravelPlan',ifNotLoggedIn, ifTraveller, UserController.updateTravelPlan)
 router.post('/user/sharePlan',ifNotLoggedIn,ifTraveller, UserController.shareTravelPlan)
@@ -35,6 +35,9 @@ router.post('/user/saveTravelPlan',ifNotLoggedIn, ifTraveller, UserController.sa
 
 router.get('/addAdmin', RootController.addAdmin)
 router.get('/admin/viewAdmins',AdminController.viewAdmins)
+router.get('/admin/viewAdmin/:pid',AdminController.viewAdmin)
+router.get('/admin/viewUsers',AdminController.viewUser)
+router.get('/admin/viewTravelplan',AdminController.Travelplan)
 router.get('/admin/getProvinceData/:pid', AdminController.getProvinceData)
 router.get('/admin/getPublicPlans', AdminController.getPublicPlans)
 

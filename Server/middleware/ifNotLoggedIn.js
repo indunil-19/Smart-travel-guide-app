@@ -3,7 +3,7 @@ const ifNotLoggedIn=(req,res,next)=>{
         next()
     }
     else{
-        return res.status(422).json({error:"you are not logged in, please log in first"})
+        return res.json({error:"you are not logged in, please log in first"})
     }
 }
 module.exports=ifNotLoggedIn;

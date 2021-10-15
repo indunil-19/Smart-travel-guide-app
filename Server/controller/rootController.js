@@ -128,6 +128,7 @@ class RootController{
             
 
         }
+        
 
 
         static async addAdmin(req,res){
