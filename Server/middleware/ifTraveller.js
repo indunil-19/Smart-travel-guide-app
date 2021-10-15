@@ -3,7 +3,7 @@ const ifTraveller=(req,res,next)=>{
         next()
     }
     else{
-        return res.status(422).json({error:"you don't have permission"})
+        return res.json({error:"you don't have permission"})
     }
 }
 module.exports=ifTraveller;
