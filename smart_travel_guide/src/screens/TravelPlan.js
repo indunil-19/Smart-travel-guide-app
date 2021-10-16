@@ -5,10 +5,13 @@ import {
   Drawer,
   Chip,
   FAB,
+  Portal,
+  Provider,
 } from "react-native-paper";
 import { AppContext } from "../context/AppContext";
 import { getTravelPlan } from "../services/TravelPlanService";
 import { Config } from "../config/config";
+import { useIsFocused } from "@react-navigation/native";
 
 import {
   SafeAreaView,
@@ -30,6 +33,13 @@ export function TravelPlan({ navigation }) {
   const [plan, setPlan] = useState([[], []]);
   const [data, setData] = useState([]);
   const [distanceTime, setDistanceTime] = useState({});
+  const [fabOpen, setFABOpen] = useState({ open: false });
+  const { open } = fabOpen;
+  const isFocused = useIsFocused();
+
+  const onStateChange = ({ open }) => {
+    setFABOpen({ open });
+  };
 
   const display = (r) => {
     setData((curData) => {
@@ -67,12 +77,18 @@ export function TravelPlan({ navigation }) {
       display(state.travelPlan);
     } else {
       getTravelPlan(
-        state.userPreferences.climate,
-        state.userPreferences.provinces,
-        state.userPreferences.days,
-        state.userPreferences.religion,
-        state.userPreferences.thingsLike,
-        state.userPreferences.placesLike
+        "wet",
+        [],
+        "2",
+        "buddhsism",
+        [],
+        ["ancient", "natural", "parks"]
+        // state.userPreferences.climate,
+        // state.userPreferences.provinces,
+        // state.userPreferences.days,
+        // state.userPreferences.religion,
+        // state.userPreferences.thingsLike,
+        // state.userPreferences.placesLike
       ).then((r) => {
         setPlan(r);
         setData((curData) => {
@@ -103,10 +119,6 @@ export function TravelPlan({ navigation }) {
         }
         setLoading(false);
         dispatch({ type: "set_travelPlan", payload: { travelPlan: r } });
-
-        //  console.log(r[0][0][0].photos[0].photo_reference)
-        // "wet",[],"2","buddhsism",[],["ancient", "natural", "parks"]
-        // state.userPreferences.climate,state.userPreferences.provinces,state.userPreferences.days,state.userPreferences.religion,state.userPreferences.thingsLike,state.userPreferences.placesLike
       });
     }
   }, [state]);
@@ -143,8 +155,10 @@ export function TravelPlan({ navigation }) {
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
+          // ! Add a error
           console.log(data.error);
         } else {
+          // ! Add a save confirm
           navigation.navigate("Dashboard");
         }
       })
@@ -205,18 +219,33 @@ export function TravelPlan({ navigation }) {
                 />
               )}
             />
-            <FAB
-              style={styles.fabOne}
-              large
-              icon="circle-edit-outline"
-              onPress={() => console.log("Edit Screen")}
-            />
-            <FAB
-              style={styles.fabTwo}
-              large
-              icon="bookmark-outline"
-              onPress={() => confirmSave()}
-            />
+
+            <Portal>
+              <FAB.Group
+                open={open}
+                icon={open ? "calendar-today" : "plus"}
+                style={{ paddingBottom: 40 }}
+                visible={isFocused}
+                actions={[
+                  {
+                    icon: "map-marker",
+                    label: "Route",
+                    onPress: () => navigation.navigate("Travel Route"),
+                  },
+                  {
+                    icon: "circle-edit-outline",
+                    label: "Edit Plan",
+                    onPress: () => navigation.navigate("Dashboard"),
+                  },
+                  {
+                    icon: "bookmark-outline",
+                    label: "Save Plan",
+                    onPress: () => confirmSave(),
+                  },
+                ]}
+                onStateChange={onStateChange}
+              />
+            </Portal>
           </>
         )}
       </SafeAreaView>
@@ -228,17 +257,5 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     justifyContent: "center",
-  },
-  fabOne: {
-    position: "absolute",
-    margin: 16,
-    right: 0,
-    bottom: 70,
-  },
-  fabTwo: {
-    position: "absolute",
-    margin: 16,
-    right: 0,
-    bottom: 0,
   },
 });

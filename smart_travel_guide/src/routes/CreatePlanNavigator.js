@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import PreferenceSelection from "../screens/PreferenceSelection";
 import { TravelPlan } from "../screens/TravelPlan";
+import { Route } from "../screens/Route";
 import { Provinces } from "../screens/Provinces";
 import LocationDetail from "../screens/LocationDetail.js";
 import { Dashboard } from "../screens/Dashboard";
@@ -33,6 +34,7 @@ export const CreatePlanNavigator = () => {
         component={TravelPlan}
         options={{ headerBackVisible: false }}
       />
+      <Stack.Screen name="Travel Route" component={Route} />
       <Stack.Screen
         name="Location Detail"
         component={LocationDetail}
