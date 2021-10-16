@@ -25,10 +25,10 @@ export const CreatePlanNavigator = () => {
         },
       }}
     >
-      <Stack.Screen name="Dashboard" component={Dashboard} />
+      {/* <Stack.Screen name="Dashboard" component={Dashboard} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Edit Profile" component={UpdateProfile} />
-      <Stack.Screen name="Create New Plan" component={PreferenceSelection} />
+      <Stack.Screen name="Create New Plan" component={PreferenceSelection} /> */}
       <Stack.Screen
         name="Travel Plan"
         component={TravelPlan}
