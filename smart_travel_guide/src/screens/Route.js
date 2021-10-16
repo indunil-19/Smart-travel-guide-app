@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Image, View, Text, StyleSheet } from "react-native";
-import { Card } from "react-native-paper";
+import { Card, Button } from "react-native-paper";
 import { AppContext } from "../context/AppContext";
 import MapView, { Marker, Polyline, Callout } from "react-native-maps";
+import { WebView } from "react-native-webview";
 
-export const Route = () => {
+export const Route = ({ navigation }) => {
   const { state, dispatch } = useContext(AppContext);
   const [plan, setPlan] = useState([[[]], []]);
 
@@ -49,7 +50,10 @@ export const Route = () => {
                     >
                       <Callout
                         onPress={() => {
-                          console.log(subitem.photos[0].photo_reference);
+                          navigation.navigate("Location Detail", {
+                            id: subitem.place_id,
+                            name: subitem.name,
+                          });
                         }}
                       >
                         <CompactLocationInfo
@@ -78,25 +82,25 @@ const styles = StyleSheet.create({
   item: {
     padding: 10,
     maxWidth: 120,
-    height: 100,
+    alignItems: "center",
   },
   image: {
     borderRadius: 10,
     width: 120,
     height: 100,
-    resizeMode: "cover",
   },
 });
 
 const CompactLocationInfo = ({ name, imgRef }) => {
   return (
-    <Card>
-      <Card.Cover
+    <View style={styles.item}>
+      <WebView
+        style={styles.image}
         source={{
           uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${imgRef}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`,
         }}
       />
-      <Card.Title title={name} />
-    </Card>
+      <Text>{name}</Text>
+    </View>
   );
 };
