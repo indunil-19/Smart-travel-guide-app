@@ -1,4 +1,3 @@
-import './App.css';
 import TravelApp from './screens/landingPage';
 import {BrowserRouter,Route,Switch} from 'react-router-dom'
 import { ChakraProvider } from "@chakra-ui/react"

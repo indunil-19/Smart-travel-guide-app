@@ -1,6 +1,6 @@
 import { Flex, HStack, VStack,Text ,Heading,Divider} from "@chakra-ui/layout"
 import { Link } from "react-router-dom"
-
+import React from "react"
 export const Footer=()=>{
     return(
         <>

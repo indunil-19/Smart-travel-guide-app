@@ -1,4 +1,5 @@
 import { Flex ,Text } from "@chakra-ui/layout"
+import React from "react"
 
 export const Footer2=()=>{
     return(
