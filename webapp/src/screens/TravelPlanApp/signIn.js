@@ -1,13 +1,13 @@
 import { Flex,Heading, VStack ,Text} from "@chakra-ui/layout"
 import { Input, InputGroup, InputLeftAddon ,Button, Checkbox,useToast} from "@chakra-ui/react"
-import { useState ,useContext,useEffect } from "react";
+import React, { useState ,useContext,useEffect } from "react";
 import { BiUserCircle } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { Link, } from "react-router-dom";
 import { useHistory } from "react-router";
 import { TravelContext } from "../../context/TravelContext";
 
-export const SignIn=()=>{
+ const SignIn=()=>{
   
     
     const {state, dispatch}=useContext(TravelContext)
@@ -40,7 +40,7 @@ export const SignIn=()=>{
               })
             return
         }
-            fetch("/signin",{
+           fetch("/signin",{
                 method:"post",
                 headers:{
                     "Content-Type":"application/json"
@@ -104,7 +104,7 @@ export const SignIn=()=>{
 
                 {/* <Checkbox defaultIsChecked>Remember me</Checkbox> */}
 
-                <Button colorScheme="blue" onClick={()=>sign()}>Sign In</Button>
+                <Button data-testid="signIn" colorScheme="blue" onClick={()=>sign()}>Sign In</Button>
                 <Text >you don't have an account?<Link to="/travelPlan/signup" >SignUp</Link></Text>
                 
             </VStack>
@@ -115,3 +115,4 @@ export const SignIn=()=>{
         </>
     )
 }
+export default SignIn;

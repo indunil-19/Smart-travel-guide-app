@@ -6,6 +6,8 @@ import ReactDOM from "react-dom";
 import { MemoryRouter } from "react-router-dom";
 
 describe('landing page testing', () => {
+    
+
     afterEach(cleanup);
 
     it("should render without crashing", () => {

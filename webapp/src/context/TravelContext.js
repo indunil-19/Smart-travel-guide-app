@@ -1,9 +1,9 @@
 import React, {createContext, useReducer} from 'react';
 import { initialState, Travelreducer } from '../reducer/TravelReducer';
 
-export const TravelContext =createContext()
+const TravelContext =createContext()
 
-export const TravelProvider=({children})=>{
+const TravelProvider=({children})=>{
     const [state, dispatch]= useReducer(Travelreducer, initialState)
 
     return(
@@ -12,3 +12,6 @@ export const TravelProvider=({children})=>{
         </TravelContext.Provider>
     )
 }
+
+export  {TravelContext,  TravelProvider}
+ 

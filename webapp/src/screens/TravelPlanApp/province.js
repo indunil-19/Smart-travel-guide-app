@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Heading,Center, Flex, Text  } from '@chakra-ui/layout'
 import { useParams } from 'react-router'
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+// import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 
 

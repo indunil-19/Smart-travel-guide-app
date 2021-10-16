@@ -4,7 +4,7 @@ import { FaUserCircle} from "react-icons/fa";
 import {Link} from "react-router-dom"
 import { TravelContext } from "../../context/TravelContext";
 import { useHistory } from "react-router";
-import { useContext } from "react";
+import React, { useContext } from "react";
 
 const NavBar=()=>{
     const {state,dispatch} = useContext(TravelContext)

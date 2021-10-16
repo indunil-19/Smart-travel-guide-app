@@ -23,7 +23,7 @@ import { Provinces } from "./provinces"
 import { Province } from "./province"
 import { CustomPlan } from "./customPlan"
 import { TravelContext } from "../../context/TravelContext"
-import {useContext,useEffect} from "react"
+import React, {useContext,useEffect} from "react"
 import { SwitchPois } from "./switchPois"
 
 
@@ -114,7 +114,7 @@ const TravelPlanApp=()=>{
     )
 }
 
-export const TravelPlanRoutes=()=>{
+const TravelPlanRoutes=()=>{
     return(
         <>
              <TravelProvider>
@@ -123,3 +123,4 @@ export const TravelPlanRoutes=()=>{
         </>
     )
 }
+export default TravelPlanRoutes;
