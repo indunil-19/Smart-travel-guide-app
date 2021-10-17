@@ -51,21 +51,20 @@ export function TravelPlan({ navigation }) {
       return dataDict;
     });
     // Distance and Duration
-    var index = 0;
-
-    for (let i = 0; i < r[0].length; i++) {
-      for (let j = 0; j < r[0][i].length; j++) {
-        index = index + 1;
-        setDistanceTime((curData) => {
-          curData[r[0][i][j].place_id] = [
+    setDistanceTime((curData) => {
+      var index = 0;
+      var disTime = {};
+      for (let i = 0; i < r[0].length; i++) {
+        for (let j = 0; j < r[0][i].length; j++) {
+          index = index + 1;
+          disTime[r[0][i][j].place_id] = [
             r[1][index - 1].distance.text,
             r[1][index - 1].duration.text,
           ];
-
-          return curData;
-        });
+        }
       }
-    }
+      return disTime;
+    });
   };
 
   useEffect(() => {
@@ -100,23 +99,20 @@ export function TravelPlan({ navigation }) {
           return dataDict;
         });
         // Distance and Duration
-        var index = -1;
-
-        for (let i = 0; i < r[0].length; i++) {
-          for (let j = 0; j < r[0][i].length; j++) {
-            index = index + 1;
-
-            setDistanceTime((curData) => {
-              console.log(r[1][index].distance.text);
-              curData[r[0][i][j].place_id] = [
-                r[1][index].distance.text,
-                r[1][index].duration.text,
+        setDistanceTime((curData) => {
+          var index = 0;
+          var disTime = {};
+          for (let i = 0; i < r[0].length; i++) {
+            for (let j = 0; j < r[0][i].length; j++) {
+              index = index + 1;
+              disTime[r[0][i][j].place_id] = [
+                r[1][index - 1].distance.text,
+                r[1][index - 1].duration.text,
               ];
-
-              return curData;
-            });
+            }
           }
-        }
+          return disTime;
+        });
         setLoading(false);
         dispatch({ type: "set_travelPlan", payload: { travelPlan: r } });
       });
@@ -170,6 +166,16 @@ export function TravelPlan({ navigation }) {
   const renderItem = ({ item, index }) => {
     return (
       <>
+        <View
+          style={{
+            flexDirection: "row",
+            margin: 10,
+            justifyContent: "space-around",
+          }}
+        >
+          <Chip icon="road-variant">{distanceTime[item.place_id][0]}</Chip>
+          <Chip icon="timer">{distanceTime[item.place_id][1]}</Chip>
+        </View>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Location Detail", {
@@ -178,17 +184,6 @@ export function TravelPlan({ navigation }) {
             });
           }}
         >
-          <View
-            style={{
-              flexDirection: "row",
-              margin: 10,
-              justifyContent: "space-around",
-            }}
-          >
-            <Chip icon="road-variant">{distanceTime[item.place_id][0]}</Chip>
-            <Chip icon="timer">{distanceTime[item.place_id][1]}</Chip>
-          </View>
-
           <LocationInfoCard location={item} />
         </TouchableOpacity>
       </>
@@ -235,7 +230,7 @@ export function TravelPlan({ navigation }) {
                   {
                     icon: "circle-edit-outline",
                     label: "Edit Plan",
-                    onPress: () => navigation.navigate("Dashboard"),
+                    onPress: () => navigation.navigate("Edit Plan"),
                   },
                   {
                     icon: "bookmark-outline",
