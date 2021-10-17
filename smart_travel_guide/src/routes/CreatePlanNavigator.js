@@ -9,6 +9,8 @@ import LocationDetail from "../screens/LocationDetail.js";
 import { Dashboard } from "../screens/Dashboard";
 import { ProfileScreen } from "../screens/profile";
 import { UpdateProfile } from "../screens/updateProfile";
+import { EditPlan } from "../screens/EditPlan";
+
 import { HeaderAvatar } from "../components/HeaderAvatar";
 
 import { theme } from "../core/theme";
@@ -35,6 +37,7 @@ export const CreatePlanNavigator = () => {
         options={{ headerBackVisible: false }}
       />
       <Stack.Screen name="Travel Route" component={Route} />
+      <Stack.Screen name="Edit Plan" component={EditPlan} />
       <Stack.Screen
         name="Location Detail"
         component={LocationDetail}
