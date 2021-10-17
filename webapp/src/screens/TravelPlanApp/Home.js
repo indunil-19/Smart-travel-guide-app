@@ -3,32 +3,35 @@ import { Footer } from "../../components/TravelPlanApp/Footer"
 import { Button } from "@chakra-ui/button"
 import { Image } from "@chakra-ui/image"
 import { useHistory } from "react-router"
-import { PlanCard } from "../../components/TravelPlanApp/planCard,"
+import  PlanCard  from "../../components/TravelPlanApp/planCard,"
 import { Link } from "react-router-dom"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 
-export const Home=()=>{
+const Home=()=>{
+    const history=useHistory()
     const [plans,setPlans]=useState([])
     useEffect(()=>{
-            fetch("/user/getPublicTravelPlans").then(res=>res.json())
+            fetch("/user/getPublicTravelPlans",{method:"get"}).then(res=>res.json())
             .then(result=>{
                 console.log(result)
                 setPlans(result.myPlans)
+            }).catch(e=>{
+                console.log("dfdf")
             })
     },[])
     
-    const history=useHistory()
+    
     return(
         <>
         <Flex flexDirection="column"  alignItems="center" minHeight="100vh" backgroundRepeat="no-repeat" backgroundSize="cover" backgroundPosition="center"  backgroundImage="url('https://images.unsplash.com/photo-1583648542585-d5f9b9c989a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80')">
             <Text fontSize="4xl" p={5}>The new way to plan your next trip</Text>
 
-            <Text fontSize="xl">Get a personalized trip --->
+            <Text fontSize="xl">Get a personalized trip 
             A complete day by day itinerary
             based on your preferences</Text>
 
             <Text fontSize="xl">
-            Customize it ---->
+            Customize it 
             Refine your trip. We'll find the
             best routes and schedules
             </Text>
@@ -73,13 +76,14 @@ export const Home=()=>{
             </Text>
             </Link>
 
-            <Flex flexDirection="row" maxWidth="100vw" overflowX="scroll" p={3}>
+            <Flex flexDirection="row" maxWidth="100vw" overflowX="scroll" p={3} >
 
                 {plans && 
                     plans.map((plan , index)=>{
+                        console.log("hshsh")
                         return(
                             <>
-                                <Flex minWidth="md">
+                                <Flex minWidth="md" data-testid="abc">
                                     <PlanCard  name={plan.name ? plan.name : `My plan ${index+1}`} days={plan.travelPlan[0].length} createdDate={plan.createdAt} travelPlan={plan.travelPlan}/>
                                  </Flex>
                             </>
@@ -97,3 +101,4 @@ export const Home=()=>{
         </>
     )
 }
+export default Home

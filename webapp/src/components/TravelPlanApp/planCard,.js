@@ -2,10 +2,10 @@ import {  useContext } from "react";
 import { Flex, HStack, VStack } from "@chakra-ui/layout"
 import { Text, Image, Heading , Button,} from "@chakra-ui/react"
 import { TravelContext } from "../../context/TravelContext";
-import { useHistory } from "react-router"
+import React, { useHistory } from "react-router"
 
 
-export const PlanCard=({_id="",name,days,createdDate, travelPlan})=>{
+const PlanCard=({_id="",name,days,createdDate, travelPlan})=>{
     const {state, dispatch}=useContext(TravelContext)
     const history=useHistory()
     return(
@@ -39,3 +39,4 @@ export const PlanCard=({_id="",name,days,createdDate, travelPlan})=>{
                     
     )
 }
+export default PlanCard
