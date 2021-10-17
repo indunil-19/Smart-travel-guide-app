@@ -1,5 +1,5 @@
 import React from "react"
-import {render,fireEvent, cleanup,waitFor} from "@testing-library/react";
+import {render,fireEvent,screen, cleanup,waitFor} from "@testing-library/react";
 import renderer from "react-test-renderer";
 import ReactDOM from "react-dom";
 import { MemoryRouter,Router } from "react-router-dom";
@@ -38,7 +38,7 @@ describe('signin page testing', () => {
     })
     it("should login correctly if no error",async()=>{
         const history = createMemoryHistory();
-        const screen=render(<MemoryRouter><Router history={history}><TravelProvider><SignIn/></TravelProvider></Router></MemoryRouter>)        
+        render(<MemoryRouter><Router history={history}><TravelProvider><SignIn/></TravelProvider></Router></MemoryRouter>)        
         fireEvent.change(screen.getByPlaceholderText("email"), {target:{value:"udayangana98@gmail.com"}})
         fireEvent.change(screen.getByPlaceholderText("password"), {target:{value:"1234"}})
         fireEvent.click(screen.getByTestId("signIn"))
@@ -53,6 +53,12 @@ describe('signin page testing', () => {
     it("shoud toast if error in login",async()=>{
         const server=setupServer(
             rest.post("/signin",(req,res,ctx)=>{
+                if(!req.body.email || !req.body.password){
+                    return res(
+                        ctx.json({
+                            error:"sign in error",
+                        })
+                    )}
                 return res(
                     ctx.json({
                         error:"sign in error",
@@ -60,7 +66,7 @@ describe('signin page testing', () => {
                 )
             })
         )
-        const screen=render(<MemoryRouter><TravelProvider><SignIn/></TravelProvider></MemoryRouter>)        
+        render(<MemoryRouter><TravelProvider><SignIn/></TravelProvider></MemoryRouter>)        
         fireEvent.change(screen.getByPlaceholderText("email"), {target:{value:"udayangana98@gmail.com"}})
         fireEvent.change(screen.getByPlaceholderText("password"), {target:{value:""}})
         fireEvent.click(screen.getByTestId("signIn"))
@@ -72,16 +78,8 @@ describe('signin page testing', () => {
     })
 
     it("shoud toast if email is wrong",async()=>{
-        const server=setupServer(
-            rest.post("/signin",(req,res,ctx)=>{
-                return res(
-                    ctx.json({
-                        error:"sign in error",
-                    })
-                )
-            })
-        )
-        const screen=render(<MemoryRouter><TravelProvider><SignIn/></TravelProvider></MemoryRouter>)        
+        
+        render(<MemoryRouter><TravelProvider><SignIn/></TravelProvider></MemoryRouter>)        
         fireEvent.change(screen.getByPlaceholderText("email"), {target:{value:"wrongemail"}})
         fireEvent.change(screen.getByPlaceholderText("password"), {target:{value:""}})
         fireEvent.click(screen.getByTestId("signIn"))

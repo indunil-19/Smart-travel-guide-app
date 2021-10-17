@@ -4,12 +4,12 @@ import { BiUserCircle } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import Autocomplete from "react-google-autocomplete";
-import {useState,useContext,useEffect} from "react"
+import React, {useState,useContext,useEffect} from "react"
 import { useHistory } from "react-router";
 import { TravelContext } from "../../context/TravelContext";
 
 
-export const SignUp=()=>{
+const SignUp=()=>{
     const {state, dispatch}=useContext(TravelContext)
     const history=useHistory()
 
@@ -122,7 +122,7 @@ export const SignUp=()=>{
 
                 <InputGroup >
                     <BiUserCircle  />
-                    <Select placeholder="religion" color="black" value={religion} onChange={(e)=>setReligion(e.target.value)} >
+                    <Select data-testid="religion" placeholder="religion" color="black" value={religion} onChange={(e)=>setReligion(e.target.value)} >
                         <option value="Buddhism">Buddhism</option>
                         <option value="Hindu">Hindu</option>
                         <option value="Islam">Islam</option>
@@ -138,7 +138,7 @@ export const SignUp=()=>{
 
                 <InputGroup >
                     <RiLockPasswordLine/>
-                    <Autocomplete style={{width:"100%" ,height:"45px", padding:"10px", margin:"15px",background:"transparent", borderRadius:"5px", color:"white", borderColor:"white", borderWidth:"2px"}}
+                    <Autocomplete data-testid="country" style={{width:"100%" ,height:"45px", padding:"10px", margin:"15px",background:"transparent", borderRadius:"5px", color:"white", borderColor:"white", borderWidth:"2px"}}
                          apiKey={"AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY"}
                             onPlaceSelected={(place) => {
                                     setCountry(place.name)
@@ -161,7 +161,7 @@ export const SignUp=()=>{
                 
 
 
-                <Button colorScheme="blue" onClick={()=>signUp()}>Sign Up</Button>
+                <Button data-testid="signUp" colorScheme="blue" onClick={()=>signUp()}>Sign Up</Button>
                 <Text >you already have an account?<Link to="/travelPlan/signin" >SignIn</Link></Text>
                 
             </VStack>
@@ -172,3 +172,4 @@ export const SignUp=()=>{
         </>
     )
 }
+export default SignUp
