@@ -12,7 +12,7 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow,DirectionsRe
 
 
 
-export const TravelPlan=()=>{
+const TravelPlan=()=>{
     const toast=useToast()
     const history=useHistory()
     const {state, dispatch}=useContext(TravelContext)
@@ -128,7 +128,7 @@ export const TravelPlan=()=>{
                         <Button ref={cancelRef} onClick={onClose}>
                             Cancel
                         </Button>
-                        <Button colorScheme="blue" onClick={onClose} ml={3} onClick={()=>{
+                        <Button colorScheme="blue" onClick={onClose}  ml={3} data-testid="confirm" onClick={()=>{
                                 if(state.planId){
                                     updatePlan();
                                 }
@@ -174,7 +174,7 @@ export const TravelPlan=()=>{
         <TabPanels>
         <TabPanel>
 
-        <Flex flexDirection="column" alignItems="center">
+        <Flex flexDirection="column" alignItems="center"  data-testid="travelPlan">
         
 
             <HStack> 
@@ -196,7 +196,7 @@ export const TravelPlan=()=>{
                                 return(
                                 <> 
 
-                                <Card name={subItem.name} photo={subItem.photos[0].photo_reference} address={subItem.formatted_address} rating={subItem.rating} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  place_id={subItem.place_id}/>
+                                <Card  name={subItem.name} photo={subItem.photos[0].photo_reference} address={subItem.formatted_address} rating={subItem.rating} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  place_id={subItem.place_id}/>
                                 </>
                                 )
                             })
@@ -231,13 +231,13 @@ export const TravelPlan=()=>{
         </Flex>
 
         <VStack position="fixed" bottom="0" right="0" p={3} >
-        <Button colorScheme="teal" size="lg" borderRadius="50%" onClick={()=>{
+        <Button colorScheme="teal" size="lg" borderRadius="50%" data-testid="edit" onClick={()=>{
             history.push("/travelPlan/editPlan")
         }}>
             <FiEdit/>
         </Button>
 
-        <Button colorScheme="teal" size="lg" borderRadius="50%" onClick={()=>{
+        <Button colorScheme="teal" size="lg" borderRadius="50%" data-testid="save" onClick={()=>{
              setIsOpen(true)
 
         }}>
@@ -248,7 +248,7 @@ export const TravelPlan=()=>{
 
 
 
-        <TabPanel>
+        <TabPanel data-testid="maptab">
 
            <Route />
         </TabPanel>
@@ -347,3 +347,5 @@ const Route=()=>{
         </>
     )
 }
+
+export {TravelPlan, Card,Route}

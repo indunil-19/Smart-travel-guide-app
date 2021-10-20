@@ -6,7 +6,7 @@ import { TravelContext } from "../../context/TravelContext"
 import { Link } from "react-router-dom"
 import { getTravelPlan } from "../../services/TravelPlanService"
 
-export const UserPreferences=()=>{
+const UserPreferences=()=>{
 
     const {state, dispatch}=useContext(TravelContext)
 
@@ -42,7 +42,7 @@ export const UserPreferences=()=>{
           leastDestructiveRef={cancelRef}
           onClose={onClose}
         >
-          <AlertDialogOverlay>
+          <AlertDialogOverlay data-testid="aleart">
             <AlertDialogContent>
               <AlertDialogHeader fontSize="lg" fontWeight="bold">
                 {aleartHeader}
@@ -71,7 +71,7 @@ export const UserPreferences=()=>{
                 <Box pt={10} pb={10}>
                 <RadioGroup onChange={setClimate} value={climate}>
                 <Stack spacing={6} >
-                    <Radio value="dry">Dry</Radio>
+                    <Radio value="dry"  data-testid="climate">Dry</Radio>
                     <Radio value="wet">Wet</Radio>
                     <Radio value="intermediate">Intermediate</Radio>
                 </Stack>
@@ -94,15 +94,15 @@ export const UserPreferences=()=>{
                 <Heading>2.Select at most 3 Provinces you like to visit in Sri Lanka?</Heading>
                 <Link to="/travelPlan/provinces"><Text color="blue" textDecoration="underline">refer informations about provinces</Text></Link>
                 <Box pt={10} pb={10}>
-                <CheckboxGroup colorScheme="green" onChange={(e)=>setProvinces(e)} >
+                <CheckboxGroup colorScheme="green" onChange={(e)=>setProvinces(e)}  >
                 <VStack alignItems="start">
                 
                     <Checkbox value="Northern">Northern</Checkbox>
                     <Checkbox value="North Western">North Western</Checkbox>
-                    <Checkbox value="Western">Western</Checkbox>
+                    <Checkbox value="Western" data-testid='province1'>Western</Checkbox>
                     <Checkbox value="North Central">North Central</Checkbox>
-                    <Checkbox value="Central">Central</Checkbox>
-                    <Checkbox value="Sabaragamuwa">Sabaragamuwa</Checkbox>
+                    <Checkbox value="Central" data-testid='province2'>Central</Checkbox>
+                    <Checkbox value="Sabaragamuwa" data-testid='province3'>Sabaragamuwa</Checkbox>
                     <Checkbox value="Eastern">Eastern</Checkbox>
                     <Checkbox value="Uva">Uva</Checkbox>
                     <Checkbox value="Southern">Southern</Checkbox>
@@ -136,9 +136,9 @@ export const UserPreferences=()=>{
                 <Heading>3.Number of Days , you hope to travel?</Heading>
                 <Box pt={10} pb={10}>
 
-                <Select  variant="filled" p={10} >
+                <Select  variant="filled" p={10}  data-testid="days">
                     <option value="1">1 Day</option>
-                    <option value="2">2 Day</option>
+                    <option value="2" >2 Day</option>
                     <option value="3">3 Day</option>
                 </Select>
                 
@@ -160,7 +160,7 @@ export const UserPreferences=()=>{
                 <Heading>4.Any religion you would like to see in your travel?</Heading>
                 <Box pt={10} pb={10}>
 
-                <Select  variant="filled" p={10}>
+                <Select  variant="filled" p={10} data-testid="religion">
                     <option value="Buddhism">Buddhism</option>
                     <option value="Hindu">Hindu</option>
                     <option value="Islam">Islam</option>
@@ -189,13 +189,13 @@ export const UserPreferences=()=>{
                 <Box pt={10} pb={10}>
                 <CheckboxGroup colorScheme="green" onChange={(e)=>setPlacesLike(e)} >
                 <VStack alignItems="start">
-                    <Checkbox value="Natural" >Natural</Checkbox>
+                    <Checkbox value="Natural"data-testid="placeslike1" >Natural</Checkbox>
                     <Checkbox value="animal">Animal</Checkbox>
                     <Checkbox value="botenical gardens">Botenical gardens</Checkbox>
                     <Checkbox value="parks">Parks</Checkbox>
-                    <Checkbox value="beaches">Beaches</Checkbox>
-                    <Checkbox value="ancient">Ancient</Checkbox>
-                    <Checkbox value="reliogous">Reliogous</Checkbox>
+                    <Checkbox value="beaches" data-testid="placeslike2">Beaches</Checkbox>
+                    <Checkbox value="ancient" data-testid="placeslike3">Ancient</Checkbox>
+                    <Checkbox value="reliogous" data-testid="placeslike4">Reliogous</Checkbox>
                     
 
                     
@@ -208,7 +208,7 @@ export const UserPreferences=()=>{
                     setQ4("block"); setQ5("none")}}>
                     Previous
                 </Button>
-                <Button colorScheme="teal" variant="outline" onClick={() => {
+                <Button colorScheme="teal" variant="outline" data-testid="next" onClick={() => {
                     if(placesLike.length>=4) {
                         setAleartHeader("Selecet places")
                         setAleartBody("You can't select more than 3 places.")
@@ -234,12 +234,12 @@ export const UserPreferences=()=>{
         <Box maxW="60%" borderWidth="1px" borderRadius="lg" overflow="hidden" m="auto" padding="25" boxShadow="dark-lg" display={q6}>
                 <Heading>6.Select things you like to do in Sri Lanka?</Heading>
                 <Box pt={10} pb={10}>
-                <CheckboxGroup colorScheme="green" onChange={(e)=>setThingsLike(e)} >
+                <CheckboxGroup colorScheme="green" onChange={(e)=>setThingsLike(e)}  >
                 <VStack alignItems="start">
-                    <Checkbox value="hiking" >hiking</Checkbox>
-                    <Checkbox value="surfing">surfing</Checkbox>
+                    <Checkbox value="hiking" data-testid="thingslike1" >hiking</Checkbox>
+                    <Checkbox value="surfing" data-testid="thingslike2">surfing</Checkbox>
                     <Checkbox value="camping">camping</Checkbox>
-                    <Checkbox value="swimming">swimming</Checkbox>
+                    <Checkbox value="swimming" data-testid="thingslike3">swimming</Checkbox>
                     <Checkbox value="riding boats">riding boats</Checkbox>
                                      
 
@@ -252,7 +252,7 @@ export const UserPreferences=()=>{
                 <Button colorScheme="teal" variant="outline" onClick={() => {setQ5("block"); setQ6("none")}}>
                     Previous
                 </Button>
-                <Button colorScheme="teal" variant="outline" onClick={() => {
+                <Button colorScheme="teal" variant="outline" data-testid="submit" onClick={() => {
 
                     
                          dispatch({type:"USER_PREFERENCES",payload:{userPreferences:{
@@ -290,3 +290,4 @@ export const UserPreferences=()=>{
         </>
     )
 }
+export default UserPreferences;

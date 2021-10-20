@@ -13,7 +13,8 @@ import {
   } from "@chakra-ui/react"
 import { Link } from "react-router-dom"
 import { ViewIcon } from "@chakra-ui/icons"
-export const Provinces=()=>{
+import React from "react"
+const Provinces=()=>{
     return(
         <>
                 <Flex  m={6} backgroundColor="white" boxShadow="xl" flexDirection="column" alignItems="center">
@@ -56,3 +57,5 @@ const TableRow=({index, name, province_id})=>{
       </Tr>
     )
 }
+
+export  {TableRow, Provinces}

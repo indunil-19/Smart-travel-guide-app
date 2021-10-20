@@ -5,7 +5,7 @@ import { useParams } from 'react-router'
 import { Carousel } from 'react-responsive-carousel';
 
 
-export const Province = (props) => {
+ const Province = (props) => {
   const {pid}=useParams()
   const [ima,setIma]=useState([])
   const [name, setName]=useState("")
@@ -28,7 +28,7 @@ export const Province = (props) => {
   },[])
           
   return (  
-     <Flex flexDirection="column" boxShadow="2xl" bg="white" my={10} p={4} borderRadius="2px" borderColor="grey" width="70%" mx="auto">
+     <Flex flexDirection="column" boxShadow="2xl" bg="white" my={10} p={4} borderRadius="2px" borderColor="grey" width="70%" mx="auto" data-testid="container">
      <Center><Heading mb={4}>{name}</Heading></Center>
      <img src={ima? ima[0]: ""} />
      <Text fontSize="md" p={4}>{description}</Text>
@@ -57,6 +57,8 @@ const Carousal1=({photos=[]})=>{
             </Carousel>
     )
 }
+
+export {Province}
 
 
 

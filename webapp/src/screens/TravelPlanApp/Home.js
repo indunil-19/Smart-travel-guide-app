@@ -13,7 +13,7 @@ const Home=()=>{
     useEffect(()=>{
             fetch("/user/getPublicTravelPlans",{method:"get"}).then(res=>res.json())
             .then(result=>{
-                console.log(result)
+                // console.log(result)
                 setPlans(result.myPlans)
             }).catch(e=>{
                 console.log("dfdf")
@@ -76,17 +76,14 @@ const Home=()=>{
             </Text>
             </Link>
 
-            <Flex flexDirection="row" maxWidth="100vw" overflowX="scroll" p={3} >
+            <Flex flexDirection="row" maxWidth="100vw" overflowX="scroll" p={3} data-testid="tplan">
 
-                {plans && 
-                    plans.map((plan , index)=>{
-                        console.log("hshsh")
+                {plans && plans.map((plan , index)=>{
                         return(
-                            <>
-                                <Flex minWidth="md" data-testid="abc">
+                          
+                                <Flex minWidth="md"  >
                                     <PlanCard  name={plan.name ? plan.name : `My plan ${index+1}`} days={plan.travelPlan[0].length} createdDate={plan.createdAt} travelPlan={plan.travelPlan}/>
-                                 </Flex>
-                            </>
+                                 </Flex> 
                         )
                     })
                 }

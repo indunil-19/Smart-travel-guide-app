@@ -1,13 +1,13 @@
 import { Flex, Heading, HStack, VStack } from "@chakra-ui/layout"
 import { AiOutlineStar } from "react-icons/ai";
 import { StarIcon } from "@chakra-ui/icons";
-import { useState,useContext,useEffect,useRef } from "react";
+import React, { useState,useContext,useEffect,useRef } from "react";
 import { Input,Textarea,Button, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, } from "@chakra-ui/react"
 import { TravelContext } from "../../context/TravelContext"
 import { FaRegShareSquare } from "react-icons/fa";
 import { useToast } from "@chakra-ui/toast";
 
-export const PlanReview=()=>{
+const PlanReview=()=>{
     const [rate,setRate]=useState(0)
     const [edit,setEdit]=useState(false)
     const [review, setReview]=useState("")
@@ -148,7 +148,7 @@ export const PlanReview=()=>{
                     <Heading size="xl" p={5}>
                         How do you feel about your travel plan????
                     </Heading>
-                    <HStack p={4}>
+                    <HStack p={4} data-testid="rate">
                     <StarIcon color={rate>=1 ? "teal" : "gray.200"} onClick={()=>{
                         if(edit){
                             setRate(1)
@@ -177,14 +177,14 @@ export const PlanReview=()=>{
                     }} />
                     </HStack>
 
-                    <Textarea value={review}
+                    <Textarea value={review} data-testid="review"
                             onChange={(e)=>setReview(e.target.value)}
                         placeholder="Describe your expereince"
                         size="lg"
                         isDisabled={!edit}
                     />
 
-                    {edit ? <Button colorScheme="blue" onClick={()=>{
+                    {edit ? <Button colorScheme="blue" data-testid="submit" onClick={()=>{
                             submitReview()
                     }}>submit</Button> : 
                                 <Button colorScheme="blue" onClick={()=>{
@@ -205,3 +205,4 @@ export const PlanReview=()=>{
         </>
     )
 }
+export default PlanReview 

@@ -6,7 +6,7 @@ import {NearByPlaceCard} from '../../components/TravelPlanApp/nearbyplace'
 import { PoiCard } from "../../components/TravelPlanApp/poicard"
 
 
-export const ViewPois=()=>{
+ const ViewPois=()=>{
     const [data,setData]=useState({})
     const {place_id}=useParams()
     const [location,setLocation]=useState({})
@@ -93,7 +93,7 @@ export const ViewPois=()=>{
     )
 }
 
-
+export default ViewPois
 
 
 

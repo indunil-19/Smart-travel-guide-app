@@ -4,7 +4,7 @@ import { TravelContext } from "../../context/TravelContext"
 import { PlaceCard } from "../../components/TravelPlanApp/placeCard"
 import { Flex } from "@chakra-ui/layout"
 
-export const NearByHotels=()=>{
+const NearByHotels=()=>{
     const [data,setData]=useState([])
     const {state, dispatch}=useContext(TravelContext)
     
@@ -39,7 +39,7 @@ export const NearByHotels=()=>{
         </>
     )
 }
-
+export default NearByHotels
 
 
 
