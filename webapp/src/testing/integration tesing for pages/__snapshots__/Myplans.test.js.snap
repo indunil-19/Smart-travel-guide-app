@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`home page test should match snapshot 1`] = `
+<div
+  className="css-k008qs"
+  data-testid="plans"
+/>
+`;

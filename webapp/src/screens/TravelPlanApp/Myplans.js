@@ -1,11 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import React,{ useState, useRef, useEffect } from "react";
 import { Flex, HStack, VStack } from "@chakra-ui/layout"
 import { Button, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay,} from "@chakra-ui/react"
 import { AiOutlineDelete } from "react-icons/ai";
 import { useHistory } from "react-router"
 import { PlanCard } from "../../components/TravelPlanApp/planCard,";
 
-export const MyPlans=()=>{
+const MyPlans=()=>{
     const [plans,setPlans]=useState([])
     const history=useHistory()
     const [pid,setPID]=useState("")
@@ -70,7 +70,7 @@ export const MyPlans=()=>{
                     Delete Travel Plan
                     </AlertDialogHeader>
 
-                    <AlertDialogBody>
+                    <AlertDialogBody >
                     Are you sure? You can't undo this action afterwards.
                     </AlertDialogBody>
 
@@ -78,7 +78,7 @@ export const MyPlans=()=>{
                     <Button ref={cancelRef} onClick={onClose}>
                         Cancel
                     </Button>
-                    <Button colorScheme="red" onClick={()=>{
+                    <Button colorScheme="red" data-testid="aleart" onClick={()=>{
                         deletePlan();
                     }} ml={3}>
                         Delete
@@ -88,15 +88,15 @@ export const MyPlans=()=>{
                 </AlertDialogOverlay>
             </AlertDialog>
         
-            <>
-            
+            < >
+            <Flex data-testid="plans">
             {plans && plans.map((plan,index)=>{
                     return(
                         <>
                          <Flex flexDirection="column" alignItems="center" p={3}>
                             <HStack>
 
-                            <Button colorScheme="red" onClick={()=>{
+                            <Button colorScheme="red" data-testid="deleteButton" onClick={()=>{
                                 deleteAleart(plan._id)
                                 
                             }}><AiOutlineDelete /></Button>
@@ -109,11 +109,11 @@ export const MyPlans=()=>{
                     )
             })}
             
-            
+            </Flex>
             </>
 
 
         </>
     )
 }
-
+export default MyPlans
