@@ -10,15 +10,15 @@ class AdminController{
     static async signup(req,res){
         const {firstname,lastname,dob,email,password}=req.body;
         if(!firstname || !lastname || !dob || !email ||  !password){
-            return res.status(422).json({error:"please add all the fields"})
+            return res.json({error:"please add all the fields"})
         }
 
-                        Admin.findOne({email:email})
+                      return Admin.findOne({email:email})
                         .then((savedUser)=>{
                             if(savedUser){
-                            return res.status(422).json({error:"user already exists with that email"})
+                            return res.json({error:"user already exists with that email"})
                             }
-                            bcrypt.hash(password,12)
+                           return bcrypt.hash(password,12)
                             .then(hashedpassword=>{
                                 const user = new Admin({
                                     firstname,
@@ -29,18 +29,20 @@ class AdminController{
                                     
                                 })
                         
-                                user.save()
+                               return user.save()
                                 .then(user=>{
-                                    res.json({message:"Register successfully"})
+                                   return res.json({message:"Register successfully"})
                                 })
                                 .catch(err=>{
                                     console.log(err)
+                                    return res.json({error:"system error"})
                                 })
                             })
                         
                         })
                         .catch(err=>{
                         console.log(err)
+                        return res.json({error:"system error"})
                         })
 
     }
@@ -49,12 +51,12 @@ class AdminController{
         if(!email || !password){
         return res.json({error:"please add email or password"})
         }
-        Admin.findOne({email:email})
+        return Admin.findOne({email:email})
         .then(savedUser=>{
             if(!savedUser){
-            return res.status(422).json({error:"Invalid Email or password"})
+            return res.json({error:"Invalid Email or password"})
             }
-            bcrypt.compare(password,savedUser.password)
+            return bcrypt.compare(password,savedUser.password)
             .then(doMatch=>{
                 if(doMatch){
                     req.session.admin={}
@@ -69,51 +71,59 @@ class AdminController{
             })
             .catch(err=>{
                 console.log(err)
+                return res.json({error:"system error"})
             })
+        }).catch(err=>{
+                console.log(err)
+                return res.json({error:"system error"})
         })
-        }
+    }
 
         static async viewAdmins(req,res){
-                Admin.find().
+               return Admin.find().
                 then((admins)=>{
-                    res.json({admins})
+                    return res.json({admins})
                 }).
                 catch(err=>{
                     console.log(err)
+                    return res.json({error:"system error"})
                 })
         }
         static async viewAdmin(req,res){
-            Admin.find().
+            return Admin.find().
             then((admins)=>{
-                res.json({admins,pid:req.params.pid})
+                return res.json({admins,pid:req.params.pid})
             }).
             catch(err=>{
                 console.log(err)
+                return res.json({error:"system error"})
             })
     }
-        static async viewUser(req,res){
-            User.find().
+    static async viewUser(req,res){
+            return User.find().
             then((users)=>{
-                res.json({users})
+                return res.json({users})
             }).
             catch(err=>{
                 console.log(err)
+                return res.json({error:"system error"})
             })
     }
     static async Travelplan(req,res){
-        Travelplan.find().
+        return Travelplan.find().
         then((travelplan)=>{
-            res.json({travelplan})
+            return res.json({travelplan})
         }).
         catch(err=>{
             console.log(err)
+            return res.json({error:"system error"})
         })
     }
     static async addImgtoProvinceData(req,res){
         const  provinceList ={"p1":"Northern Province", "p2":"North Western Province", "p3":"Western Province", "p4":"North Central Province",
                     "p5":"Central Province", "p6":"Sabaragamuwa Province", "p7":"Eastern Province", "p8":"Uva Province", "p9":"Southern Province"}
 
-        Province.findOne({pid:req.body.pid})
+        return Province.findOne({pid:req.body.pid})
         .then((saveData)=>{
             if(!saveData){
                 const province=new Province({
@@ -122,26 +132,27 @@ class AdminController{
                     description:req.body.description,
                     images:[req.body.image]
                 })
-                province.save()
+                return province.save()
                             .then(result=>{
                                 return res.json({message:"upload image successfully", result})
                             })
                             .catch(err=>{
                                 console.log(err)
                             })
-
             }
             if(saveData){
-                Province.findOneAndUpdate({pid:req.body.pid},{$push:{images:req.body.image}},{new:true}).
+                return Province.findOneAndUpdate({pid:req.body.pid},{$push:{images:req.body.image}},{new:true}).
                 then(result=>{
                     return res.json({message:"upload image successfully", result})
                 }).
                 catch(err=>{
                     console.log(err)
+                    return res.json({error:"system error"})
                 })
             }
         }).catch(err=>{
             console.log(err)
+            return res.json({error:"system error"})
         })
     }
     static async getProvinceData(req,res){
@@ -149,7 +160,7 @@ class AdminController{
                     "p5":"Central Province", "p6":"Sabaragamuwa Province", "p7":"Eastern Province", "p8":"Uva Province", "p9":"Southern Province"}
 
 
-        Province.findOne({pid:req.params.pid})
+        return Province.findOne({pid:req.params.pid})
         .then((saveData)=>{
             if(!saveData){
                 const province=new Province({
@@ -158,12 +169,13 @@ class AdminController{
                     description:"",
                     images:[]
                 })
-                province.save()
+                return province.save()
                             .then(result=>{
                                 return res.json(result)
                             })
                             .catch(err=>{
                                 console.log(err)
+                                return res.json({error:"system error"})
                             })
 
             }
@@ -172,46 +184,51 @@ class AdminController{
             }
         }).catch(err=>{
             console.log(err)
+            return res.json({error:"system error"})
         })
     }
 
     static async deleteProvinceImage(req,res){
-        Province.findOne({pid:req.body.pid})
+        return Province.findOne({pid:req.body.pid})
         .then((saveData)=>{
             if(!saveData){   
                 return res.json({error:"bad request"})
             }
             if(saveData){
-                Province.findOneAndUpdate({pid:req.body.pid},{$pull:{images:req.body.image}},{new:true}).
+                return Province.findOneAndUpdate({pid:req.body.pid},{$pull:{images:req.body.image}},{new:true}).
                 then(result=>{
                     return res.json({message:"delete image successfully", result})
                 }).
                 catch(err=>{
                     console.log(err)
+                    return res.json({error:"system error"})
                 })
             }
         }).catch(err=>{
             console.log(err)
+            return res.json({error:"system error"})
         })
     }
 
     static async descriptionUpdate(req,res){
-        Province.findOne({pid:req.body.pid})
+        return Province.findOne({pid:req.body.pid})
         .then((saveData)=>{
             if(!saveData){   
                 return res.json({error:"bad request"})
             }
             if(saveData){
-                Province.findOneAndUpdate({pid:req.body.pid},{description:req.body.description},{new:true}).
+                return Province.findOneAndUpdate({pid:req.body.pid},{description:req.body.description},{new:true}).
                 then(result=>{
                     return res.json({message:"update description successfully", result})
                 }).
                 catch(err=>{
                     console.log(err)
+                    return res.json({error:"system error"})
                 })
             }
         }).catch(err=>{
             console.log(err)
+            return res.json({error:"system error"})
         })
     }
 
