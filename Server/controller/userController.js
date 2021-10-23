@@ -7,6 +7,7 @@ const TravelPlan=mongoose.model("TravelPlan")
 
 class UserController{
     static async updateUser(req,res){
+        
 
          return User.findOne({email:req.body.email})
             .then((savedUser)=>{
@@ -183,6 +184,40 @@ class UserController{
                 return res.json({error:"system error"})
             })
     }
+
+    static async changePasssword(req,res){
+        const { newPassword, prevoiusPassowrd}=req.body;
+            if(!newPassword || !prevoiusPassowrd ){
+                return res.status(422).json({error:"please add all the fields"})
+            }
+
+        User.findOne({email:req.session.email})
+            .then((savedUser)=>{
+
+               bcrypt.compare(req.body.prevoiusPassowrd,savedUser.password)
+            .then(doMatch=>{
+                if(doMatch){
+                    User.findByIdAndUpdate(req.session.email,{
+                        password:req.body.newpassword
+                    },{new:true}).
+                    then(data=>{
+                         return res.json({message:"password update successfull"})
+                    }).catch(err=>{
+                          return res.status(422).json({error:"update error"})
+                    }) 
+                }
+                return res.json({error:"your entered password is  wrong"})
+            }).
+            catch(e=>{
+                return res.status(422).json({error:"update error"})
+            })
+                        
+            }).catch(e=>{
+                return res.status(422).json({error:"update error"})
+            })       
+               
+    }
+    
 
     
 

@@ -17,7 +17,7 @@ const UserPreferences=()=>{
     const [religion, setReligion] = useState("");
     const [placesLike, setPlacesLike] = useState([]);
     const [thingsLike, setThingsLike] = useState([]);
-
+    const [loading,setLoading]=useState(false)
 
     const [q1, setQ1]=useState("block")
     const [q2, setQ2]=useState("none")
@@ -252,9 +252,9 @@ const UserPreferences=()=>{
                 <Button colorScheme="teal" variant="outline" onClick={() => {setQ5("block"); setQ6("none")}}>
                     Previous
                 </Button>
-                <Button colorScheme="teal" variant="outline" data-testid="submit" onClick={() => {
+                <Button colorScheme="teal" variant="outline" isLoading={loading} loadingText="plase wait"  onClick={() => {
 
-                    
+                        setLoading(true)
                          dispatch({type:"USER_PREFERENCES",payload:{userPreferences:{
                             climate:climate,
                             provinces:provinces,
@@ -265,9 +265,15 @@ const UserPreferences=()=>{
                         }}}) ;
 
                         getTravelPlan(climate,provinces,days,religion,thingsLike,placesLike).then((r)=>{
-                        dispatch({type:"set_travelPlan" , payload:{travelPlan:r[0]}})
-                        dispatch({type:"set_pois" , payload:{allpois:r[1]}})
-                        history.push("/travelPlan/travelPlan")
+                                // console.log(r)
+                                setLoading(false)
+                                dispatch({type:"set_travelPlan" , payload:{travelPlan:r[0]}})
+                                dispatch({type:"set_pois" , payload:{allpois:r[1]}})
+                                history.push("/travelPlan/travelPlan")
+
+                                
+                        }).catch(e=>{
+                            console.log(e)
                         });
 
 

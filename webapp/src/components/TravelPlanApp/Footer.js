@@ -1,7 +1,10 @@
 import { Flex, HStack, VStack,Text ,Heading,Divider} from "@chakra-ui/layout"
 import { Link } from "react-router-dom"
 import React from "react"
+import { useHistory } from "react-router"
+
 export const Footer=()=>{
+    const history=useHistory()
     return(
         <>
         <Flex width="full" bg="black"  mt="165px" color="white" justifyContent="space-around" p={10}  >
@@ -11,13 +14,17 @@ export const Footer=()=>{
 
                      
                      
-                     <Heading as="h3" size="lg">
+                     <Heading as="h3" size="lg" cursor="pointer" onClick={()=>{
+                            history.push("/travelPlan/about")
+                     }}>
                         About Us
                     </Heading>
                  
                     
 
-                    <Heading as="h3" size="lg">
+                    <Heading as="h3" size="lg" cursor="pointer" onClick={()=>{
+                            history.push("/travelPlan/contact")
+                    }}>
                         Contact Us
                     </Heading>
                   

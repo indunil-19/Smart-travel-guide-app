@@ -196,6 +196,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
         })
          .catch((e) =>{ 
            console.log(e)
+           return  [[[]],[]]
         });
 
     }

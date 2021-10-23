@@ -19,21 +19,19 @@ export const EditPlan=()=>{
     const [plan,setPlan]=useState([[], []])
     useEffect( ()=>{ 
 
-  
-            setPlan(state.travelPlan)
-            
-       
+        setPlan(state.travelPlan)
         //  console.log(r[0][0][0].photos[0].photo_reference)
         // "wet",[],"2","buddhsism",[],["ancient", "natural", "parks"]
         // state.userPreferences.climate,state.userPreferences.provinces,state.userPreferences.days,state.userPreferences.religion,state.userPreferences.thingsLike,state.userPreferences.placesLike
+    
     } ,[state] )
 
 
     const deletePOI=(index,index1)=>{
         DeletePOI(index,index1,plan).then((res)=>{
-            console.log(res)
             dispatch({type:"set_travelPlan" , payload:{travelPlan:res}})
             setPlan(res)
+            console.log(res)
         })
     }
 

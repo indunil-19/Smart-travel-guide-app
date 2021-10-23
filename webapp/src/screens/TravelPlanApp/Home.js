@@ -78,7 +78,8 @@ const Home=()=>{
 
             <Flex flexDirection="row" maxWidth="100vw" overflowX="scroll" p={3} data-testid="tplan">
 
-                {plans && plans.map((plan , index)=>{
+                {plans && 
+                    plans.slice(0,4).map((plan , index)=>{
                         return(
                           
                                 <Flex minWidth="md"  >
