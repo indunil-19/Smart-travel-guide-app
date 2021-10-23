@@ -25,6 +25,7 @@ import { CustomPlan } from "./customPlan"
 import { TravelContext } from "../../context/TravelContext"
 import {useContext,useEffect} from "react"
 import { SwitchPois } from "./switchPois"
+import { ChangePassword } from "./changePassword"
 
 
 
@@ -48,6 +49,9 @@ const TravelPlanApp=()=>{
         <Switch >
             <Route path="/travelPlan/switchpois/:index/:index1">
                 <SwitchPois />
+            </Route>
+            <Route path="/travelPlan/changePassword">
+                <ChangePassword/>
             </Route>
             <Route path="/travelPlan/customPlan">
                 <CustomPlan/>

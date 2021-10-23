@@ -16,6 +16,7 @@ router.delete('/deleteTravelPlan',ifUserNotLoggedIn, ifTraveller, UserController
 router.post('/addReview',ifUserNotLoggedIn, ifTraveller, UserController.addReview)
 router.post('/saveTravelPlan',ifUserNotLoggedIn, ifTraveller, UserController.saveTravelPlan)
 router.post('/updateUser',ifUserNotLoggedIn,ifTraveller,UserController.updateUser)
+router.post('/updatepassword',ifUserNotLoggedIn,ifTraveller,UserController.changePasssword)
 
 
 module.exports=router;

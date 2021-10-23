@@ -62,12 +62,12 @@ class RootController{
             bcrypt.compare(password,savedUser.password)
             .then(doMatch=>{
                 if(doMatch){
-                    const {_id, firstname, lastname, email,dob,country,religion,password}=savedUser
+                    const {_id, firstname, lastname, email,dob,country,religion,password,pic}=savedUser
                     req.session.user={}
                     req.session.user.email=email;
                     req.session.user._id=_id;
                     req.session.user.type="traveller"
-                   return  res.json({message:"successfully signed in", user:{_id,firstname,lastname,email, dob, country,religion, type:"traveller"}})
+                   return  res.json({message:"successfully signed in", user:{_id,firstname,lastname,email, dob, country,religion, pic, type:"traveller"}})
                 }
                 else{
                     return res.status(422).json({error:"Invalid Email or password",})

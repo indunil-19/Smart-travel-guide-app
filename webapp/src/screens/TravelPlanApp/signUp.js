@@ -139,7 +139,7 @@ export const SignUp=()=>{
                 <InputGroup >
                     <RiLockPasswordLine/>
                     <Autocomplete style={{width:"100%" ,height:"45px", padding:"10px", margin:"15px",background:"transparent", borderRadius:"5px", color:"white", borderColor:"white", borderWidth:"2px"}}
-                         apiKey={"AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY"}
+                         apiKey={"AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA"}
                             onPlaceSelected={(place) => {
                                     setCountry(place.name)
                             }}

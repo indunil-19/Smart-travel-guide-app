@@ -76,7 +76,7 @@ export const Home=()=>{
             <Flex flexDirection="row" maxWidth="100vw" overflowX="scroll" p={3}>
 
                 {plans && 
-                    plans.map((plan , index)=>{
+                    plans.slice(0,4).map((plan , index)=>{
                         return(
                             <>
                                 <Flex minWidth="md">
