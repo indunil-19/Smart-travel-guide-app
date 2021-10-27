@@ -68,10 +68,9 @@ export function TravelPlan({ navigation }) {
   };
 
   useEffect(() => {
+    setLoading(true);
     if (state.travelPlan) {
       setLoading(false);
-      // console.log(plan.length);
-
       setPlan(state.travelPlan);
       display(state.travelPlan);
     } else {
@@ -98,6 +97,7 @@ export function TravelPlan({ navigation }) {
 
           return dataDict;
         });
+
         // Distance and Duration
         setDistanceTime((curData) => {
           var index = 0;
@@ -115,6 +115,7 @@ export function TravelPlan({ navigation }) {
         });
         setLoading(false);
         dispatch({ type: "set_travelPlan", payload: { travelPlan: r[0] } });
+        dispatch({ type: "set_editPlan", payload: { editPlan: r[0] } });
         dispatch({ type: "set_pois", payload: { allpois: r[1] } });
       });
     }
@@ -174,8 +175,12 @@ export function TravelPlan({ navigation }) {
             justifyContent: "space-around",
           }}
         >
-          <Chip icon="road-variant">{distanceTime[item.place_id][0]}</Chip>
-          <Chip icon="timer">{distanceTime[item.place_id][1]}</Chip>
+          <Chip icon="road-variant">
+            {distanceTime[item.place_id] ? distanceTime[item.place_id][0] : ""}
+          </Chip>
+          <Chip icon="timer">
+            {distanceTime[item.place_id] ? distanceTime[item.place_id][1] : ""}
+          </Chip>
         </View>
         <TouchableOpacity
           onPress={() => {
@@ -227,6 +232,7 @@ export function TravelPlan({ navigation }) {
                     icon: "map-marker",
                     label: "Route",
                     onPress: () => navigation.navigate("Travel Route"),
+                    // onPress: () => console.log(distanceTime),
                   },
                   {
                     icon: "circle-edit-outline",
