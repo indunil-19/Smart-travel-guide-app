@@ -10,10 +10,10 @@ export const NearByHotels=()=>{
     
 
     useEffect( ()=>{
-            getNearByHotels({lat:6.927079,lng:79.857750}).
+            getNearByHotels(state.accomodation_location).
             then((r)=>{
                 setData(r)
-                console.log(r)   
+                // console.log(r)   
             }); 
             
         },[state.accomodation_location] )
@@ -28,7 +28,7 @@ export const NearByHotels=()=>{
             return(
                 <>
                 
-                <PlaceCard  index={index} name={Item.name} address={Item.vicinity} photo={Item.photos ? Item.photos[0].photo_reference : "" } rating={Item.rating} place_id={Item.place_id}/>
+                <PlaceCard  index={index+1} name={Item.name} address={Item.vicinity} photo={Item.photos ? Item.photos[0].photo_reference : "" } rating={Item.rating} place_id={Item.place_id}/>
                 
                 </>
             )

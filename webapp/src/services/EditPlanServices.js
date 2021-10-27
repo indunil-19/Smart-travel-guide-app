@@ -2,13 +2,14 @@ const {Client} = require("@googlemaps/google-maps-services-js");
 
    
 export const DeletePOI=async(index, index1, travelPlan=[[[],[]] ,[]])=>{
+  console.log(index,index1)
     const client = new Client({});
     var start_location={}
     var end_location={}
     var k=0
     var l=0
     for(var i=0; i<=index;i++){
-      for (var j=0; j<travelPlan[i].length;j++){
+      for (var j=0; j<travelPlan[0][i].length;j++){
         var k=k+1
         if(i==index && j==index1){
             l=k
@@ -16,7 +17,7 @@ export const DeletePOI=async(index, index1, travelPlan=[[[],[]] ,[]])=>{
       }
     } 
     
-    console.log(index,index1,travelPlan)
+    console.log(index,index1,travelPlan,l)
     var travelDays=travelPlan[0].length
     var plan=travelPlan[0]
 
@@ -101,7 +102,8 @@ export const DeletePOI=async(index, index1, travelPlan=[[[],[]] ,[]])=>{
         }})
         .then((response) => {
           const route = response.data.routes[0];
-          travelPlan[1].pop(l-1)
+          console.log(route.legs[0])
+          travelPlan[1].splice(l-1,1)
           travelPlan[1][l-1]=route.legs[0]
          
           return travelPlan
@@ -114,7 +116,7 @@ export const DeletePOI=async(index, index1, travelPlan=[[[],[]] ,[]])=>{
 }
 
 export const DeleteDay=async(day, travelPlan)=>{
-  console.log(day)
+  // console.log(day)
   const client = new Client({});
   var start_location={}
   var end_location={}
@@ -136,14 +138,13 @@ export const DeleteDay=async(day, travelPlan)=>{
   }
 
   if(day<travelDays){
-    // travelPlan[0].splice(day-1,1)
-    start_location=travelPlan[0][day-2][travelPlan[0][day-2].length-1].geometry.location
-    console.log(travelPlan[0][day])
+    // console.log(travelPlan[0][day])
     if(travelPlan[0][day].length==0){
       travelPlan[0].splice(day-1,1)
       travelPlan[1].splice(pivot,remove_count)
       return travelPlan
     }
+    start_location=travelPlan[0][day-2][travelPlan[0][day-2].length-1].geometry.location
     end_location=travelPlan[0][day][0].geometry.location
     remove_count=travelPlan[0][day-1].length
     travelPlan[0].splice(day-1,1)
@@ -170,18 +171,13 @@ export const DeleteDay=async(day, travelPlan)=>{
          .catch((e) =>{ 
            console.log(e)
         });
-
-
-
-
   return;
-
 }
 
 
 export const findPois=async(day,travelPlan,allpois)=>{
+    // console.log(day,travelPlan,allpois)
     const client = new Client({});
-    // console.log(allpois)
     const allpoisDays=travelPlan[0].length
     const num_pois_in_day=travelPlan[0][day-1].length
     var start_location={}
@@ -203,7 +199,7 @@ export const findPois=async(day,travelPlan,allpois)=>{
     for (let i=0; i<day-1;i++){
       l+=travelPlan[0][i].length
     }
-    console.log(travelPlan[1])
+    // console.log(travelPlan[1])
 
     var remaining_time=32400
 
@@ -211,7 +207,7 @@ export const findPois=async(day,travelPlan,allpois)=>{
           remaining_time-=travelPlan[1][l+i].duration.value+3600
     }
     remaining_time-=3600
-    console.log(remaining_time)
+    // console.log(remaining_time)
 
 
     var poisRoute=new Array()
@@ -222,7 +218,7 @@ export const findPois=async(day,travelPlan,allpois)=>{
         const waypts = [];
         if(day<allpoisDays){
           if(travelPlan[0][day].length==0){
-            end_location={lat:6.927079,lng:79.857750}
+            end_location=allpois[i].geometry.location
           }
           else{
             end_location=travelPlan[0][day][0].geometry.location
@@ -231,7 +227,7 @@ export const findPois=async(day,travelPlan,allpois)=>{
         }else{
           end_location=allpois[i].geometry.location
         }
-        
+      // console.log(start_location,end_location)
       client
       .directions({params:{
           
@@ -284,22 +280,47 @@ export const findPois=async(day,travelPlan,allpois)=>{
 
 
 export const addPoiToPlan=async(day,poi, route,travelPlan)=>{
+  
   var pivot=0
-  for(let i=0;i<day-1;i++){
+  for(let i=0;i<=day-1;i++){
     pivot+=travelPlan[0][i].length
   }
-  travelPlan[0][day-1].push(poi)
+  
+
   if(Array.isArray(route)){
+    
     if(route.length==1){
       travelPlan[1].splice(pivot+1, 0, route[0])
     }
+    // else if(travelPlan[0][day-1].length==0){
+    //   console.log("shshshs")
+    //   travelPlan[1].splice(0, 1)
+    //   travelPlan[1].splice(0, 0, route[0])
+    //   travelPlan[1].splice(1, 0, route[1])
+    // }
     else{
-      travelPlan[1].splice(pivot+1, 1)
-      travelPlan[1].splice(pivot+1, 0, route[0],route[1])
+      travelPlan[1].splice(pivot, 1,route[0],route[1])
+      // travelPlan[1].splice(pivot, 0, )
+      // travelPlan[1].splice(pivot+1, 0, )
     } 
+  }
+  travelPlan[0][day-1].push(poi)
+
+  var k=0;
+  for(let i=0;i<travelPlan[0].length;i++){
+    for(let j=0;j<travelPlan[0][i].length;j++){
+      k+=1;
+    }
+  }
+  if(travelPlan[1].length !=k){
+    travelPlan[1].pop()
   }
   // else{
   //   travelPlan[1].splice(pivot+1, 0, route)
+  // }
+  // console.log(day)
+  // if(day==1){
+  //   travelPlan[1].splice(0,1)
   // }
   
   return travelPlan
@@ -382,8 +403,6 @@ export const switchPOI=async(index, index1, travelPlan=[[[],[]] ,[]],allpois)=>{
      if(index1==plan[index].length-1){
 
       console.log("7")
-      // travelPlan[0][index].splice(index1,1)
-      // travelPlan[1].pop(l-1)
       return findPois(index+1,travelPlan,allpois)
      }
      else if (index1<plan[index].length-1){
@@ -474,7 +493,7 @@ export const addPoiToPlan1=async(index,index1,poi, route,travelPlan)=>{
   var k=0
   var l=0
   for(var i=0; i<=index;i++){
-    for (var j=0; j<travelPlan[i].length;j++){
+    for (var j=0; j<travelPlan[0][i].length;j++){
       var k=k+1
       if(i==index && j==index1){
           l=k
@@ -486,13 +505,13 @@ export const addPoiToPlan1=async(index,index1,poi, route,travelPlan)=>{
   travelPlan[0][index][index1]=poi;
   if(Array.isArray(route)){
     if(route.length==1){
-      travelPlan[1].splice(l, 1)
-      travelPlan[1].splice(l, 0, route[0])
+      travelPlan[1].splice(l-1, 1)
+      travelPlan[1].splice(l-1, 0, route[0])
     }
     else{
-      travelPlan[1].splice(l, 1)
-      travelPlan[1].splice(l, 1)
-      travelPlan[1].splice(l, 0, route[0],route[1])
+      travelPlan[1].splice(l-1, 1)
+      travelPlan[1].splice(l-1, 1)
+      travelPlan[1].splice(l-1, 0, route[0],route[1])
     } 
   }
   // else{

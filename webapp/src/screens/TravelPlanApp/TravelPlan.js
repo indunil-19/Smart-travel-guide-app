@@ -18,6 +18,7 @@ export const TravelPlan=()=>{
     const {state, dispatch}=useContext(TravelContext)
     const [isloading,setLoading]=useState(false)
     const [plan,setPlan]=useState([[], []])
+    
     useEffect( ()=>{ 
 
         if(state.travelPlan){
@@ -27,20 +28,20 @@ export const TravelPlan=()=>{
             
         }
         else{
-            // setLoading(false)
-         getTravelPlan("wet",[],"2","buddhsism",[],["ancient", "natural", "parks"]).then((r)=>{
-         console.log(r[0])
-         setPlan(r[0])
-         setLoading(true)
-         dispatch({type:"set_travelPlan" , payload:{travelPlan:r[0]}})
-         dispatch({type:"set_pois" , payload:{allpois:r[1]}})
+        //  console.log("44")
+        //  getTravelPlan("wet",[],"2","buddhsism",[],["ancient", "natural", "parks"]).then((r)=>{
+        //  console.log(r[0])
+        //  setPlan(r[0])
+        //  setLoading(true)
+         dispatch({type:"set_travelPlan" , payload:{travelPlan:[[[]],[]]}})
+         dispatch({type:"set_pois" , payload:{allpois:[]}})
          
          
         //  console.log(r[0][0][0].photos[0].photo_reference)
         // "wet",[],"2","buddhsism",[],["ancient", "natural", "parks"]
         // state.userPreferences.climate,state.userPreferences.provinces,state.userPreferences.days,state.userPreferences.religion,state.userPreferences.thingsLike,state.userPreferences.placesLike
   
-    })
+    // })
 }
  } ,[state] )
     var i=0;
@@ -146,7 +147,7 @@ export const TravelPlan=()=>{
                 </>
 
 
-         {!isloading? 
+         {/* {!isloading? 
                 <Flex justifyContent="center" alignItems="center">
                 <Spinner
                 thickness="7px"
@@ -157,7 +158,7 @@ export const TravelPlan=()=>{
                 width="300px"
                 height="300px"
                 
-                /> </Flex>:
+                /> </Flex>: */}
 
          <Tabs variant="soft-rounded" colorScheme="teal">
          <Flex alignItems="center" flexDirection="column" boxShadow="lg">
@@ -202,6 +203,15 @@ export const TravelPlan=()=>{
                             })
                         }
                            <Button colorScheme="teal" variant="solid" m={15} width="50%" onClick={()=>{
+                                            if(Item.length==0){
+                                                    toast({
+                                                        title:"add places before find accomodations",
+                                                        duration:4000,
+                                                        status:"error",
+                                                        isClosable:true
+                                                    })
+                                                    return
+                                            }
                                             dispatch({type:"accomodation_location", payload:{
                                                 accomodation_location:accomodation
                                             }})
@@ -255,7 +265,7 @@ export const TravelPlan=()=>{
         </TabPanels>
         </Tabs>
 
-        }
+        {/* } */}
 
          
         </>

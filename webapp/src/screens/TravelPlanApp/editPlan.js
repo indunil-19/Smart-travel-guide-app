@@ -32,14 +32,18 @@ export const EditPlan=()=>{
             dispatch({type:"set_travelPlan" , payload:{travelPlan:res}})
             setPlan(res)
             console.log(res)
+        }).catch(e=>{
+            console.log(e)
         })
     }
 
     const deleteDay=(day)=>{
-            DeleteDay(day,plan).then((res)=>{
+        DeleteDay(day,plan).then((res)=>{
                 console.log(res)
                 dispatch({type:"set_travelPlan" , payload:{travelPlan:res}})
                 setPlan(res)
+            }).catch(e=>{
+                console.log(e)
             })
     }
     const AddADay=()=>{
@@ -47,6 +51,8 @@ export const EditPlan=()=>{
             console.log(res)
             dispatch({type:"set_travelPlan" , payload:{travelPlan:res}})
             setPlan(res)
+        }).catch(e=>{
+            console.log(e)
         })
     }
     var i=0;
@@ -133,6 +139,15 @@ export const EditPlan=()=>{
 
 
                            <Button colorScheme="teal" variant="solid" m={15} width="50%" onClick={()=>{
+                                                if(Item.length==0){
+                                                        toast({
+                                                            title:"add places before find accomodations",
+                                                            duration:4000,
+                                                            status:"error",
+                                                            isClosable:true
+                                                        })
+                                                        return
+                                                }
                                             dispatch({type:"accomodation_location", payload:{
                                                 accomodation_location:accomodation
                                             }})

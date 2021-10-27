@@ -63,35 +63,8 @@ export const UserPreferences=()=>{
         
         <Box alignItems="center" padding="50">
 
-
-
-
         <Box maxW="60%" borderWidth="1px" borderRadius="lg" overflow="hidden" m="auto" padding="25" boxShadow="dark-lg" display={q1}>
-                <Heading>1.Climate Condition would you expect while travelling?</Heading>
-                <Box pt={10} pb={10}>
-                <RadioGroup onChange={setClimate} value={climate}>
-                <Stack spacing={6} >
-                    <Radio value="dry">Dry</Radio>
-                    <Radio value="wet">Wet</Radio>
-                    <Radio value="intermediate">Intermediate</Radio>
-                </Stack>
-                </RadioGroup>
-                </Box>
-
-                <HStack justifyContent="">
-                {/* <Button colorScheme="teal" variant="outline">
-                    
-                </Button> */}
-                <Button colorScheme="teal" variant="outline" onClick={() => {setQ1("none"); setQ2("block")}} >
-                    Next
-                </Button>
-                </HStack >
-
-        </Box>
-
-
-        <Box maxW="60%" borderWidth="1px" borderRadius="lg" overflow="hidden" m="auto" padding="25" boxShadow="dark-lg" display={q2}>
-                <Heading>2.Select at most 3 Provinces you like to visit in Sri Lanka?</Heading>
+                <Heading>1.Select at most 3 Provinces you like to visit in Sri Lanka?</Heading>
                 <Link to="/travelPlan/provinces"><Text color="blue" textDecoration="underline">refer informations about provinces</Text></Link>
                 <Box pt={10} pb={10}>
                 <CheckboxGroup colorScheme="green" onChange={(e)=>setProvinces(e)} >
@@ -113,9 +86,7 @@ export const UserPreferences=()=>{
                 </Box>
 
                 <HStack justifyContent="space-between">
-                <Button colorScheme="teal" variant="outline" onClick={() => {setQ1("block"); setQ2("none")}}>
-                    Previous
-                </Button>
+                
                 <Button colorScheme="teal" variant="outline" onClick={() => {
                     if(provinces.length>=4) {
                             setAleartHeader("Selecet Provinces")
@@ -123,12 +94,43 @@ export const UserPreferences=()=>{
                             setIsOpen(true)
                             return;
                     }
-                    setQ2("none"); setQ3("block")}} >
+                    setQ1("none"); setQ2("block")}} >
                     Next
                 </Button>
                 </HStack >
 
         </Box>
+
+
+        <Box maxW="60%" borderWidth="1px" borderRadius="lg" overflow="hidden" m="auto" padding="25" boxShadow="dark-lg" display={q2}>
+                <Heading>2.Climate Condition would you expect while travelling?</Heading>
+                <Box pt={10} pb={10}>
+                <RadioGroup onChange={setClimate} value={climate}>
+                <Stack spacing={6} >
+                    <Radio value="dry">Dry</Radio>
+                    <Radio value="wet">Wet</Radio>
+                    <Radio value="intermediate">Intermediate</Radio>
+                </Stack>
+                </RadioGroup>
+                </Box>
+
+                <HStack justifyContent="space-between">
+                {/* <Button colorScheme="teal" variant="outline">
+                   
+                </Button> */}
+                <Button colorScheme="teal" variant="outline" onClick={() => {setQ1("block"); setQ2("none")}}>
+                    Previous
+                </Button>
+
+                <Button colorScheme="teal" variant="outline" onClick={() => {setQ2("none"); setQ3("block")}} >
+                    Next
+                </Button>
+                </HStack >
+
+        </Box>
+
+
+        
 
 
 
