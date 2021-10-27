@@ -29,7 +29,7 @@ export const AddPlace = ({ route, navigation }) => {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    findPois(day, state.travelPlan, state.allpois).then((res) => {
+    findPois(day, state.editPlan, state.allpois).then((res) => {
       //   console.log(res);
       setPois(res[0]);
       setTravelRoute(res[1]);
@@ -38,22 +38,25 @@ export const AddPlace = ({ route, navigation }) => {
   }, [state]);
 
   const addPoi = (day, poi, travelRoute) => {
-    addPoiToPlan(day, poi, travelRoute, state.travelPlan).then((res) => {
-      console.log(res);
-      dispatch({ type: "set_travelPlan", payload: { travelPlan: res } });
-      navigation.pop();
+    addPoiToPlan(day, poi, travelRoute, state.editPlan).then((res) => {
+      // console.log(res);
+      dispatch({ type: "set_editPlan", payload: { editPlan: res } });
     });
     // navigation.pop();
   };
 
-  const renderLocationCard = (pois) => {
+  const renderLocationsCard = (pois) => {
     return (
       <FlatList
         data={pois}
         ListHeaderComponent={
-          <Title style={{ color: theme.colors.primary, alignItems: "center" }}>
-            ADD A PLACE
-          </Title>
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
+            <Title
+              style={{ color: theme.colors.primary, alignItems: "center" }}
+            >
+              ADD A PLACE
+            </Title>
+          </View>
         }
         initialNumToRender={10}
         keyExtractor={({ item, index }) => index}
@@ -73,6 +76,7 @@ export const AddPlace = ({ route, navigation }) => {
               icon="plus"
               onPress={() => {
                 addPoi(day, item, travelRoute[index]);
+                navigation.pop();
               }}
               style={styles.fab}
             />
@@ -84,7 +88,11 @@ export const AddPlace = ({ route, navigation }) => {
 
   return (
     <View
-      style={{ flex: 1, flexDirection: "column", justifyContent: "flex-end" }}
+      style={{
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "flex-end",
+      }}
     >
       <Pressable
         style={[StyleSheet.absoluteFill]}
@@ -98,6 +106,10 @@ export const AddPlace = ({ route, navigation }) => {
           justifyContent: "space-evenly",
           alignItems: pois.length == 0 ? "center" : "stretch",
           paddingHorizontal: 10,
+          paddingTop: 10,
+          height: "70%",
+          borderTopEndRadius: 20,
+          borderTopStartRadius: 20,
         }}
       >
         {isLoading && (
@@ -137,7 +149,9 @@ export const AddPlace = ({ route, navigation }) => {
               </>
             )}
             {pois.length != 0 && (
-              <View styles={{ width: "100%" }}>{renderLocationCard(pois)}</View>
+              <View styles={{ width: "100%" }}>
+                {renderLocationsCard(pois)}
+              </View>
             )}
           </>
         )}

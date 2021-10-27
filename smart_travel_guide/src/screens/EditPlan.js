@@ -35,36 +35,45 @@ export const EditPlan = ({ navigation }) => {
   const [distanceTime, setDistanceTime] = useState({});
 
   useEffect(() => {
-    setPlan(state.travelPlan);
-    display(state.travelPlan);
+    setPlan(state.editPlan);
+    display(state.editPlan);
     setLoading(false);
-    console.log("hi");
   }, [state]);
 
   //* Delete a Day
   const deleteDay = (day) => {
-    // DeleteDay(day, plan).then((res) => {
-    //   dispatch({ type: "set_travelPlan", payload: { travelPlan: res } });
-    //   setPlan(res);
-    // });
-    console.log(distanceTime);
+    DeleteDay(day, plan)
+      .then((res) => {
+        dispatch({ type: "set_editPlan", payload: { editPlan: res } });
+        setPlan(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   //* Delete a Point of interest
   const deletePOI = (index, index1) => {
-    console.log(state.travelPlan[0].length);
-    DeletePOI(index, index1, plan).then((res) => {
-      dispatch({ type: "set_travelPlan", payload: { travelPlan: res } });
-      setPlan(res);
-    });
+    DeletePOI(index, index1, plan)
+      .then((res) => {
+        dispatch({ type: "set_editPlan", payload: { editPlan: res } });
+        setPlan(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   //* Add a Day to the plan
   const addDay = () => {
-    AddDay(plan).then((res) => {
-      dispatch({ type: "set_travelPlan", payload: { travelPlan: res } });
-      setPlan(res);
-    });
+    AddDay(plan)
+      .then((res) => {
+        dispatch({ type: "set_editPlan", payload: { editPlan: res } });
+        setPlan(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   //* Rendering display data (Section list data and Distance-Time data)
@@ -147,7 +156,6 @@ export const EditPlan = ({ navigation }) => {
                 size={22}
                 style={{ margin: 0, padding: 0 }}
                 onPress={() => {
-                  setLoading(true);
                   navigation.navigate("Add Place", {
                     day: title,
                   });
@@ -178,7 +186,6 @@ export const EditPlan = ({ navigation }) => {
                           " first to continue.",
                       });
                     } else {
-                      setLoading(true);
                       navigation.navigate("Add Place", { day: title });
                     }
                   }}
