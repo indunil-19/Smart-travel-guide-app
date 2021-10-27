@@ -65,6 +65,7 @@ export const getTravelPlan = async (
           //
           key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
           rating: 4,
+          componentRestrictions: { country: "LK" },
         };
         reqArr.push(req);
       });
@@ -78,6 +79,7 @@ export const getTravelPlan = async (
             // rankBy :google.maps.places.RankBy.DISTANCE,
             key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
             rating: 4,
+            componentRestrictions: { country: "LK" },
           };
           reqArr.push(req);
         } else {
@@ -89,6 +91,7 @@ export const getTravelPlan = async (
             // rankBy :google.maps.places.RankBy.DISTANCE,
             key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
             rating: 4,
+            componentRestrictions: { country: "LK" },
           };
           reqArr.push(req);
         }
@@ -188,6 +191,7 @@ export const getTravelPlan = async (
       })
       .catch((e) => {
         console.log(e);
+        return [[[]], []];
       });
   }
 };
@@ -235,6 +239,5 @@ export const calculateAndDisplayRoute = async (pois) => {
     })
     .catch((e) => {
       console.log(e);
-      return [[[]], []];
     });
 };
