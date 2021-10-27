@@ -11,12 +11,14 @@ import {
   Provider,
 } from "react-native-paper";
 import {
+  Text,
   SafeAreaView,
   View,
   StyleSheet,
   SectionList,
   TouchableOpacity,
   Alert,
+  ScrollView,
 } from "react-native";
 import { AppContext } from "../context/AppContext";
 import { DeletePOI, DeleteDay, AddDay } from "../services/EditPlanServices";
@@ -36,22 +38,30 @@ export const EditPlan = ({ navigation }) => {
     setPlan(state.travelPlan);
     display(state.travelPlan);
     setLoading(false);
+    console.log("hi");
   }, [state]);
 
   //* Delete a Day
   const deleteDay = (day) => {
-    //
-    DeleteDay(day, plan).then((res) => {
-      console.log(res);
+    // DeleteDay(day, plan).then((res) => {
+    //   dispatch({ type: "set_travelPlan", payload: { travelPlan: res } });
+    //   setPlan(res);
+    // });
+    console.log(distanceTime);
+  };
+
+  //* Delete a Point of interest
+  const deletePOI = (index, index1) => {
+    console.log(state.travelPlan[0].length);
+    DeletePOI(index, index1, plan).then((res) => {
       dispatch({ type: "set_travelPlan", payload: { travelPlan: res } });
       setPlan(res);
     });
   };
 
-  //*Delete a Point of interest
-  const deletePOI = (index, index1) => {
-    DeletePOI(index, index1, plan).then((res) => {
-      console.log(res);
+  //* Add a Day to the plan
+  const addDay = () => {
+    AddDay(plan).then((res) => {
       dispatch({ type: "set_travelPlan", payload: { travelPlan: res } });
       setPlan(res);
     });
@@ -94,8 +104,12 @@ export const EditPlan = ({ navigation }) => {
             justifyContent: "space-around",
           }}
         >
-          <Chip icon="road-variant">{distanceTime[item.place_id][0]}</Chip>
-          <Chip icon="timer">{distanceTime[item.place_id][1]}</Chip>
+          <Chip icon="road-variant">
+            {distanceTime[item.place_id] ? distanceTime[item.place_id][0] : ""}
+          </Chip>
+          <Chip icon="timer">
+            {distanceTime[item.place_id] ? distanceTime[item.place_id][1] : ""}
+          </Chip>
         </View>
         <FAB
           small
@@ -117,7 +131,7 @@ export const EditPlan = ({ navigation }) => {
       </>
     );
   };
-  const renderHeader = (title) => {
+  const renderDayHeader = (title) => {
     return (
       <>
         {title == 1 ? (
@@ -126,6 +140,20 @@ export const EditPlan = ({ navigation }) => {
             icon="calendar"
             label={"Day " + title}
             active={false}
+            right={() => (
+              <IconButton
+                icon="plus-circle-outline"
+                color="black"
+                size={22}
+                style={{ margin: 0, padding: 0 }}
+                onPress={() => {
+                  setLoading(true);
+                  navigation.navigate("Add Place", {
+                    day: title,
+                  });
+                }}
+              />
+            )}
           />
         ) : (
           <Drawer.Item
@@ -134,16 +162,48 @@ export const EditPlan = ({ navigation }) => {
             label={"Day " + title}
             active={false}
             right={() => (
-              <IconButton
-                icon="delete"
-                color="red"
-                size={22}
-                style={{ margin: 0, padding: 0 }}
-                onPress={() => deleteDay(title)}
-              />
+              <>
+                <IconButton
+                  icon="plus-circle-outline"
+                  color="black"
+                  size={22}
+                  style={{ margin: 0, padding: 0 }}
+                  onPress={() => {
+                    if (plan[0][title - 2].length == 0) {
+                      navigation.navigate("Add Place", {
+                        day: title,
+                        message:
+                          "Add places to day " +
+                          (title - 1) +
+                          " first to continue.",
+                      });
+                    } else {
+                      setLoading(true);
+                      navigation.navigate("Add Place", { day: title });
+                    }
+                  }}
+                />
+                <IconButton
+                  icon="delete"
+                  color="red"
+                  size={22}
+                  style={{ margin: 0, padding: 0 }}
+                  onPress={() => deleteDay(title)}
+                />
+              </>
             )}
           />
         )}
+      </>
+    );
+  };
+  const renderFooter = () => {
+    return (
+      <>
+        <Button style={{ alignItems: "center" }} onPress={() => addDay()}>
+          Add a day
+        </Button>
+        <Text>Destination Colombo</Text>
       </>
     );
   };
@@ -165,8 +225,10 @@ export const EditPlan = ({ navigation }) => {
               initialNumToRender={2}
               stickySectionHeadersEnabled={true}
               renderSectionHeader={({ section: { title } }) =>
-                renderHeader(title)
+                renderDayHeader(title)
               }
+              ListHeaderComponent={<Text> Starting from colombo</Text>}
+              ListFooterComponent={renderFooter()}
             />
           </>
         )}

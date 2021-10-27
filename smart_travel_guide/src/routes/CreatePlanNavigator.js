@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+// import { TransitionPresets } from "@react-navigation/stack";
 
 import PreferenceSelection from "../screens/PreferenceSelection";
 import { TravelPlan } from "../screens/TravelPlan";
@@ -10,6 +11,7 @@ import { Dashboard } from "../screens/Dashboard";
 import { ProfileScreen } from "../screens/profile";
 import { UpdateProfile } from "../screens/updateProfile";
 import { EditPlan } from "../screens/EditPlan";
+import { AddPlace } from "../screens/AddPlace";
 
 import { HeaderAvatar } from "../components/HeaderAvatar";
 
@@ -27,10 +29,10 @@ export const CreatePlanNavigator = () => {
         },
       }}
     >
-      {/* <Stack.Screen name="Dashboard" component={Dashboard} />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
-      <Stack.Screen name="Edit Profile" component={UpdateProfile} />
-      <Stack.Screen name="Create New Plan" component={PreferenceSelection} /> */}
+      {/* <Stack.Screen name="Dashboard" component={Dashboard} /> */}
+      {/* <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="Edit Profile" component={UpdateProfile} /> */}
+      {/* <Stack.Screen name="Create New Plan" component={PreferenceSelection} /> */}
       <Stack.Screen
         name="Travel Plan"
         component={TravelPlan}
@@ -38,6 +40,7 @@ export const CreatePlanNavigator = () => {
       />
       <Stack.Screen name="Travel Route" component={Route} />
       <Stack.Screen name="Edit Plan" component={EditPlan} />
+      <Stack.Screen name="Add Place" component={AddPlace} />
       <Stack.Screen
         name="Location Detail"
         component={LocationDetail}
