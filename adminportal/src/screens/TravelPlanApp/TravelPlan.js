@@ -22,6 +22,7 @@ import {
   Tab,
   TabPanel,
   useToast,
+  Spinner,
 } from "@chakra-ui/react";
 import { IoLocationSharp } from "react-icons/io5";
 import { MdDriveEta } from "react-icons/md";
@@ -45,29 +46,26 @@ export const TravelPlan = () => {
   const { state, dispatch } = useContext(TravelContext);
   const [isloading, setLoading] = useState(false);
   const [plan, setPlan] = useState([[], []]);
+
   useEffect(() => {
     if (state.travelPlan) {
       setLoading(true);
       setPlan(state.travelPlan);
+      console.log(state.travelPlan);
     } else {
-      getTravelPlan(
-        "wet",
-        [],
-        "2",
-        "buddhsism",
-        [],
-        ["ancient", "natural", "parks"]
-      ).then((r) => {
-        console.log(r[0]);
-        setPlan(r[0]);
-        setLoading(true);
-        dispatch({ type: "set_travelPlan", payload: { travelPlan: r[0] } });
-        dispatch({ type: "set_pois", payload: { allpois: r[1] } });
+      //  console.log("44")
+      //  getTravelPlan("wet",[],"2","buddhsism",[],["ancient", "natural", "parks"]).then((r)=>{
+      //  console.log(r[0])
+      //  setPlan(r[0])
+      //  setLoading(true)
+      dispatch({ type: "set_travelPlan", payload: { travelPlan: [[[]], []] } });
+      dispatch({ type: "set_pois", payload: { allpois: [] } });
 
-        //  console.log(r[0][0][0].photos[0].photo_reference)
-        // "wet",[],"2","buddhsism",[],["ancient", "natural", "parks"]
-        // state.userPreferences.climate,state.userPreferences.provinces,state.userPreferences.days,state.userPreferences.religion,state.userPreferences.thingsLike,state.userPreferences.placesLike
-      });
+      //  console.log(r[0][0][0].photos[0].photo_reference)
+      // "wet",[],"2","buddhsism",[],["ancient", "natural", "parks"]
+      // state.userPreferences.climate,state.userPreferences.provinces,state.userPreferences.days,state.userPreferences.religion,state.userPreferences.thingsLike,state.userPreferences.placesLike
+
+      // })
     }
   }, [state]);
   var i = 0;
@@ -176,136 +174,153 @@ export const TravelPlan = () => {
         </AlertDialog>
       </>
 
-      <Skeleton isLoaded={isloading}>
-        <Tabs variant="soft-rounded" colorScheme="teal">
-          <Flex alignItems="center" flexDirection="column" boxShadow="lg">
-            <Image
-              src="https://www.thexpressng.com/wp-content/uploads/2019/03/SriLanka_Slider.jpg"
-              alt="Segun Adebayo"
-              height="400px"
-              width="100%"
-              objectFit="cover"
-            />
-            <Heading
-              marginTop="-350px"
-              boxShadow="dark-lg"
-              borderRadius="5px"
-              padding="10px"
-              marginBottom="300px"
-            >
-              {plan[0].length} Day Trip in{" "}
-            </Heading>
-            <Stack direction="row" spacing={4} align="center">
-              <TabList m="5px">
-                <Tab>Travel Plan</Tab>
-                <Tab>Travel Route</Tab>
-              </TabList>
-            </Stack>
-          </Flex>
+      {/* {!isloading? 
+                <Flex justifyContent="center" alignItems="center">
+                <Spinner
+                thickness="7px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.500"
+                size="xl"
+                width="300px"
+                height="300px"
+                
+                /> </Flex>: */}
 
-          <TabPanels>
-            <TabPanel>
-              <Flex flexDirection="column" alignItems="center">
-                <HStack>
-                  <IoLocationSharp /> <Badge size="15">9.00 a.m</Badge>{" "}
-                  <Text fontSize="3xl">Start from colombo</Text>
-                </HStack>
+      <Tabs variant="soft-rounded" colorScheme="teal">
+        <Flex alignItems="center" flexDirection="column" boxShadow="lg">
+          <Image
+            src="https://www.thexpressng.com/wp-content/uploads/2019/03/SriLanka_Slider.jpg"
+            height="400px"
+            width="100%"
+            objectFit="cover"
+          />
+          <Heading
+            marginTop="-350px"
+            boxShadow="dark-lg"
+            borderRadius="5px"
+            padding="10px"
+            marginBottom="300px"
+          >
+            {plan[0].length} Day Trip in{" "}
+          </Heading>
+          <Stack direction="row" spacing={4} align="center">
+            <TabList m="5px">
+              <Tab>Travel Plan</Tab>
+              <Tab>Travel Route</Tab>
+            </TabList>
+          </Stack>
+        </Flex>
 
-                <>
-                  {plan[0] &&
-                    plan[0].map((Item = [], index) => {
-                      return (
-                        <>
-                          <Box
-                            color="white"
-                            backgroundColor="black"
-                            padding={3}
-                          >
-                            Day {index + 1}
-                          </Box>
-                          {Item.map((subItem, index) => {
-                            i = i + 1;
-                            accomodation = subItem.geometry.location;
-                            return (
-                              <>
-                                <Card
-                                  name={subItem.name}
-                                  photo={subItem.photos[0].photo_reference}
-                                  address={subItem.formatted_address}
-                                  rating={subItem.rating}
-                                  index={i}
-                                  distance={plan[1][i - 1].distance.text}
-                                  duration={plan[1][i - 1].duration.text}
-                                  place_id={subItem.place_id}
-                                />
-                              </>
-                            );
-                          })}
-                          <Button
-                            colorScheme="teal"
-                            variant="solid"
-                            m={15}
-                            width="50%"
-                            onClick={() => {
-                              dispatch({
-                                type: "accomodation_location",
-                                payload: {
-                                  accomodation_location: accomodation,
-                                },
+        <TabPanels>
+          <TabPanel>
+            <Flex flexDirection="column" alignItems="center">
+              <HStack>
+                <IoLocationSharp /> <Badge size="15">9.00 a.m</Badge>{" "}
+                <Text fontSize="3xl">Start from colombo</Text>
+              </HStack>
+
+              <>
+                {plan[0] &&
+                  plan[0].map((Item = [], index) => {
+                    return (
+                      <>
+                        <Box color="white" backgroundColor="black" padding={3}>
+                          Day {index + 1}
+                        </Box>
+                        {Item.map((subItem, index) => {
+                          i = i + 1;
+                          accomodation = subItem.geometry.location;
+                          return (
+                            <>
+                              <Card
+                                name={subItem.name}
+                                photo={subItem.photos[0].photo_reference}
+                                address={subItem.formatted_address}
+                                rating={subItem.rating}
+                                index={i}
+                                distance={plan[1][i - 1].distance.text}
+                                duration={plan[1][i - 1].duration.text}
+                                place_id={subItem.place_id}
+                              />
+                            </>
+                          );
+                        })}
+                        <Button
+                          colorScheme="teal"
+                          variant="solid"
+                          m={15}
+                          width="50%"
+                          onClick={() => {
+                            if (Item.length == 0) {
+                              toast({
+                                title: "add places before find accomodations",
+                                duration: 4000,
+                                status: "error",
+                                isClosable: true,
                               });
-                              history.push("/travelPlan/nearbyhotels");
-                            }}
-                          >
-                            Find Accomodations
-                          </Button>
-                          <Divider orientation="horizontal" mb={2} />
-                        </>
-                      );
-                    })}
-                </>
+                              return;
+                            }
+                            dispatch({
+                              type: "accomodation_location",
+                              payload: {
+                                accomodation_location: accomodation,
+                              },
+                            });
+                            history.push("/travelPlan/nearbyhotels");
+                          }}
+                        >
+                          Find Accomodations
+                        </Button>
+                        <Divider orientation="horizontal" mb={2} />
+                      </>
+                    );
+                  })}
+              </>
 
-                <HStack>
-                  <IoLocationSharp /> <Badge size="15">6.00 p.m</Badge>{" "}
-                  <Text fontSize="3xl">
-                    End -{" "}
-                    {plan[1].length
-                      ? plan[1][plan[1].length - 1].end_address
-                      : ""}
-                  </Text>
-                </HStack>
-              </Flex>
+              <HStack>
+                <IoLocationSharp /> <Badge size="15">6.00 p.m</Badge>{" "}
+                <Text fontSize="3xl">
+                  End -{" "}
+                  {plan[1].length
+                    ? plan[1][plan[1].length - 1].end_address
+                    : ""}
+                </Text>
+              </HStack>
+            </Flex>
 
-              <VStack position="fixed" bottom="0" right="0" p={3}>
-                <Button
-                  colorScheme="teal"
-                  size="lg"
-                  borderRadius="50%"
-                  onClick={() => {
-                    history.push("/travelPlan/editPlan");
-                  }}
-                >
-                  <FiEdit />
-                </Button>
+            <VStack position="fixed" bottom="0" right="0" p={3}>
+              <Button
+                colorScheme="teal"
+                size="lg"
+                borderRadius="50%"
+                onClick={() => {
+                  history.push("/travelPlan/editPlan");
+                }}
+              >
+                <FiEdit />
+              </Button>
 
-                <Button
-                  colorScheme="teal"
-                  size="lg"
-                  borderRadius="50%"
-                  onClick={() => {
-                    setIsOpen(true);
-                  }}
-                >
-                  <FiSave />
-                </Button>
-              </VStack>
-            </TabPanel>
+              <Button
+                colorScheme="teal"
+                size="lg"
+                borderRadius="50%"
+                onClick={() => {
+                  setIsOpen(true);
+                }}
+              >
+                <FiSave />
+              </Button>
+            </VStack>
+          </TabPanel>
 
-            <TabPanel>
-              <Route />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      </Skeleton>
+          <TabPanel>
+            <Route />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+
+      {/* } */}
     </>
   );
 };
@@ -332,6 +347,7 @@ const Card = ({
           <Badge size="15">{duration}</Badge>
         </VStack>
       </HStack>
+
       <PlaceCard
         photo={photo}
         index={index}
@@ -405,7 +421,7 @@ const Route = () => {
         boxShadow="dark-lg"
       >
         <MapWrapped
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyCB9FiwGVeEmdfBAwxiQpPuz0fsDMiwPWY`}
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}
