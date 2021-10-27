@@ -44,6 +44,8 @@ export const reducer = (state, action) => {
         ...state,
         travelPlan: action.payload.travelPlan,
       };
+    case "set_editPlan":
+      return { ...state, editPlan: action.payload.editPlan };
     case "set_pois":
       return {
         ...state,
