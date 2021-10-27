@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-// import { TransitionPresets } from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
+import { TransitionPresets } from "@react-navigation/stack";
 
 import PreferenceSelection from "../screens/PreferenceSelection";
 import { TravelPlan } from "../screens/TravelPlan";
@@ -17,7 +17,7 @@ import { HeaderAvatar } from "../components/HeaderAvatar";
 
 import { theme } from "../core/theme";
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 export const CreatePlanNavigator = () => {
   return (
@@ -40,7 +40,16 @@ export const CreatePlanNavigator = () => {
       />
       <Stack.Screen name="Travel Route" component={Route} />
       <Stack.Screen name="Edit Plan" component={EditPlan} />
-      <Stack.Screen name="Add Place" component={AddPlace} />
+      <Stack.Screen
+        name="Add Place"
+        component={AddPlace}
+        options={{
+          presentation: "transparentModal",
+          headerShown: false,
+          cardOverlayEnabled: true,
+          ...TransitionPresets.ModalPresentationIOS,
+        }}
+      />
       <Stack.Screen
         name="Location Detail"
         component={LocationDetail}
