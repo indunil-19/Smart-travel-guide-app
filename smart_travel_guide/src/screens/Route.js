@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     padding: 10,
     maxWidth: 120,
     alignItems: "center",
+    borderRadius: 20,
   },
   image: {
     borderRadius: 10,
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
 
 const CompactLocationInfo = ({ name, imgRef }) => {
   return (
-    <View style={styles.item}>
+    <View style={styles.item} key={imgRef}>
       <WebView
         style={styles.image}
         source={{

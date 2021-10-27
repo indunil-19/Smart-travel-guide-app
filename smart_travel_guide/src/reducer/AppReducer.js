@@ -34,10 +34,25 @@ export const reducer = (state, action) => {
         ...state,
         userPreferences: action.payload.userPreferences,
       };
+    case "accomodation_location":
+      return {
+        ...state,
+        accomodation_location: action.payload.accomodation_location,
+      };
     case "set_travelPlan":
       return {
         ...state,
         travelPlan: action.payload.travelPlan,
+      };
+    case "set_pois":
+      return {
+        ...state,
+        allpois: action.payload.allpois,
+      };
+    case "set_planId":
+      return {
+        ...state,
+        planId: action.payload.planId,
       };
     default:
       return state;

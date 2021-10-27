@@ -1,6 +1,6 @@
 const { Client } = require("@googlemaps/google-maps-services-js");
 
-export const DeletePOI = async (index, index1, travelPlan = [[[], []], []]) => {
+export const DeletePOI = async (index, index1, travelPlan) => {
   const client = new Client({});
   var start_location = {};
   var end_location = {};
@@ -15,17 +15,17 @@ export const DeletePOI = async (index, index1, travelPlan = [[[], []], []]) => {
     }
   }
 
-  console.log(index, index1, travelPlan);
+  // console.log(index, index1, travelPlan);
   var travelDays = travelPlan[0].length;
   var plan = travelPlan[0];
 
   if (index > 0) {
     if (index1 > 0) {
-      console.log("1");
+      // console.log("1");
       start_location = plan[index][index1 - 1].geometry.location;
       // travelPlan[0][index].pop(index1)
     } else if (index1 == 0) {
-      console.log("2");
+      // console.log("2");
       if (plan[index - 1].length == 0) {
         start_location = { lat: 6.927079, lng: 79.85775 };
       } else {
@@ -40,7 +40,7 @@ export const DeletePOI = async (index, index1, travelPlan = [[[], []], []]) => {
       start_location = { lat: 6.927079, lng: 79.85775 };
       // travelPlan[0][index].pop(index1)
     } else if (index1 > 0) {
-      console.log("4");
+      // console.log("4");
       start_location = plan[index][index1 - 1].geometry.location;
       // travelPlan[0][index].pop(index1)
     }
@@ -48,7 +48,7 @@ export const DeletePOI = async (index, index1, travelPlan = [[[], []], []]) => {
 
   if (index < travelDays - 1) {
     if (index1 == plan[index].length - 1) {
-      console.log("5");
+      // console.log("5");
       if (plan[index + 1].length == 0) {
         travelPlan[0][index].splice(index1, 1);
         travelPlan[1].pop(l - 1);
@@ -57,18 +57,18 @@ export const DeletePOI = async (index, index1, travelPlan = [[[], []], []]) => {
       end_location = plan[index + 1][0].geometry.location;
       travelPlan[0][index].splice(index1, 1);
     } else if (index1 < plan[index].length - 1) {
-      console.log("6");
+      // console.log("6");
       end_location = plan[index][index1 + 1].geometry.location;
       travelPlan[0][index].splice(index1, 1);
     }
   } else if (index == travelDays - 1) {
     if (index1 == plan[index].length - 1) {
-      console.log("7");
+      // console.log("7");
       travelPlan[0][index].splice(index1, 1);
       travelPlan[1].pop(l - 1);
       return travelPlan;
     } else if (index1 < plan[index].length - 1) {
-      console.log("8");
+      // console.log("8");
       end_location = plan[index][index1 + 1].geometry.location;
       travelPlan[0][index].splice(index1, 1);
     }
@@ -122,7 +122,7 @@ export const DeleteDay = async (day, travelPlan) => {
     start_location =
       travelPlan[0][day - 2][travelPlan[0][day - 2].length - 1].geometry
         .location;
-    console.log(travelPlan[0][day]);
+    // console.log(travelPlan[0][day]);
     if (travelPlan[0][day].length == 0) {
       travelPlan[0].splice(day - 1, 1);
       travelPlan[1].splice(pivot, remove_count);
@@ -181,7 +181,7 @@ export const findPois = async (day, travelPlan, allpois) => {
   for (let i = 0; i < day - 1; i++) {
     l += travelPlan[0][i].length;
   }
-  console.log(travelPlan[1]);
+  // console.log(travelPlan[1]);
 
   var remaining_time = 32400;
 
@@ -189,7 +189,7 @@ export const findPois = async (day, travelPlan, allpois) => {
     remaining_time -= travelPlan[1][l + i].duration.value + 3600;
   }
   remaining_time -= 3600;
-  console.log(remaining_time);
+  // console.log(remaining_time);
 
   var poisRoute = new Array();
   var pois = new Array();
@@ -225,13 +225,14 @@ export const findPois = async (day, travelPlan, allpois) => {
         for (let i = 0; i < route.legs.length; i++) {
           poisLegs.push(route.legs[i]);
         }
-        // console.log(poisLegs)
+
         poisRoute.push(poisLegs);
       })
       .catch((e) => {
         console.log(e);
       });
   }
+
   await new Promise((r) => setTimeout(r, 6000));
 
   for (let i = 0; i < poisRoute.length; i++) {
@@ -251,6 +252,7 @@ export const findPois = async (day, travelPlan, allpois) => {
       }
     }
   }
+
   return [pois, poisRouteSuitable];
   // return allpois
 };
@@ -296,11 +298,11 @@ export const switchPOI = async (
 
   if (index > 0) {
     if (index1 > 0) {
-      console.log("1");
+      // console.log("1");
       start_location = plan[index][index1 - 1].geometry.location;
       // travelPlan[0][index].pop(index1)
     } else if (index1 == 0) {
-      console.log("2");
+      // console.log("2");
       if (plan[index - 1].length == 0) {
         start_location = { lat: 6.927079, lng: 79.85775 };
       } else {
@@ -315,7 +317,7 @@ export const switchPOI = async (
       start_location = { lat: 6.927079, lng: 79.85775 };
       // travelPlan[0][index].pop(index1)
     } else if (index1 > 0) {
-      console.log("4");
+      // console.log("4");
       start_location = plan[index][index1 - 1].geometry.location;
       // travelPlan[0][index].pop(index1)
     }
@@ -323,7 +325,7 @@ export const switchPOI = async (
 
   if (index < travelDays - 1) {
     if (index1 == plan[index].length - 1) {
-      console.log("5");
+      // console.log("5");
       if (plan[index + 1].length == 0) {
         end_location = { lat: 6.927079, lng: 79.85775 };
       } else {
@@ -332,21 +334,21 @@ export const switchPOI = async (
 
       // travelPlan[0][index].splice(index1,1)
     } else if (index1 < plan[index].length - 1) {
-      console.log("6");
-      console.log(plan[index]);
-      console.log(index1);
+      // console.log("6");
+      // console.log(plan[index]);
+      // console.log(index1);
       end_location = plan[index][index1 + 1].geometry.location;
 
       // travelPlan[0][index].splice(index1,1)
     }
   } else if (index == travelDays - 1) {
     if (index1 == plan[index].length - 1) {
-      console.log("7");
+      // console.log("7");
       // travelPlan[0][index].splice(index1,1)
       // travelPlan[1].pop(l-1)
       return findPois(index + 1, travelPlan, allpois);
     } else if (index1 < plan[index].length - 1) {
-      console.log("8");
+      // console.log("8");
       end_location = plan[index][index1 + 1].geometry.location;
       // travelPlan[0][index].splice(index1,1)
     }
@@ -416,7 +418,7 @@ export const switchPOI = async (
       }
     }
   }
-  console.log(pois, poisRouteSuitable);
+  // console.log(pois, poisRouteSuitable);
   return [pois, poisRouteSuitable];
 };
 

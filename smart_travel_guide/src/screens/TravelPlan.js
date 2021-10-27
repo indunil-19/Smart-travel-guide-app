@@ -89,11 +89,11 @@ export function TravelPlan({ navigation }) {
         // state.userPreferences.thingsLike,
         // state.userPreferences.placesLike
       ).then((r) => {
-        setPlan(r);
+        setPlan(r[0]);
         setData((curData) => {
           var dataDict = [];
-          for (let i = 0; i < r[0].length; i++) {
-            dataDict.push({ title: i + 1, data: r[0][i] });
+          for (let i = 0; i < r[0][0].length; i++) {
+            dataDict.push({ title: i + 1, data: r[0][0][i] });
           }
 
           return dataDict;
@@ -102,19 +102,20 @@ export function TravelPlan({ navigation }) {
         setDistanceTime((curData) => {
           var index = 0;
           var disTime = {};
-          for (let i = 0; i < r[0].length; i++) {
-            for (let j = 0; j < r[0][i].length; j++) {
+          for (let i = 0; i < r[0][0].length; i++) {
+            for (let j = 0; j < r[0][0][i].length; j++) {
               index = index + 1;
-              disTime[r[0][i][j].place_id] = [
-                r[1][index - 1].distance.text,
-                r[1][index - 1].duration.text,
+              disTime[r[0][0][i][j].place_id] = [
+                r[0][1][index - 1].distance.text,
+                r[0][1][index - 1].duration.text,
               ];
             }
           }
           return disTime;
         });
         setLoading(false);
-        dispatch({ type: "set_travelPlan", payload: { travelPlan: r } });
+        dispatch({ type: "set_travelPlan", payload: { travelPlan: r[0] } });
+        dispatch({ type: "set_pois", payload: { allpois: r[1] } });
       });
     }
   }, [state]);

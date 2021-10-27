@@ -102,7 +102,7 @@ export const getTravelPlan = async (
       findPOIS(x);
     });
     await new Promise((r) => setTimeout(r, 6000));
-    return await calculateAndDisplayRoute();
+    return [await calculateAndDisplayRoute(), Allpois];
   }
 
   return await initMap();
@@ -165,9 +165,14 @@ export const getTravelPlan = async (
 
         for (let i = 0; i < route.legs.length - 1; i++) {
           time = time + route.legs[i].duration.value + 3600;
-          if (time < 32400) day1.push(pois[route.waypoint_order[i]]);
-          else if (time < 64800) day2.push(pois[route.waypoint_order[i]]);
-          else if (time < 97200) day3.push(pois[route.waypoint_order[i]]);
+
+          if (time < 32400) {
+            day1.push(pois[route.waypoint_order[i]]);
+          } else if (time < 64800) {
+            day2.push(pois[route.waypoint_order[i]]);
+          } else if (time < 97200) {
+            day3.push(pois[route.waypoint_order[i]]);
+          }
         }
 
         if (number_of_days == 1)
@@ -185,4 +190,51 @@ export const getTravelPlan = async (
         console.log(e);
       });
   }
+};
+
+export const calculateAndDisplayRoute = async (pois) => {
+  const client = new Client({});
+  const waypts = [];
+
+  for (let i = 0; i < pois.length; i++) {
+    waypts.push({
+      lat: pois[i].geometry.location.lat(),
+      lng: pois[i].geometry.location.lng(),
+    });
+  }
+
+  return client
+    .directions({
+      params: {
+        origin: { lat: 6.927079, lng: 79.85775 },
+        destination: { lat: 6.927079, lng: 79.85775 },
+        optimizeWaypoints: true,
+        waypoints: waypts,
+        travelMode: "DRIVING",
+        key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+      },
+    })
+    .then((response) => {
+      // console.log(response)
+      const route = response.data.routes[0];
+      var time = 0;
+      let days = [[]];
+
+      for (let i = 0; i < route.legs.length - 1; i++) {
+        time = time + route.legs[i].duration.value + 3600;
+
+        if (time < 32400 * days.length) {
+          days[days.length - 1].push(pois[route.waypoint_order[i]]);
+        } else {
+          days.push([]);
+          days[days.length - 1].push(pois[route.waypoint_order[i]]);
+        }
+      }
+
+      return [[days, route.legs], pois];
+    })
+    .catch((e) => {
+      console.log(e);
+      return [[[]], []];
+    });
 };
