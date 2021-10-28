@@ -1,9 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { Flex, HStack, VStack } from "@chakra-ui/layout"
-import { Button, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay,} from "@chakra-ui/react"
+import {Alert,AlertIcon, Button, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay,} from "@chakra-ui/react"
 import { AiOutlineDelete } from "react-icons/ai";
 import { useHistory } from "react-router"
 import { PlanCard } from "../../components/TravelPlanApp/planCard,";
+ 
 
 export const MyPlans=()=>{
     const [plans,setPlans]=useState([])
@@ -108,6 +109,15 @@ export const MyPlans=()=>{
                         </>
                     )
             })}
+
+            {plans.length==0 ?<>
+            
+                <Alert status="warning" m={5}>
+                    <AlertIcon />
+                    Seems you don't have saved plans
+                </Alert>
+            
+            </>:<></>}
             
             
             </>

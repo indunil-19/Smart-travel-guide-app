@@ -1,7 +1,5 @@
 import React,{useState,useContext,useEffect} from 'react'
 import {useHistory} from 'react-router-dom'
-// import {UserContext} from '../../App'
-import M from 'materialize-css'
 import {
     Flex,
     Heading,
@@ -11,12 +9,13 @@ import {
     Link as Link1,
     FormControl,
     FormLabel,
+    useToast,
   
   } from '@chakra-ui/react';
 import { AdminContext } from '../../context/AdminContext';
 
 const SignIn  = ()=>{
-
+    const toast=useToast()
      const {state,dispatch} = useContext(AdminContext)
     const history = useHistory()
     const [password,setPasword] = useState("")
@@ -35,7 +34,13 @@ const SignIn  = ()=>{
     const PostData = ()=>{
         
         if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
-            M.toast({html: "invalid email",classes:"#c62828 red darken-3"})
+            toast({
+                title: "Account login",
+                description: "email is invalid",
+                status: "error",
+                duration: 7000,
+                isClosable: true,
+              })
             return
         }
         fetch("/admin/signin",{
@@ -51,13 +56,25 @@ const SignIn  = ()=>{
         .then(data=>{
             console.log(data)
            if(data.error){
-              M.toast({html: data.error,classes:"#c62828 red darken-3"})
+            toast({
+                title: "Account login",
+                description: data.error,
+                status: "error",
+                duration: 7000,
+                isClosable: true,
+              })
            }
            else{
                
                localStorage.setItem("Admin",JSON.stringify(data.data))
+               toast({
+                title: "Account login",
+                description: data.message,
+                status: "success",
+                duration: 7000,
+                isClosable: true,
+              })
                dispatch({type:"Admin",payload:data.data})
-               M.toast({html:"signedin success",classes:"#43a047 green darken-1"})
                history.push('/admin/dashboard')
            }
         }).catch(err=>{

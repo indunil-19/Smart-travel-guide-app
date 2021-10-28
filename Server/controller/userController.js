@@ -120,13 +120,13 @@ class UserController{
     static async shareTravelPlan(req,res){
        
         TravelPlan.findOne({_id:req.body.planId,ownedBy:req.session.user._id}).then(data=>{
-            // 6131020c334d393094db1e4a
+            // 617acefbaa2522ab237609ed
             const travelPlan=new TravelPlan({
                 travelPlan:data.travelPlan,
                 review:data.review,
                 rate:data.rate,
                 ownedBy:{
-                    _id:"6131020c334d393094db1e4a"
+                    _id:"617acefbaa2522ab237609ed"
                 }
 
             })  
@@ -142,7 +142,7 @@ class UserController{
     }
 
     static async getPublicPlans(req,res){
-        TravelPlan.find({ownedBy:"6131020c334d393094db1e4a", public:true})
+        TravelPlan.find({ownedBy:"617acefbaa2522ab237609ed", public:true})
             .populate("OwnedBy","_id")
             .sort('-createdAt')
             .then(myPlans=>{
@@ -153,31 +153,34 @@ class UserController{
             })
     }
 
-    static async changePasssword(req,res){
+    static async changePasssword(req,res){      
         const { newPassword, prevoiusPassowrd}=req.body;
             if(!newPassword || !prevoiusPassowrd ){
                 return res.status(422).json({error:"please add all the fields"})
             }
 
-        User.findOne({email:req.session.email})
+        return User.findOne({email:req.session.user.email})
             .then((savedUser)=>{
-
-               bcrypt.compare(req.body.prevoiusPassowrd,savedUser.password)
-            .then(doMatch=>{
+            return bcrypt.compare(req.body.prevoiusPassowrd,savedUser.password)
+            .then((doMatch)=>{
                 if(doMatch){
-                    User.findByIdAndUpdate(req.session.email,{
-                        password:req.body.newpassword
-                    },{new:true}).
-                    then(data=>{
-                         return res.json({message:"password update successfull"})
-                    }).catch(err=>{
-                          return res.status(422).json({error:"update error"})
-                    }) 
+              
+                    return bcrypt.hash(req.body.newPassword,12).then(hashPass=>{
+                        return User.findByIdAndUpdate(req.session.user._id,{
+                            password:hashPass
+                        },{new:true}).
+                        then(data=>{
+                            console.log(data)
+                            return res.json({message:"password update successfull"})
+                        }).catch(err=>{
+                              return res.json({error:"update error"})
+                        }) 
+                    })                    
                 }
                 return res.json({error:"your entered password is  wrong"})
             }).
             catch(e=>{
-                return res.status(422).json({error:"update error"})
+                return res.json({error:"update error"})
             })
                         
             }).catch(e=>{
@@ -185,7 +188,8 @@ class UserController{
             })       
                
     }
-    
+
+     
 
     
 

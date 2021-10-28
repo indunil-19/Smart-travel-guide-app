@@ -216,7 +216,7 @@ class AdminController{
     }
 
         static async getSharedPlans(req,res){
-            Travelplan.find({ownedBy:"6131020c334d393094db1e4a", rate:req.body.rate, public:false})
+            Travelplan.find({ownedBy:"617acefbaa2522ab237609ed", rate:req.body.rate, public:false})
                 .populate("OwnedBy","_id")
                 .sort('-createdAt')
                 .then(myPlans=>{
@@ -227,7 +227,7 @@ class AdminController{
                 })
         }
         static async getPublicPlans(req,res){
-            Travelplan.find({ownedBy:"6131020c334d393094db1e4a", public:true})
+            Travelplan.find({ownedBy:"617acefbaa2522ab237609ed", public:true})
                 .populate("OwnedBy","_id")
                 .sort('-createdAt')
                 .then(myPlans=>{
@@ -238,7 +238,7 @@ class AdminController{
                 })
         }
         static async deleteTravelPlan(req,res){
-            Travelplan.findOneAndRemove({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"}).then(data=>{
+            Travelplan.findOneAndRemove({_id:req.body.planId,ownedBy:"617acefbaa2522ab237609ed"}).then(data=>{
                 return res.json({data})
             }).catch(e=>{
                 console.log(e)
@@ -247,7 +247,7 @@ class AdminController{
 
         static async setPublicPlan(req,res){
             
-            Travelplan.findOneAndUpdate({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"},{public:true},{new:true}).
+            Travelplan.findOneAndUpdate({_id:req.body.planId,ownedBy:"617acefbaa2522ab237609ed"},{public:true},{new:true}).
                     then(data=>{
                         return res.json({data})
                     }).
@@ -256,7 +256,7 @@ class AdminController{
                     })
         }
         static async removePublicPlan(req,res){
-            Travelplan.findOneAndUpdate({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"},{public:false},{new:true}).
+            Travelplan.findOneAndUpdate({_id:req.body.planId,ownedBy:"617acefbaa2522ab237609ed"},{public:false},{new:true}).
             then(data=>{
                 return res.json({data})
             }).
