@@ -90,6 +90,13 @@ export const MyAccount=()=>{
               return;
           }
           else{
+            toast({
+                title: data.message,
+                position:"top-right",
+                status:"success",
+                duration: 4000,
+                isClosable: true,
+              })
               
               dispatch({type:"UPDATE",payload:data.data})
               localStorage.setItem("user",JSON.stringify(data.data))

@@ -60,6 +60,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
             // 
             key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
             rating:4,
+            componentRestrictions: { country: "LK" },
           };
           reqArr.push(req)
         })
@@ -73,6 +74,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
               // rankBy :google.maps.places.RankBy.DISTANCE,
               key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
               rating:4,
+              componentRestrictions: { country: "LK" },
             };
             reqArr.push(req)
           }else{
@@ -84,6 +86,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
               // rankBy :google.maps.places.RankBy.DISTANCE,
               key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
               rating:4,
+              componentRestrictions: { country: "LK" },
     
           };
           reqArr.push(req)
@@ -182,7 +185,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
              else if(time<97200)  {
                day3.push(pois[route.waypoint_order[i]]);
 
-                }
+            }
           
          }
 

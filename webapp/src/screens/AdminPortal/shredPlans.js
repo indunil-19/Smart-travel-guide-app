@@ -6,11 +6,16 @@ import { BiSearch } from "react-icons/bi"
 import { PlanCard } from "../../components/AdminComponents/planCard"
 import { AiOutlineDelete } from "react-icons/ai"
 import { MdPublic } from "react-icons/md"
-import { Button, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay,} from "@chakra-ui/react"
+import { Button, AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay,Alert} from "@chakra-ui/react"
+import { AlertIcon } from "@chakra-ui/alert"
 import { useHistory } from "react-router"
 
 
 export const SharedPlan=()=>{
+    const alert=useRef()
+    useEffect(()=>{
+            getSharedPlans()
+    },[])
     const history=useHistory()
 
     const [rate,setRate]=useState("5")
@@ -44,6 +49,11 @@ export const SharedPlan=()=>{
         }).then(res=>res.json()).
         then(data=>{
             setPlans(data.myPlans)
+            if(data.myPlans.length==0){
+                alert.current.style.display="block"
+                return
+            }
+            alert.current.style.display="none"
             console.log(data)
         }).catch(e=>{
             console.log(e)
@@ -215,6 +225,13 @@ export const SharedPlan=()=>{
                         </>
                     )
         })}
+
+        <Flex display="none" ref={alert}> 
+        <Alert status="warning" m={5} > 
+            <AlertIcon />
+            Seems there is no shred plans...
+        </Alert>
+        </Flex>
 
         </>
 

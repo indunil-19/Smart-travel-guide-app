@@ -35,7 +35,7 @@ export const ChangePassword=()=>{
                 toast({
                     title: result.message,
                     position:"top-right",
-                    status:"error",
+                    status:"success",
                     duration: 4000,
                     isClosable: true,
                   })

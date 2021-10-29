@@ -34,8 +34,9 @@ const LinkItems = [
     { name: 'Editquestions', icon: AttachmentIcon,  linkto:"/admin/editquestions"},
     { name: 'Genaratereport', icon: AttachmentIcon,  linkto:"/admin/genarate"},
     { name: 'TravelplanList', icon: AttachmentIcon,  linkto:"/admin/ViewTravelplanlist"},
-    { name: 'sharedPlans', icon: AttachmentIcon,  linkto:"/admin/publicPlans"},
-    { name: 'publicPlans', icon: AttachmentIcon,  linkto:"/admin/sharedPlans"}
+    { name: 'sharedPlans', icon: AttachmentIcon,  linkto:"/admin/sharedPlans"},
+    { name: 'publicPlans', icon: AttachmentIcon,  linkto:"/admin/publicPlans"},
+    
   
   ];
 

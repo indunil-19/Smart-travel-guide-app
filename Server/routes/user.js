@@ -17,6 +17,6 @@ router.post('/addReview',ifUserNotLoggedIn, ifTraveller, UserController.addRevie
 router.post('/saveTravelPlan',ifUserNotLoggedIn, ifTraveller, UserController.saveTravelPlan)
 router.post('/updateUser',ifUserNotLoggedIn,ifTraveller,UserController.updateUser)
 router.post('/updatepassword',ifUserNotLoggedIn,ifTraveller,UserController.changePasssword)
-
+router.post('/changePlanName',ifUserNotLoggedIn,ifTraveller,UserController.changePlanName)
 
 module.exports=router;

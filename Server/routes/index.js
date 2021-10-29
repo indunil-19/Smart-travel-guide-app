@@ -3,7 +3,7 @@ const router=express.Router();
 const RootController=require("../controller/rootController")
 
 
-
+router.post("/reset-password",RootController.resetPassword)
 router.post('/signup',RootController.signup)
 router.post('/signin',RootController.login)
 router.get('/logout', RootController.logout)

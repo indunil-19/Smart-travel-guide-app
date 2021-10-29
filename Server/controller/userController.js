@@ -144,14 +144,13 @@ class UserController{
     static async shareTravelPlan(req,res){
        
          return TravelPlan.findOne({_id:req.body.planId,ownedBy:req.session.user._id}).then(data=>{
-            // 6131020c334d393094db1e4a
             if(data){  
             const travelPlan=new TravelPlan({
                 travelPlan:data.travelPlan,
                 review:data.review,
                 rate:data.rate,
                 ownedBy:{
-                    _id:"6131020c334d393094db1e4a"
+                    _id:"617acefbaa2522ab237609ed"
                 }
 
             })  
@@ -173,7 +172,7 @@ class UserController{
         }
 
     static async getPublicPlans(req,res){
-        return TravelPlan.find({ownedBy:"6131020c334d393094db1e4a", public:true})
+        return TravelPlan.find({ownedBy:"617acefbaa2522ab237609ed", public:true})
             .populate("OwnedBy","_id")
             .sort('-createdAt')
             .then(myPlans=>{
@@ -185,26 +184,29 @@ class UserController{
             })
     }
 
-    static async changePasssword(req,res){
+    static async changePasssword(req,res){      
         const { newPassword, prevoiusPassowrd}=req.body;
             if(!newPassword || !prevoiusPassowrd ){
                 return res.json({error:"please add all the fields"})
             }
 
-        return User.findOne({email:req.session.email})
+        return User.findOne({email:req.session.user.email})
             .then((savedUser)=>{
-
             return bcrypt.compare(req.body.prevoiusPassowrd,savedUser.password)
-            .then(doMatch=>{
+            .then((doMatch)=>{
                 if(doMatch){
-                    User.findByIdAndUpdate(req.session.email,{
-                        password:req.body.newpassword
-                    },{new:true}).
-                    then(data=>{
-                         return res.json({message:"password update successfull"})
-                    }).catch(err=>{
-                          return res.json({error:"update error"})
-                    }) 
+              
+                    return bcrypt.hash(req.body.newPassword,12).then(hashPass=>{
+                        return User.findByIdAndUpdate(req.session.user._id,{
+                            password:hashPass
+                        },{new:true}).
+                        then(data=>{
+                            console.log(data)
+                            return res.json({message:"password update successfull"})
+                        }).catch(err=>{
+                              return res.json({error:"update error"})
+                        }) 
+                    })                    
                 }
                 return res.json({error:"your entered password is  wrong"})
             }).
@@ -217,7 +219,29 @@ class UserController{
             })       
                
     }
-    
+
+    static async changePlanName(req,res){
+        
+            if(!req.body.name){
+                return res.json({error:"fill the name"})
+            }
+            return  TravelPlan.findOne({_id:req.body.planId}).then(result=>{
+                if(result){
+                    return TravelPlan.findByIdAndUpdate({_id:req.body.planId},{
+                        name:req.body.name
+                    },{new:true}).then(result=>{
+                        return res.json({message:"plan name is changed", data:result})
+                    }).catch(e=>{
+                        return res.json({error:"system error"})
+                    })
+                }
+                return res.json({error:"bad requests"})
+            }).catch(e=>{
+                return res.json({error:"system error"})
+            })
+    }
+
+     
 
     
 

@@ -1,6 +1,5 @@
 import React,{useState} from 'react'
 import {useHistory} from 'react-router-dom'
-import M from 'materialize-css'
 import {
     Box,
     useColorModeValue,
@@ -12,6 +11,7 @@ import {
     Input,
     Button,
     Heading,
+    useToast
     
   } from "@chakra-ui/react";
 const SignUp  = ()=>{
@@ -22,6 +22,7 @@ const SignUp  = ()=>{
     const [password,setPasword] = useState("")
     const [email,setEmail] = useState("")
     
+    const toast=useToast()
 
     // useEffect(()=>{
     //     if(url){
@@ -47,7 +48,13 @@ const SignUp  = ()=>{
     // }
     const postData = ()=>{
         if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
-            M.toast({html: "invalid email",classes:"#c62828 red darken-3"})
+            toast({
+                title: "Add admin.",
+                description: "invalid email.",
+                status: "error",
+                duration: 7000,
+                isClosable: true,
+              })
             return
         }
         fetch("/admin/signup",{
@@ -66,10 +73,22 @@ const SignUp  = ()=>{
         }).then(res=>res.json())
         .then(data=>{
            if(data.error){
-              M.toast({html: data.error,classes:"#c62828 red darken-3"})
+            toast({
+                title: "Add admin.",
+                description: data.error,
+                status: "error",
+                duration: 7000,
+                isClosable: true,
+              })
            }
            else{
-               M.toast({html:data.message,classes:"#43a047 green darken-1"})
+            toast({
+                title: "Add admin.",
+                description: data.message,
+                status: "success",
+                duration: 7000,
+                isClosable: true,
+              })
                history.push('/admin/viewAdmins')
            }
         }).catch(err=>{
@@ -236,6 +255,7 @@ const SignUp  = ()=>{
                                     rounded="md"
                                     value={dob}
                                     onChange={(e)=>setDob(e.target.value)}
+                                    max={`${(new Date()).getFullYear()}-${(new Date()).getMonth()}-${(new Date()).getDate()}`}
                                     />
                                 </FormControl>
 

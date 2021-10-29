@@ -26,6 +26,7 @@ import { TravelContext } from "../../context/TravelContext"
 import React, {useContext,useEffect} from "react"
 import { SwitchPois } from "./switchPois"
 import { ChangePassword } from "./changePassword"
+import ResestPassword from "./resestPassword"
 
 
 
@@ -37,7 +38,11 @@ const TravelPlanApp=()=>{
     if(user){
       dispatch({type:"USER",payload:user})
     }else{
-           history.push('/travelPlan/signin')
+        if(!history.location.pathname.endsWith('/reset')){
+            history.push('/travelPlan/signin')
+        }
+        
+           
     }
   },[])
 
@@ -47,6 +52,9 @@ const TravelPlanApp=()=>{
         <NavBar/>
         <Box minHeight="100vh" >
         <Switch >
+             <Route path="/travelPlan/reset">
+                <ResestPassword />
+            </Route>
             <Route path="/travelPlan/switchpois/:index/:index1">
                 <SwitchPois />
             </Route>

@@ -233,7 +233,7 @@ class AdminController{
     }
 
         static async getSharedPlans(req,res){
-            return Travelplan.find({ownedBy:"6131020c334d393094db1e4a", rate:req.body.rate, public:false})
+           return Travelplan.find({ownedBy:"617acefbaa2522ab237609ed", rate:req.body.rate, public:false})
                 .populate("OwnedBy","_id")
                 .sort('-createdAt')
                 .then(myPlans=>{
@@ -245,7 +245,7 @@ class AdminController{
                 })
         }
         static async getPublicPlans(req,res){
-            return Travelplan.find({ownedBy:"6131020c334d393094db1e4a", public:true})
+           return Travelplan.find({ownedBy:"617acefbaa2522ab237609ed", public:true})
                 .populate("OwnedBy","_id")
                 .sort('-createdAt')
                 .then(myPlans=>{
@@ -257,7 +257,7 @@ class AdminController{
                 })
         }
         static async deleteTravelPlan(req,res){
-            return Travelplan.findOneAndRemove({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"}).then(data=>{
+           return Travelplan.findOneAndRemove({_id:req.body.planId,ownedBy:"617acefbaa2522ab237609ed"}).then(data=>{
                 return res.json({data})
             }).catch(e=>{
                 console.log(e)
@@ -267,7 +267,7 @@ class AdminController{
 
         static async setPublicPlan(req,res){
             
-            return Travelplan.findOneAndUpdate({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"},{public:true},{new:true}).
+            return Travelplan.findOneAndUpdate({_id:req.body.planId,ownedBy:"617acefbaa2522ab237609ed"},{public:true},{new:true}).
                     then(data=>{
                         return res.json({data})
                     }).
@@ -277,7 +277,7 @@ class AdminController{
                     })
         }
         static async removePublicPlan(req,res){
-            return Travelplan.findOneAndUpdate({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"},{public:false},{new:true}).
+           return Travelplan.findOneAndUpdate({_id:req.body.planId,ownedBy:"617acefbaa2522ab237609ed"},{public:false},{new:true}).
             then(data=>{
                 return res.json({data})
             }).

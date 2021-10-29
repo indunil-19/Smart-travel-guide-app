@@ -6,7 +6,6 @@ export const getPoiData=async(place_id)=>{
     return await client.placeDetails({params:{
         place_id: place_id,
         key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
-
     }}).then((r)=>{
        
         return r.data.result
@@ -24,7 +23,7 @@ export const getNearByPlaces=async(location)=>{
             key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
             type:['tourist_attraction', ],
             radius:"30000",
-            
+            componentRestrictions: { country: "LK" },
         },
         timeout: 1000
     }).then((r)=>{
@@ -42,7 +41,8 @@ export const getNearByHotels=async(location)=>{
             location:location,
             key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
             type:['lodging' ],
-            radius:"30000"
+            radius:"30000",
+            componentRestrictions: { country: "LK" },
         },
         timeout: 1000
     }).then((r)=>{

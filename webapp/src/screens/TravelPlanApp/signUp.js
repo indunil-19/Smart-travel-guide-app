@@ -16,7 +16,7 @@ const SignUp=()=>{
 
     useEffect(()=>{
       
-        if(state._id){
+        if(state && state._id){
             history.push('/travelPlan')
         }else{
                history.push('/travelPlan/signup')

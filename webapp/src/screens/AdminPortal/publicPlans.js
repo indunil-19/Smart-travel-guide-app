@@ -1,13 +1,15 @@
 import { Flex, HStack, Text } from "@chakra-ui/layout"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Button } from "@chakra-ui/button"
 import { PlanCard } from "../../components/AdminComponents/planCard"
 import { IoRemoveCircleOutline } from "react-icons/io5"
-
+import { AlertIcon } from "@chakra-ui/alert"
+import {Alert} from "@chakra-ui/react"
 
 export const PublicPlans=()=>{
     const [rate,setRate]=useState("")
     const [plans,setPlans]=useState([])
+    const alert=useRef()
 
     useEffect(()=>{
         getPublicPlans()
@@ -20,6 +22,11 @@ export const PublicPlans=()=>{
         }).then(res=>res.json()).
         then(data=>{
             setPlans(data.myPlans)
+            if(data.myPlans.length==0){
+                alert.current.style.display="block"
+                return
+            }
+            alert.current.style.display="none"
             console.log(data)
         }).catch(e=>{
             console.log(e)
@@ -77,7 +84,12 @@ export const PublicPlans=()=>{
         })}
 
         </>
-
+        <Flex display="none" ref={alert}> 
+        <Alert status="warning" m={5} > 
+            <AlertIcon />
+            Seems there is no public plans...
+        </Alert>
+        </Flex>
 
 
 

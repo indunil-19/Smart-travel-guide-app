@@ -7,7 +7,7 @@ import { TravelContext } from "../../context/TravelContext"
 import { Button, Heading,Image,AlertDialog,AlertDialogBody,AlertDialogFooter,AlertDialogHeader,AlertDialogContent,AlertDialogOverlay} from "@chakra-ui/react"
 import { MdDeleteForever } from "react-icons/md";
 import { calculateAndDisplayRoute } from '../../services/TravelPlanService';
-
+import {GrView } from "react-icons/gr";
 export const CustomPlanInner=()=>{
   const history=useHistory()
   const {state, dispatch}=useContext(TravelContext)
@@ -59,16 +59,10 @@ export const CustomPlanInner=()=>{
           if(place.length>24){
               setIsOpen(true)
           }
-
-
-
           if(place.geometry.location){
             // console.log(place.photos[0].getUrl())
             setP(p=>[...p,place])
           }
-          
-
-
         }}
 
         options={{
@@ -96,13 +90,20 @@ export const CustomPlanInner=()=>{
             </Heading>
 
             <Button onClick={()=>{
-                  console.log(index)
+                  console.log(i)
                   setP(p.filter((item,index1)=>{
                        if(index1 !==index)  return item
                   }))
                  }}>
                  <MdDeleteForever />
+                 
             </Button>
+            <Button onClick={()=>{
+                  history.push("/travelPlan/viewpoi/"+i.place_id)
+              }}>
+                 <GrView  />
+            </Button>
+
             </HStack>
             </>
           )
