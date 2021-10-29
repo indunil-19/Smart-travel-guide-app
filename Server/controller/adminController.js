@@ -233,52 +233,57 @@ class AdminController{
     }
 
         static async getSharedPlans(req,res){
-            Travelplan.find({ownedBy:"6131020c334d393094db1e4a", rate:req.body.rate, public:false})
+            return Travelplan.find({ownedBy:"6131020c334d393094db1e4a", rate:req.body.rate, public:false})
                 .populate("OwnedBy","_id")
                 .sort('-createdAt')
                 .then(myPlans=>{
-                    res.json({myPlans})
+                    return res.json({myPlans})
                 })
                 .catch(err=>{
                     console.log(err)
+                    return res.json({error:"system error"})
                 })
         }
         static async getPublicPlans(req,res){
-            Travelplan.find({ownedBy:"6131020c334d393094db1e4a", public:true})
+            return Travelplan.find({ownedBy:"6131020c334d393094db1e4a", public:true})
                 .populate("OwnedBy","_id")
                 .sort('-createdAt')
                 .then(myPlans=>{
-                    res.json({myPlans})
+                    return res.json({myPlans})
                 })
                 .catch(err=>{
                     console.log(err)
+                    return res.json({error:"system error"})
                 })
         }
         static async deleteTravelPlan(req,res){
-            Travelplan.findOneAndRemove({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"}).then(data=>{
+            return Travelplan.findOneAndRemove({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"}).then(data=>{
                 return res.json({data})
             }).catch(e=>{
                 console.log(e)
+                return res.json({error:"system error"})
             })
         }
 
         static async setPublicPlan(req,res){
             
-            Travelplan.findOneAndUpdate({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"},{public:true},{new:true}).
+            return Travelplan.findOneAndUpdate({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"},{public:true},{new:true}).
                     then(data=>{
                         return res.json({data})
                     }).
                     catch(err=>{
                         console.log(err)
+                        return res.json({error:"system error"})
                     })
         }
         static async removePublicPlan(req,res){
-            Travelplan.findOneAndUpdate({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"},{public:false},{new:true}).
+            return Travelplan.findOneAndUpdate({_id:req.body.planId,ownedBy:"6131020c334d393094db1e4a"},{public:false},{new:true}).
             then(data=>{
                 return res.json({data})
             }).
             catch(err=>{
                 console.log(err)
+                return res.json({error:"system error"})
             })
         }
 

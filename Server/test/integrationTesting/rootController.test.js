@@ -88,26 +88,26 @@ describe("root controller functionalities integration test", ()=>{
         let req;
         let user;
         beforeEach(async()=>{
-            await  User.findOneAndRemove({email:"testemail@email.com"})
+            await  User.findOneAndRemove({email:"testemail123@email.com"})
             user=new User({
                     firstname:"testFirstName",
                     lastname:"testLastName",
                     dob:"1998/10/10",
                     country:"testCountry",
                     religion:"testReligion",
-                    email:"testemail@email.com",
+                    email:"testemail123@email.com",
                     password:"testPassword"
             })
             await user.save();
             req={
                 body:{ 
-                    email:"testemail@email.com",
+                    email:"testemail123@email.com",
                     password:"testPassword"
                 }
             }
         })
         afterEach(async()=>{
-            await  User.findOneAndRemove({email:"testemail@email.com"})
+            await  User.findOneAndRemove({email:"testemail123@email.com"})
         })
         it("should return data and success message if no error",async()=>{
             await RootController.login(req,res)

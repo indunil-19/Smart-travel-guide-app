@@ -20,6 +20,7 @@ require('../../models/TravelPlan')
 
 const Admin = mongoose.model("Admin")
 const Province=mongoose.model("Province")
+const TravelPlan=mongoose.model("TravelPlan")
 
 
 const AdminController=require("../../controller/adminController")
@@ -46,13 +47,13 @@ describe("admin controller functionalities integration test", ()=>{
     describe('signup functionality', () => {
         let req;
         beforeEach(async()=>{
-            await  Admin.findOneAndRemove({email:"testemail@email.com"})
+            await  Admin.findOneAndRemove({email:"testemail123@email.com"})
             req={
                 body:{
                     firstname:"testFirstName",
                     lastname:"testLastName",
                     dob:"1998/10/10",
-                    email:"testemail@email.com",
+                    email:"testemail123@email.com",
                     password:"testPassword"
                 }
             }
@@ -60,7 +61,7 @@ describe("admin controller functionalities integration test", ()=>{
         it("should return success messsage if no error", async()=>{
             await AdminController.signup(req,res)
             expect(res.json).toHaveBeenCalledWith({message:"Register successfully"})
-            await  Admin.findOneAndRemove({email:"testemail@email.com"})
+            await  Admin.findOneAndRemove({email:"testemail123@email.com"})
         })
         it("should return error if all inputs are not filled",async()=>{
             req.body.firstname=""
@@ -96,19 +97,19 @@ describe("admin controller functionalities integration test", ()=>{
                     firstname:"testFirstName",
                     lastname:"testLastName",
                     dob:"1998/10/10",
-                    email:"testAdmin@email.com",
+                    email:"testAdmin123@email.com",
                     password:"testPassword"
             })
             await admin.save();
             req={
                 body:{ 
-                    email:"testAdmin@email.com",
+                    email:"testAdmin123@email.com",
                     password:"testPassword"
                 }
             }
         })
         afterEach(async()=>{
-            await  Admin.findOneAndRemove({email:"testAdmin@email.com"})
+            await  Admin.findOneAndRemove({email:"testAdmin123@email.com"})
         })
         it("should return data and success message if no error",async()=>{
             await AdminController.login(req,res)
@@ -212,7 +213,7 @@ describe("admin controller functionalities integration test", ()=>{
 
         beforeEach(async()=>{
             req={
-                body:{
+                params:{
                     pid:"p1",
                 }
             }
@@ -225,7 +226,7 @@ describe("admin controller functionalities integration test", ()=>{
         })    
 
         it("should return error if error while updating",async()=>{
-            req.body.pid={}
+            req.params.pid={}
             await AdminController.getProvinceData(req,res)
             expect(res.json).toHaveBeenCalledWith({error:"system error"})
              
@@ -303,6 +304,157 @@ describe("admin controller functionalities integration test", ()=>{
 
 
     })
+
+    describe('get shared plan funnctionality ', () => {
+        let req;
+
+        beforeEach(async()=>{
+            req={
+                body:{
+                    rate:5
+                }
+            }
+        })
+
+        it("should return travel plans if no error", async()=>{
+            await AdminController.getSharedPlans(req,res)
+            expect(res.json).toHaveBeenCalledWith({myPlans:expect.objectContaining({})})
+        })
+
+        it("should return error for invalid input",async()=>{
+            req.body.rate={}
+            await AdminController.getSharedPlans(req,res)
+            expect(res.json).toHaveBeenCalledWith({error:"system error"})
+        })
+       
+    })
+
+
+    describe('get public plan funnctionality ', () => {
+        let req={}
+
+        
+
+        it("should return travel plans if no error", async()=>{
+            await AdminController.getPublicPlans(req,res)
+            expect(res.json).toHaveBeenCalledWith({myPlans:expect.objectContaining({})})
+        })
+
+       
+    })
+
+
+    describe('delete travelplan funnctionality ', () => {
+        let req;
+        let travelPlan;
+        beforeEach(async()=>{
+            
+            travelPlan=new TravelPlan({
+                travelPlan:[[[]],[]],
+                ownedBy:"6130fec5f7e9e71fc487f211"
+
+            })
+           await travelPlan.save(); 
+
+            req={
+                body:{
+                    planId:travelPlan._id
+                }
+            }
+        })
+        afterEach(async()=>{
+            await  TravelPlan.findOneAndRemove({_id:travelPlan._id})
+        })
+
+        it("should delete travel plans if no error", async()=>{
+            await AdminController.deleteTravelPlan(req,res)
+            expect(res.json).toHaveBeenCalledWith({data:expect.objectContaining({})})
+        })
+
+        it("should return error for invalid input", async()=>{
+            req.body.planId={}
+            await AdminController.deleteTravelPlan(req,res)
+            expect(res.json).toHaveBeenCalledWith({error:"system error"})
+        })
+
+       
+    })
+
+
+    describe('set public plan funnctionality ', () => {
+        let req;
+        let travelPlan;
+        beforeEach(async()=>{
+            
+            travelPlan=new TravelPlan({
+                travelPlan:[[[]],[]],
+                ownedBy:"6130fec5f7e9e71fc487f211"
+
+            })
+           await travelPlan.save(); 
+
+            req={
+                body:{
+                    planId:travelPlan._id
+                }
+            }
+        })
+        afterEach(async()=>{
+            await  TravelPlan.findOneAndRemove({_id:travelPlan._id})
+        })
+
+        it("should set travel plan public if no error", async()=>{
+            await AdminController.setPublicPlan(req,res)
+            expect(res.json).toHaveBeenCalledWith({data:expect.objectContaining({})})
+        })
+
+        it("should return error for invalid input", async()=>{
+            req.body.planId={}
+            await AdminController.setPublicPlan(req,res)
+            expect(res.json).toHaveBeenCalledWith({error:"system error"})
+        })
+
+       
+    })
+
+    describe('remove pulic plan funnctionality ', () => {
+        let req;
+        let travelPlan;
+
+        beforeEach(async()=>{
+            
+            travelPlan=new TravelPlan({
+                travelPlan:[[[]],[]],
+                ownedBy:"6131020c334d393094db1e4a",
+                public:true
+
+            })
+           await travelPlan.save(); 
+
+            req={
+                body:{
+                    planId:travelPlan._id
+                }
+            }
+        })
+        afterEach(async()=>{
+            await  TravelPlan.findOneAndRemove({_id:travelPlan._id})
+        })
+
+        it("should remove public plan if no error", async()=>{
+            await AdminController.removePublicPlan(req,res)
+            expect(res.json).toHaveBeenCalledWith({data:expect.objectContaining({})})
+        })
+
+        it("should return error for invalid input", async()=>{
+            req.body.planId={}
+            await AdminController.removePublicPlan(req,res)
+            expect(res.json).toHaveBeenCalledWith({error:"system error"})
+        })
+
+       
+    })
+    
     
     
 
