@@ -189,6 +189,27 @@ class UserController{
                
     }
 
+    static async changePlanName(req,res){
+        
+            if(!req.body.name){
+                return res.json({error:"fill the name"})
+            }
+            return  TravelPlan.findOne({_id:req.body.planId}).then(result=>{
+                if(result){
+                    return TravelPlan.findByIdAndUpdate({_id:req.body.planId},{
+                        name:req.body.name
+                    },{new:true}).then(result=>{
+                        return res.json({message:"plan name is changed", data:result})
+                    }).catch(e=>{
+                        return res.json({error:"system error"})
+                    })
+                }
+                return res.json({error:"bad requests"})
+            }).catch(e=>{
+                return res.json({error:"system error"})
+            })
+    }
+
      
 
     
