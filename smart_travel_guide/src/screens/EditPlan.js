@@ -135,7 +135,10 @@ export const EditPlan = ({ navigation }) => {
             });
           }}
         >
-          <LocationInfoCard location={item} />
+          <LocationInfoCard
+            location={item}
+            photo={item.photos ? item.photos[0].photo_reference : ""}
+          />
         </TouchableOpacity>
       </>
     );
