@@ -12,6 +12,7 @@ import { ProfileScreen } from "../screens/profile";
 import { UpdateProfile } from "../screens/updateProfile";
 import { EditPlan } from "../screens/EditPlan";
 import { AddPlace } from "../screens/AddPlace";
+import { NearByHotels } from "../screens/NearByHotels";
 
 import { HeaderAvatar } from "../components/HeaderAvatar";
 
@@ -29,10 +30,10 @@ export const CreatePlanNavigator = () => {
         },
       }}
     >
-      {/* <Stack.Screen name="Dashboard" component={Dashboard} /> */}
-      {/* <Stack.Screen name="Profile" component={ProfileScreen} />
-      <Stack.Screen name="Edit Profile" component={UpdateProfile} /> */}
-      {/* <Stack.Screen name="Create New Plan" component={PreferenceSelection} /> */}
+      {/* <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="Edit Profile" component={UpdateProfile} />
+      <Stack.Screen name="Create New Plan" component={PreferenceSelection} /> */}
       <Stack.Screen
         name="Travel Plan"
         component={TravelPlan}
@@ -40,6 +41,16 @@ export const CreatePlanNavigator = () => {
       />
       <Stack.Screen name="Travel Route" component={Route} />
       <Stack.Screen name="Edit Plan" component={EditPlan} />
+      <Stack.Screen
+        name="Find Hotels"
+        component={NearByHotels}
+        options={{
+          presentation: "transparentModal",
+          headerShown: false,
+          cardOverlayEnabled: true,
+          ...TransitionPresets.ModalPresentationIOS,
+        }}
+      />
       <Stack.Screen
         name="Add Place"
         component={AddPlace}
