@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Chip, Card, Button, ActivityIndicator } from "react-native-paper";
 
-import { View, StyleSheet, ScrollView } from "react-native";
+import { SafeAreaView, View, StyleSheet, ScrollView } from "react-native";
 
 import { getPoiData, getNearByPlaces } from "../services/ViewPOIServices";
 
@@ -63,46 +63,48 @@ const LocationDetail = ({ route, navigation }) => {
   return (
     <Background>
       <ScrollView>
-        {isLoading && (
-          <ActivityIndicator animating={true} size={80} theme={theme} />
-        )}
         {!isLoading && (
-          <View style={styles.container}>
-            <ImageSlider photos={photos} />
-            {renderTypes(data.types)}
-            <Card style={styles.card} elevation={8}>
-              <Card.Title title={data.name} subtitle={data.formatted_address} />
-              <Card.Content
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                {data.opening_hours && (
-                  <Chip
-                    style={{ maxWidth: "30%" }}
-                    icon={
-                      data.opening_hours.open_now ? "check-circle" : "close"
-                    }
+          <SafeAreaView
+            style={{
+              ...styles.container,
+              marginTop: !data.opening_hours ? 260 : 10,
+            }}
+          >
+            {!data.opening_hours && (
+              <ActivityIndicator animating={true} size={80} theme={theme} />
+            )}
+
+            {data.opening_hours && (
+              <>
+                <ImageSlider photos={photos} />
+                {renderTypes(data.types)}
+                <Card style={styles.card} elevation={8}>
+                  <Card.Title
+                    title={data.name}
+                    subtitle={data.formatted_address}
+                  />
+                  <Card.Content
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
                   >
-                    {data.opening_hours.open_now ? "OPEN" : "CLOSED"}
-                  </Chip>
-                )}
-                {/* <Button
-                  mode="contained"
-                  icon="delete"
-                  onPress={() => {
-                    console.log(data.reviews);
-                  }}
-                  color="red"
-                  style={{ borderRadius: 20 }}
-                >
-                  REMOVE
-                </Button> */}
-              </Card.Content>
-            </Card>
-            <ReviewSlider reviews={data.reviews} />
-          </View>
+                    {data.opening_hours && (
+                      <Chip
+                        style={{ maxWidth: "30%" }}
+                        icon={
+                          data.opening_hours.open_now ? "check-circle" : "close"
+                        }
+                      >
+                        {data.opening_hours.open_now ? "OPEN" : "CLOSED"}
+                      </Chip>
+                    )}
+                  </Card.Content>
+                </Card>
+                <ReviewSlider reviews={data.reviews} />
+              </>
+            )}
+          </SafeAreaView>
         )}
       </ScrollView>
     </Background>
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    justifyContent: "flex-start",
+    justifyContent: "flex-end",
     alignItems: "center",
   },
   chipContainer: {
