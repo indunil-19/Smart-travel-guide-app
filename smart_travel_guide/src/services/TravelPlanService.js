@@ -63,7 +63,7 @@ export const getTravelPlan = async (
           query: x,
           type: ["tourist_attraction"],
           //
-          key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+          key: "AIzaSyCZvOdE2r9moeOBqDlvgP1PH3n-v6ZUWVQ",
           rating: 4,
           componentRestrictions: { country: "LK" },
         };
@@ -77,7 +77,7 @@ export const getTravelPlan = async (
             query: x + religion,
             type: ["tourist_attraction"],
             // rankBy :google.maps.places.RankBy.DISTANCE,
-            key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+            key: "AIzaSyCZvOdE2r9moeOBqDlvgP1PH3n-v6ZUWVQ",
             rating: 4,
             componentRestrictions: { country: "LK" },
           };
@@ -89,7 +89,7 @@ export const getTravelPlan = async (
             query: x,
             type: ["tourist_attraction"],
             // rankBy :google.maps.places.RankBy.DISTANCE,
-            key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+            key: "AIzaSyCZvOdE2r9moeOBqDlvgP1PH3n-v6ZUWVQ",
             rating: 4,
             componentRestrictions: { country: "LK" },
           };
@@ -155,7 +155,7 @@ export const getTravelPlan = async (
           optimizeWaypoints: true,
           waypoints: waypts,
           travelMode: "DRIVING",
-          key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+          key: "AIzaSyCZvOdE2r9moeOBqDlvgP1PH3n-v6ZUWVQ",
         },
       })
       .then((response) => {
@@ -215,7 +215,7 @@ export const calculateAndDisplayRoute = async (pois) => {
         optimizeWaypoints: true,
         waypoints: waypts,
         travelMode: "DRIVING",
-        key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+        key: "AIzaSyCZvOdE2r9moeOBqDlvgP1PH3n-v6ZUWVQ",
       },
     })
     .then((response) => {
