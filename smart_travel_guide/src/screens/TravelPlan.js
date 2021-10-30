@@ -2,11 +2,15 @@ import React, { useContext, useState, useEffect } from "react";
 import {
   ActivityIndicator,
   Snackbar,
+  Subheading,
+  Divider,
+  Card,
   Drawer,
   Chip,
   FAB,
   Portal,
-  Provider,
+  IconButton,
+  Title,
 } from "react-native-paper";
 import { AppContext } from "../context/AppContext";
 import { getTravelPlan } from "../services/TravelPlanService";
@@ -22,6 +26,7 @@ import {
   Alert,
 } from "react-native";
 import Background from "../components/Background";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import { LocationInfoCard } from "../components/LocationInfoCard";
 
@@ -120,6 +125,7 @@ export function TravelPlan({ navigation }) {
       });
     }
   }, [state]);
+
   const confirmSave = () => {
     Alert.alert(
       "Do you want to save this plan ?",
@@ -153,8 +159,15 @@ export function TravelPlan({ navigation }) {
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          // ! Add a error
+          Alert.alert(data.error, "", [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel",
+            },
+          ]);
           console.log(data.error);
+          return;
         } else {
           // ! Add a save confirm
           navigation.navigate("Dashboard");
@@ -163,6 +176,71 @@ export function TravelPlan({ navigation }) {
       .catch((err) => {
         console.log(err);
       });
+  };
+  const renderStartingLocation = () => {
+    return (
+      <View style={{ marginBottom: 10 }}>
+        <Card
+          style={{
+            alignItems: "center",
+            justifyContent: "space-evenly",
+          }}
+          elevation={8}
+        >
+          <Card.Content
+            style={{
+              flexDirection: "row",
+              alignContent: "center",
+              alignItems: "center",
+              padding: 5,
+            }}
+          >
+            <Title>Starting From :</Title>
+            <Subheading> Colombo </Subheading>
+          </Card.Content>
+          <Card.Content
+            style={{
+              maxWidth: 200,
+            }}
+          >
+            <Chip icon="timer">Depart at 9.00 A.M</Chip>
+          </Card.Content>
+        </Card>
+      </View>
+    );
+  };
+
+  const renderDestination = () => {
+    return (
+      <View style={{ marginTop: 10 }}>
+        <Card
+          style={{
+            alignItems: "center",
+          }}
+          elevation={8}
+        >
+          <Card.Content
+            style={{
+              alignContent: "center",
+              alignItems: "center",
+              padding: 5,
+            }}
+          >
+            <Title>Destination :</Title>
+            <Subheading numberOfLines={3} ellipsizeMode="tail">
+              {plan[1].length ? plan[1][plan[1].length - 1].end_address : ""}
+            </Subheading>
+          </Card.Content>
+          <Card.Content
+            style={{
+              maxWidth: 200,
+            }}
+          >
+            <Chip icon="timer">Arrive at 6.00 P.M </Chip>
+          </Card.Content>
+        </Card>
+      </View>
+    );
   };
 
   const renderItem = ({ item, index }) => {
@@ -190,7 +268,10 @@ export function TravelPlan({ navigation }) {
             });
           }}
         >
-          <LocationInfoCard location={item} />
+          <LocationInfoCard
+            location={item}
+            photo={item.photos ? item.photos[0].photo_reference : ""}
+          />
         </TouchableOpacity>
       </>
     );
@@ -210,13 +291,55 @@ export function TravelPlan({ navigation }) {
               keyExtractor={(item) => item.place_id}
               renderItem={(item, index) => renderItem(item, index)}
               initialNumToRender={2}
+              ListHeaderComponent={renderStartingLocation()}
+              ListFooterComponent={renderDestination()}
               stickySectionHeadersEnabled={true}
-              renderSectionHeader={({ section: { title } }) => (
+              renderSectionHeader={({ section: { title, data } }) => (
                 <Drawer.Item
                   style={{ backgroundColor: "#64ffda" }}
                   icon="calendar"
                   label={"Day " + title}
                   active={false}
+                  right={() => (
+                    <IconButton
+                      icon={() => (
+                        <MaterialIcons
+                          name="local-hotel"
+                          size={22}
+                          color="black"
+                        />
+                      )}
+                      color="black"
+                      size={22}
+                      style={{ margin: 0, padding: 0 }}
+                      onPress={() => {
+                        if (data.length == 0) {
+                          Alert.alert(
+                            "Add places for day " +
+                              title +
+                              " before finding accomodations ",
+                            "",
+                            [
+                              {
+                                text: "Cancel",
+                                onPress: () => console.log("Cancel Pressed"),
+                                style: "cancel",
+                              },
+                            ]
+                          );
+                          return;
+                        }
+                        dispatch({
+                          type: "accomodation_location",
+                          payload: {
+                            accomodation_location:
+                              data[data.length - 1].geometry.location,
+                          },
+                        });
+                        navigation.navigate("Find Hotels");
+                      }}
+                    />
+                  )}
                 />
               )}
             />
@@ -232,7 +355,6 @@ export function TravelPlan({ navigation }) {
                     icon: "map-marker",
                     label: "Route",
                     onPress: () => navigation.navigate("Travel Route"),
-                    // onPress: () => console.log(distanceTime),
                   },
                   {
                     icon: "circle-edit-outline",

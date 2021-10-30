@@ -7,8 +7,10 @@ import {
   Drawer,
   Chip,
   FAB,
-  Portal,
-  Provider,
+  Card,
+  Title,
+  Subheading,
+  Divider,
 } from "react-native-paper";
 import {
   Text,
@@ -207,14 +209,74 @@ export const EditPlan = ({ navigation }) => {
       </>
     );
   };
+
+  const renderStartingLocation = () => {
+    return (
+      <View style={{ marginBottom: 10 }}>
+        <Card
+          style={{
+            alignItems: "center",
+            justifyContent: "space-evenly",
+          }}
+          elevation={8}
+        >
+          <Card.Content
+            style={{
+              flexDirection: "row",
+              alignContent: "center",
+              alignItems: "center",
+              padding: 5,
+            }}
+          >
+            <Title>Starting From :</Title>
+            <Subheading> Colombo </Subheading>
+          </Card.Content>
+          <Card.Content
+            style={{
+              maxWidth: 200,
+            }}
+          >
+            <Chip icon="timer">Depart at 9.00 A.M</Chip>
+          </Card.Content>
+        </Card>
+      </View>
+    );
+  };
+
   const renderFooter = () => {
     return (
-      <>
+      <View style={{ marginTop: 10 }}>
         <Button style={{ alignItems: "center" }} onPress={() => addDay()}>
           Add a day
         </Button>
-        <Text>Destination Colombo</Text>
-      </>
+        <Card
+          style={{
+            alignItems: "center",
+          }}
+          elevation={8}
+        >
+          <Card.Content
+            style={{
+              flexDirection: "row",
+              alignContent: "center",
+              alignItems: "center",
+              padding: 5,
+            }}
+          >
+            <Title>Destination :</Title>
+            <Subheading>
+              {plan[1].length ? plan[1][plan[1].length - 1].end_address : ""}
+            </Subheading>
+          </Card.Content>
+          <Card.Content
+            style={{
+              maxWidth: 200,
+            }}
+          >
+            <Chip icon="timer">Arrive at 6.00 P.M </Chip>
+          </Card.Content>
+        </Card>
+      </View>
     );
   };
 
@@ -237,7 +299,7 @@ export const EditPlan = ({ navigation }) => {
               renderSectionHeader={({ section: { title } }) =>
                 renderDayHeader(title)
               }
-              ListHeaderComponent={<Text> Starting from colombo</Text>}
+              ListHeaderComponent={renderStartingLocation()}
               ListFooterComponent={renderFooter()}
             />
           </>
