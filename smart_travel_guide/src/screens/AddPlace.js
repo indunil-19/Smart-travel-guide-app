@@ -59,7 +59,7 @@ export const AddPlace = ({ route, navigation }) => {
           </View>
         }
         initialNumToRender={10}
-        keyExtractor={({ item, index }) => index}
+        keyExtractor={(item, index) => item.place_id + index}
         renderItem={({ item, index }) => (
           <View style={{ marginVertical: 10 }}>
             <TouchableOpacity
@@ -70,7 +70,10 @@ export const AddPlace = ({ route, navigation }) => {
                 });
               }}
             >
-              <LocationInfoCard location={item} />
+              <LocationInfoCard
+                location={item}
+                photo={item.photos ? item.photos[0].photo_reference : ""}
+              />
             </TouchableOpacity>
             <FAB
               icon="plus"
@@ -100,7 +103,6 @@ export const AddPlace = ({ route, navigation }) => {
       />
       <View
         style={{
-          height: "100%",
           width: "100%",
           backgroundColor: "#fff",
           justifyContent: "space-evenly",
