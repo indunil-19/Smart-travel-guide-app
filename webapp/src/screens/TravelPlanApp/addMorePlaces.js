@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react"
+import React, { useContext, useState, useEffect } from "react"
 import { findPois, addPoiToPlan } from "../../services/EditPlanServices"
 import { useParams } from 'react-router'
 import { TravelContext } from "../../context/TravelContext"
@@ -11,7 +11,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel,Alert} from "@chakra-ui/react"
 import { AlertIcon } from "@chakra-ui/alert"
 import Autocomplete from "react-google-autocomplete";
 
-export const AddMorePlaces=()=>{
+ const AddMorePlaces=()=>{
     const history=useHistory()
     const {day}=useParams()
     const [pois,setPois]=useState([])
@@ -52,7 +52,7 @@ export const AddMorePlaces=()=>{
         <TabPanels >
 
 
-        <TabPanel>
+        <TabPanel data-testid="morePlaces">
         <Flex flexDirection="column" alignItems="center">
         {
             pois.length==0 ? 
@@ -97,10 +97,10 @@ export const AddMorePlaces=()=>{
         </TabPanel>
 
 
-        <TabPanel>
+        <TabPanel data-testid="findPlaces">
 
 
-        <Flex flexDirection="column" alignItems="center" p={10}>
+        <Flex flexDirection="column" alignItems="center" p={10} data-testid="placesfind">
                 <Autocomplete style={{width:"40%" ,height:"30px", padding:"5px", margin:"15px",background:"grey", borderRadius:"5px", color:"white"}}
                 apiKey={"AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA"}
 
@@ -140,3 +140,4 @@ export const AddMorePlaces=()=>{
         </>
     )
 }
+export default AddMorePlaces

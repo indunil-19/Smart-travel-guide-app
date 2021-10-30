@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`edit plan page should match snapshot 1`] = `
+<div
+  className="css-dvxtzn"
+>
+  <div
+    className="chakra-stack css-84zodg"
+  >
+    <svg
+      fill="currentColor"
+      height="1em"
+      stroke="currentColor"
+      strokeWidth="0"
+      style={
+        Object {
+          "color": undefined,
+        }
+      }
+      viewBox="0 0 512 512"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M256 32C167.67 32 96 96.51 96 176c0 128 160 304 160 304s160-176 160-304c0-79.49-71.67-144-160-144zm0 224a64 64 0 1164-64 64.07 64.07 0 01-64 64z"
+      />
+    </svg>
+    <span
+      className="chakra-badge css-ifsvay"
+    >
+      9.00 a.m
+    </span>
+    <p
+      className="chakra-text css-1tapsqs"
+    >
+      Start from colombo
+    </p>
+  </div>
+  <button
+    className="chakra-button css-f37c8w"
+    onClick={[Function]}
+    type="button"
+  >
+    Add A Day
+  </button>
+  <div
+    className="chakra-stack css-84zodg"
+  >
+    <svg
+      fill="currentColor"
+      height="1em"
+      stroke="currentColor"
+      strokeWidth="0"
+      style={
+        Object {
+          "color": undefined,
+        }
+      }
+      viewBox="0 0 512 512"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M256 32C167.67 32 96 96.51 96 176c0 128 160 304 160 304s160-176 160-304c0-79.49-71.67-144-160-144zm0 224a64 64 0 1164-64 64.07 64.07 0 01-64 64z"
+      />
+    </svg>
+    <span
+      className="chakra-badge css-ifsvay"
+    >
+      6.00 p.m
+    </span>
+    <p
+      className="chakra-text css-1tapsqs"
+    >
+      End - 
+      
+    </p>
+  </div>
+  <div
+    className="chakra-stack css-1obfgbw"
+  >
+    <button
+      className="chakra-button css-xdqcq1"
+      onClick={[Function]}
+      type="button"
+    >
+      <svg
+        fill="currentColor"
+        height="1em"
+        stroke="currentColor"
+        strokeWidth="0"
+        style={
+          Object {
+            "color": undefined,
+          }
+        }
+        viewBox="0 0 1024 1024"
+        width="1em"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+`;

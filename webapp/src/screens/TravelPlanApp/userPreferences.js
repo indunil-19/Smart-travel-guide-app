@@ -108,7 +108,7 @@ const UserPreferences=()=>{
                 <RadioGroup onChange={setClimate} value={climate}>
                 <Stack spacing={6} >
                     <Radio value="dry">Dry</Radio>
-                    <Radio value="wet">Wet</Radio>
+                    <Radio data-testid="climate"  value="wet">Wet</Radio>
                     <Radio value="intermediate">Intermediate</Radio>
                 </Stack>
                 </RadioGroup>

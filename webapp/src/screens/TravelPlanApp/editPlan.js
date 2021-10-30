@@ -12,7 +12,7 @@ import { DeletePOI , DeleteDay,AddDay} from "../../services/EditPlanServices"
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
 
-export const EditPlan=()=>{
+ const EditPlan=()=>{
     const toast=useToast()
     const history=useHistory()
     const {state, dispatch}=useContext(TravelContext)
@@ -222,5 +222,6 @@ const Card=({distance,duration,photo,index,name,address, types=[], rating, place
     )
 }
 
+export {EditPlan, Card}
 
   

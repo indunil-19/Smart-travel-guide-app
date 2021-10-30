@@ -1,7 +1,8 @@
 import { Heading ,Flex,Text, HStack, VStack} from "@chakra-ui/layout"
 import { Image,Button, ButtonGroup } from "@chakra-ui/react"
 import { FaFacebook,FaTwitter, FaInstagram  } from "react-icons/fa"
-export const About=()=>{
+import React from "react"
+const About=()=>{
     return(
         <>
         
@@ -85,3 +86,4 @@ export const About=()=>{
         </>
     )
 }
+export default About

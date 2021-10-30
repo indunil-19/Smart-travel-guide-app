@@ -117,7 +117,7 @@ const SignUp=()=>{
 
                 <InputGroup >
                     <BiUserCircle  />
-                    <Input type="date" placeholder="Date of birth" value={dob} onChange={(e)=>setDOB(e.target.value)} />
+                    <Input  type="date" placeholder="Date of birth" value={dob} onChange={(e)=>setDOB(e.target.value)} />
                 </InputGroup>
 
                 <InputGroup >
@@ -138,7 +138,7 @@ const SignUp=()=>{
 
                 <InputGroup >
                     <RiLockPasswordLine/>
-                    <Autocomplete style={{width:"100%" ,height:"45px", padding:"10px", margin:"15px",background:"transparent", borderRadius:"5px", color:"white", borderColor:"white", borderWidth:"2px"}}
+                    <Autocomplete data-testid="country" style={{width:"100%" ,height:"45px", padding:"10px", margin:"15px",background:"transparent", borderRadius:"5px", color:"white", borderColor:"white", borderWidth:"2px"}}
                          apiKey={"AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA"}
                             onPlaceSelected={(place) => {
                                     setCountry(place.name)

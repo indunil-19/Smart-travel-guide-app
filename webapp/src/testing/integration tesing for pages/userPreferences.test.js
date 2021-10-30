@@ -61,7 +61,7 @@ describe('userpreferences page test', () => {
         fireEvent.click(screen.getByTestId("placeslike4"))
         fireEvent.click(screen.getByTestId("next")) 
         waitFor(()=>{
-            expect(scree.getByTestId("aleart")).toBeInTheDocument()
+            expect(screen.getByTestId("aleart")).toBeInTheDocument()
         })
     })
 

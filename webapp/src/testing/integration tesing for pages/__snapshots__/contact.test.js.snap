@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Contact us page should match snapshot 1`] = `
+<div
+  className="css-1y0wkpi"
+>
+  <ins
+    className="chakra-heading css-1knigk4"
+  >
+    Contact Us
+  </ins>
+  <p
+    className="chakra-text css-1n49pl7"
+  >
+    You can contact us through our facebook page or whatsapp
+  </p>
+  <div
+    className="chakra-stack css-84zodg"
+  >
+    <iframe
+      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+      allowfullscreen="true"
+      frameborder="0"
+      height="500"
+      scrolling="no"
+      src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FWonderDiscoveryTravelSriLanka%2F&tabs=messages&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+      style={
+        Object {
+          "border": "none",
+          "overflow": "hidden",
+        }
+      }
+      width="340"
+    />
+  </div>
+</div>
+`;

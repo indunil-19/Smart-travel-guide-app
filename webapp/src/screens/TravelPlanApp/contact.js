@@ -1,6 +1,7 @@
 import { Flex, Heading, HStack, VStack,Text } from "@chakra-ui/layout"
+import React from "react"
 
-export const Contact=()=>{
+const Contact=()=>{
     return(
         <>
         
@@ -22,21 +23,23 @@ export const Contact=()=>{
         </Flex>
 
                
-        {whatsapp()}
+        {/* {whatsapp()} */}
 
 
         </>
     )
 }
 
-function whatsapp () {
-    var options = {
-        whatsapp: "0713412986", // WhatsApp number
-        call_to_action: "Message us", // Call to action
-        position: "right", // Position may be 'right' or 'left'
-    };
-    var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host;
-    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
-    // s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
-    // var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
-}
+// function whatsapp () {
+//     var options = {
+//         whatsapp: "0713412986", // WhatsApp number
+//         call_to_action: "Message us", // Call to action
+//         position: "right", // Position may be 'right' or 'left'
+//     };
+//     var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host;
+//     var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+//     // s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+//     // var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+// }
+
+export default Contact

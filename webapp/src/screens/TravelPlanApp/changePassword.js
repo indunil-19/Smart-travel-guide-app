@@ -1,10 +1,10 @@
 import { Flex, Heading } from "@chakra-ui/layout"
 import { Input,InputGroup,InputLeftAddon } from "@chakra-ui/input"
-import { useState } from "react"
+import React,{ useState } from "react"
 import { Button } from "@chakra-ui/button"
 import { useToast } from "@chakra-ui/toast"
 import { useHistory } from "react-router"
-export const ChangePassword=()=>{
+ const ChangePassword=()=>{
     const [prevoiusPass,setPreviousPass]=useState("")
     const [newPass,setNewPass]=useState("")
     const history=useHistory()
@@ -54,15 +54,15 @@ export const ChangePassword=()=>{
             <Heading>Change Password</Heading>
             <InputGroup p={3} m={3}>
                 <InputLeftAddon children="previous password" />
-                <Input type="text" placeholder="previous password"  value={prevoiusPass}  onChange={(e)=>setPreviousPass(e.target.value)}  />
+                <Input data-testid="previous" type="text" placeholder="previous password"  value={prevoiusPass}  onChange={(e)=>setPreviousPass(e.target.value)}  />
             </InputGroup>
 
             <InputGroup p={3} m={3}>
                 <InputLeftAddon children="New password" />
-                <Input type="text" placeholder="New password"  value={newPass} onChange={(e)=>setNewPass(e.target.value)}  />
+                <Input data-testid="new" type="text" placeholder="New password"  value={newPass} onChange={(e)=>setNewPass(e.target.value)}  />
             </InputGroup>
 
-            <Button colorScheme="blue" m={10} onClick={()=>updatepassword()}>
+            <Button data-testid="submit" colorScheme="blue" m={10} onClick={()=>updatepassword()}>
                 Submit
             </Button>
 
@@ -71,3 +71,5 @@ export const ChangePassword=()=>{
         </>
     )
 }
+
+export default ChangePassword

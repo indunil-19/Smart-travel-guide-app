@@ -39,8 +39,8 @@ describe('signin page testing', () => {
     it("should login correctly if no error",async()=>{
         const history = createMemoryHistory();
         render(<MemoryRouter><Router history={history}><TravelProvider><SignIn/></TravelProvider></Router></MemoryRouter>)        
-        fireEvent.change(screen.getByPlaceholderText("email"), {target:{value:"udayangana98@gmail.com"}})
-        fireEvent.change(screen.getByPlaceholderText("password"), {target:{value:"1234"}})
+        fireEvent.change(screen.getByPlaceholderText("email"), {target:{value:"udayangana1998@gmail.com"}})
+        fireEvent.change(screen.getByPlaceholderText("password"), {target:{value:"4567"}})
         fireEvent.click(screen.getByTestId("signIn"))
         await waitFor(()=>{
             const toasts=screen.getAllByRole("list")
@@ -67,7 +67,7 @@ describe('signin page testing', () => {
             })
         )
         render(<MemoryRouter><TravelProvider><SignIn/></TravelProvider></MemoryRouter>)        
-        fireEvent.change(screen.getByPlaceholderText("email"), {target:{value:"udayangana98@gmail.com"}})
+        fireEvent.change(screen.getByPlaceholderText("email"), {target:{value:"udayangana1998@gmail.com"}})
         fireEvent.change(screen.getByPlaceholderText("password"), {target:{value:""}})
         fireEvent.click(screen.getByTestId("signIn"))
         await waitFor(()=>{

@@ -1,0 +1,252 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`my account page should match snapshot 1`] = `
+Array [
+  <div
+    className="css-1lgg032"
+  >
+    <input
+      onChange={[Function]}
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+      type="file"
+    />
+    <div
+      className="chakra-stack css-84zodg"
+    >
+      <img
+        className="chakra-image__placeholder css-1oidk5m"
+      />
+    </div>
+    <div
+      className="chakra-input__group css-1or4oaq"
+    >
+      <div
+        className="chakra-input__left-addon css-1lhl5nw"
+      >
+        First Name
+      </div>
+      <input
+        className="chakra-input css-fu3wfu"
+        data-testid="firstname"
+        disabled={true}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="First Name"
+        type="text"
+      />
+    </div>
+    <div
+      className="chakra-input__group css-1or4oaq"
+    >
+      <div
+        className="chakra-input__left-addon css-1lhl5nw"
+      >
+        Last Name
+      </div>
+      <input
+        className="chakra-input css-fu3wfu"
+        data-testid="lastname"
+        disabled={true}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Last Name"
+        type="text"
+      />
+    </div>
+    <div
+      className="chakra-input__group css-1or4oaq"
+    >
+      <div
+        className="chakra-input__left-addon css-1lhl5nw"
+      >
+        Birth Day
+      </div>
+      <input
+        className="chakra-input css-fu3wfu"
+        data-testid="dob"
+        disabled={true}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Birth Day"
+        type="date"
+      />
+    </div>
+    <div
+      className="chakra-input__group css-1or4oaq"
+    >
+      <div
+        className="chakra-input__left-addon css-1lhl5nw"
+      >
+        Religion
+      </div>
+      <div
+        className="chakra-select__wrapper css-1uadmkv"
+      >
+        <select
+          className="chakra-select css-1ik61og"
+          data-testid="religion"
+          disabled={true}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+        >
+          <option
+            value=""
+          >
+            religion
+          </option>
+          <option
+            value="Buddhism"
+          >
+            Buddhism
+          </option>
+          <option
+            value="Hindu"
+          >
+            Hindu
+          </option>
+          <option
+            value="Islam"
+          >
+            Islam
+          </option>
+          <option
+            value="Catholic"
+          >
+            Catholic
+          </option>
+          <option
+            value=""
+          >
+            None
+          </option>
+        </select>
+        <div
+          className="chakra-select__icon-wrapper css-s9xp1k"
+          data-disabled={true}
+        >
+          <svg
+            aria-hidden={true}
+            className="chakra-select__icon"
+            focusable={false}
+            role="presentation"
+            style={
+              Object {
+                "color": "currentColor",
+                "height": "1em",
+                "width": "1em",
+              }
+            }
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      className="chakra-input__group css-1or4oaq"
+    >
+      <div
+        className="chakra-input__left-addon css-1lhl5nw"
+      >
+        Country
+      </div>
+      <input
+        className="chakra-input css-fu3wfu"
+        disabled={true}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Country"
+        type="text"
+      />
+    </div>
+    <div
+      className="chakra-input__group css-1or4oaq"
+    >
+      <div
+        className="chakra-input__left-addon css-1lhl5nw"
+      >
+        Email
+      </div>
+      <input
+        className="chakra-input css-fu3wfu"
+        data-testid="email"
+        disabled={true}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        placeholder="Country"
+        type="email"
+      />
+    </div>
+    <div
+      className="css-1d2ayld"
+    >
+      <button
+        className="chakra-button css-5c2176"
+        data-testid="edit"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          className="chakra-button__icon css-1wh2kri"
+        >
+          <svg
+            aria-hidden={true}
+            className="chakra-icon css-onkibi"
+            focusable={false}
+            viewBox="0 0 24 24"
+          >
+            <g
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+            >
+              <path
+                d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+              />
+              <path
+                d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+              />
+            </g>
+          </svg>
+        </span>
+        Edit
+      </button>
+    </div>
+  </div>,
+  <div
+    className="css-1lgg032"
+  >
+    <h3
+      className="chakra-heading css-1o3848f"
+    >
+      Do you need to change your password???
+    </h3>
+    <a
+      href="/travelPlan/changePassword"
+      onClick={[Function]}
+    >
+      <button
+        className="chakra-button css-n93402"
+        type="button"
+      >
+        Click Here
+      </button>
+    </a>
+  </div>,
+]
+`;

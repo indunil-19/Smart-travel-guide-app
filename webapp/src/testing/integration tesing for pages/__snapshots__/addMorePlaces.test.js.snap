@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add more places page should match snapshot 1`] = `
+<div
+  className="chakra-tabs css-0"
+>
+  <div
+    aria-orientation="horizontal"
+    className="chakra-tabs__tablist css-1u3xc82"
+    onKeyDown={[Function]}
+    role="tablist"
+  >
+    <button
+      aria-controls="tabs-3152573074-1--tabpanel--1"
+      aria-selected={false}
+      className="chakra-tabs__tab css-5wl5ud"
+      id="tabs-3152573074-1--tab--1"
+      onClick={[Function]}
+      onFocus={[Function]}
+      role="tab"
+      tabIndex={-1}
+      type="button"
+    >
+      Place sugests for you
+    </button>
+    <button
+      aria-controls="tabs-3152573074-1--tabpanel--1"
+      aria-selected={false}
+      className="chakra-tabs__tab css-5wl5ud"
+      id="tabs-3152573074-1--tab--1"
+      onClick={[Function]}
+      onFocus={[Function]}
+      role="tab"
+      tabIndex={-1}
+      type="button"
+    >
+      Find by your self
+    </button>
+  </div>
+  <div
+    className="chakra-tabs__tab-panels css-8atqhb"
+  >
+    <div
+      aria-labelledby="tabs-3152573074-1--tab-0"
+      className="chakra-tabs__tab-panel css-sjt5nk"
+      data-testid="morePlaces"
+      hidden={false}
+      id="tabs-3152573074-1--tabpanel-0"
+      role="tabpanel"
+      tabIndex={0}
+    >
+      <div
+        className="css-dvxtzn"
+      >
+        <div
+          className="chakra-alert css-19g6nv8"
+          role="alert"
+        >
+          <span
+            className="chakra-alert__icon css-1c6vscd"
+          >
+            <svg
+              className="chakra-icon css-fi0ww0"
+              focusable={false}
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          Seems there is no pois for suggests.
+        </div>
+      </div>
+    </div>
+    <div
+      aria-labelledby="tabs-3152573074-1--tab-1"
+      className="chakra-tabs__tab-panel css-sjt5nk"
+      data-testid="findPlaces"
+      hidden={true}
+      id="tabs-3152573074-1--tabpanel-1"
+      role="tabpanel"
+      tabIndex={0}
+    >
+      <div
+        className="css-bp8v6l"
+        data-testid="placesfind"
+      >
+        <input
+          style={
+            Object {
+              "background": "grey",
+              "borderRadius": "5px",
+              "color": "white",
+              "height": "30px",
+              "margin": "15px",
+              "padding": "5px",
+              "width": "40%",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

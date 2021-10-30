@@ -1,13 +1,14 @@
 import { Flex ,HStack,Text,Heading} from "@chakra-ui/layout"
 import { Image } from "@chakra-ui/image"
 import { TravelContext } from "../../context/TravelContext"
-import { useContext, useEffect,useState, useRef} from "react"
+import React, { useContext, useEffect,useState, useRef} from "react"
 import { Input,InputGroup ,InputLeftAddon,Button,Select, useToast} from "@chakra-ui/react"
 import {  EditIcon, CloseIcon , CheckIcon,} from '@chakra-ui/icons'
 import Autocomplete from "react-google-autocomplete";
 import { Link } from "react-router-dom"
 
-export const MyAccount=()=>{
+
+const MyAccount=()=>{
     const {state,dispatch} = useContext(TravelContext)
     const [edit, setEdit]=useState(false)
     const [isLoading,setLoading]=useState(false)
@@ -111,7 +112,7 @@ export const MyAccount=()=>{
     return(
         <>
          <Flex flexDirection="column" justifyContent="center" width="80%" m={5} mx="auto" alignItems="center" p={5} boxShadow="dark-lg" >
-            <input  ref={inputRef} type="file" style={{display:"none"}} onChange={(e)=>postDetails(e.target.files[0])}/>
+            <input   ref={inputRef} type="file" style={{display:"none"}} onChange={(e)=>postDetails(e.target.files[0])}/>
             <HStack>
                 <Image
                 borderRadius="full"
@@ -125,25 +126,25 @@ export const MyAccount=()=>{
 
             <InputGroup p={3}>
                 <InputLeftAddon children="First Name" />
-                <Input type="text" placeholder="First Name"  value={first_name}  onChange={(e)=>setFirst_name(e.target.value)}  isDisabled={!edit} />
+                <Input data-testid="firstname" type="text" placeholder="First Name"  value={first_name}  onChange={(e)=>setFirst_name(e.target.value)}  isDisabled={!edit} />
             </InputGroup>
 
             <InputGroup p={3}>
                 <InputLeftAddon children="Last Name" />
-                <Input type="text" placeholder="Last Name"  value={last_name} onChange={(e)=>setLast_name(e.target.value)} isDisabled={!edit} />
+                <Input data-testid="lastname" type="text" placeholder="Last Name"  value={last_name} onChange={(e)=>setLast_name(e.target.value)} isDisabled={!edit} />
             </InputGroup>
 
             <InputGroup p={3}>
                 <InputLeftAddon children="Birth Day" />
-                <Input type="date" placeholder="Birth Day"  value={dob} onChange={(e)=>setDOB(e.target.value)} isDisabled={!edit} />
+                <Input data-testid="dob" type="date" placeholder="Birth Day"  value={dob} onChange={(e)=>setDOB(e.target.value)} isDisabled={!edit} />
             </InputGroup>
 
             <InputGroup p={3}>
                 <InputLeftAddon children="Religion" />
-                <Select placeholder="religion" color="black" value={religion} onChange={(e)=>setReligion(e.target.value)} isDisabled={!edit}>
+                <Select data-testid="religion" placeholder="religion" color="black" value={religion} onChange={(e)=>setReligion(e.target.value)} isDisabled={!edit}>
                         <option value="Buddhism">Buddhism</option>
                         <option value="Hindu">Hindu</option>
-                        <option value="Islam">Islam</option>
+                        <option value="Islam" >Islam</option>
                         <option value="Catholic">Catholic</option>
                         <option value="">None</option>
                 </Select>
@@ -152,7 +153,7 @@ export const MyAccount=()=>{
             <InputGroup p={3}>
                 <InputLeftAddon children="Country" />
                 {!edit ? <Input type="text" placeholder="Country"  value={country} onChange={(e)=>setCountry(e.target.value)} isDisabled={!edit} /> :
-                <Autocomplete style={{width:"100%" ,height:"40px", padding:"10px",  borderRadius:"5px", borderColor:"grey", borderWidth:"1px"}}
+                <Autocomplete  style={{width:"100%" ,height:"40px", padding:"10px",  borderRadius:"5px", borderColor:"grey", borderWidth:"1px"}}
                          apiKey={"AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA"}
                             onPlaceSelected={(place) => {
                                     setCountry(place.name)
@@ -169,18 +170,18 @@ export const MyAccount=()=>{
 
             <InputGroup p={3}>
                 <InputLeftAddon children="Email" />
-                <Input type="email" placeholder="Country"  value={email} onChange={(e)=>setEmail(e.target.value)} isDisabled={!edit}  />
+                <Input data-testid="email" type="email" placeholder="Country"  value={email} onChange={(e)=>setEmail(e.target.value)} isDisabled={!edit}  />
             </InputGroup>
 
 
 
             <Flex flexDirection="row" justifyContent="space-between" padding="10" > 
-                { !edit ? <Button leftIcon={<EditIcon /> } colorScheme="teal" variant="solid" onClick={()=>setEdit(true)} >
+                { !edit ? <Button data-testid="edit" leftIcon={<EditIcon /> } colorScheme="teal" variant="solid" onClick={()=>setEdit(true)} >
                 Edit
                 </Button>                
                 : 
                 <>
-                <Button 
+                <Button data-testid="save"
                 leftIcon={<CheckIcon /> }
                 isLoading={isLoading}
                 loadingText="saving" colorScheme="teal" variant="solid" onClick={()=>updateData()}>
@@ -211,3 +212,5 @@ export const MyAccount=()=>{
         </>
     )
 }
+
+export default MyAccount

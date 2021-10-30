@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`view poi page test should match snapshot 1`] = `
+Array [
+  <div
+    className="css-110hp1q"
+  >
+    <div
+      className="chakra-stack css-1aweq0v"
+    >
+      <div
+        className="css-0"
+      >
+        <a
+          href=""
+          onClick={[Function]}
+        >
+          <h2
+            className="chakra-heading css-0"
+          >
+            Travel Guide
+          </h2>
+        </a>
+      </div>
+      <div
+        className="css-0"
+      >
+        <a
+          href="/travelPlan/signin"
+          onClick={[Function]}
+        >
+          <button
+            className="chakra-button css-5c2176"
+            type="button"
+          >
+            Sign in
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="css-mab67l"
+  />,
+  <div
+    className="css-vooagt"
+  />,
+  <div
+    className="css-1c1g1qk"
+  >
+    <p
+      className="chakra-text css-1lj023j"
+    >
+      @university of moratuwa 2021/09/27
+    </p>
+  </div>,
+]
+`;

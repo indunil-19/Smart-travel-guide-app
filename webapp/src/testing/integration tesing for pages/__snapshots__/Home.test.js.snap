@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`home page test should match snapshot 1`] = `
+Array [
+  <div
+    className="css-vuk4py"
+  >
+    <p
+      className="chakra-text css-1komj6f"
+    >
+      The new way to plan your next trip
+    </p>
+    <p
+      className="chakra-text css-6dvxm2"
+    >
+      Get a personalized trip A complete day by day itinerary based on your preferences
+    </p>
+    <p
+      className="chakra-text css-6dvxm2"
+    >
+      Customize it Refine your trip. We'll find the best routes and schedules
+    </p>
+    <div
+      className="chakra-stack css-aksqgp"
+    >
+      <div
+        className="css-1m6lxz0"
+      >
+        <img
+          className="chakra-image__placeholder css-joy71d"
+        />
+        <button
+          className="chakra-button css-6dyxs8"
+          onClick={[Function]}
+          type="button"
+        >
+          Find A travel Plan
+        </button>
+      </div>
+      <div
+        className="css-1m6lxz0"
+      >
+        <img
+          className="chakra-image__placeholder css-joy71d"
+        />
+        <button
+          className="chakra-button css-6dyxs8"
+          onClick={[Function]}
+          type="button"
+        >
+          Create your own Travel Plan
+        </button>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="css-cjrg1s"
+  >
+    <div
+      className="css-5rmg3u"
+    >
+      <h2
+        className="chakra-heading css-kbn7if"
+      >
+        \`\` Use our Sri Lanka trip planner to see the best Sri Lanka attractions. Sri Lanka vacation ideas help you See & Do More on your holiday.Explore, experience and enjoy the most amazing destinations and take in the magnificence of most unique Sri Lankan socio-cultural and historical splendour.
+      </h2>
+    </div>
+  </div>,
+  <div
+    className="css-f4maq"
+  >
+    <p
+      className="chakra-text css-1gjuw9l"
+    >
+      Plans Used by Previous Users
+    </p>
+    <a
+      href="/travelPlan/toprated"
+      onClick={[Function]}
+    >
+      <p
+        className="chakra-text css-1qkfq0e"
+      >
+        See all.....
+      </p>
+    </a>
+    <div
+      className="css-1srz6ae"
+      data-testid="tplan"
+    />
+  </div>,
+  <div
+    className="css-dx7dn0"
+  >
+    <div
+      className="chakra-stack css-owjkmg"
+    >
+      <div
+        className="chakra-stack css-k7bpxb"
+      >
+        <div
+          className="chakra-stack css-aju1p1"
+        >
+          <h3
+            className="chakra-heading css-4g6ai3"
+            onClick={[Function]}
+          >
+            About Us
+          </h3>
+          <h3
+            className="chakra-heading css-4g6ai3"
+            onClick={[Function]}
+          >
+            Contact Us
+          </h3>
+        </div>
+        <hr
+          aria-orientation="vertical"
+          className="chakra-divider css-qj2fhx"
+        />
+        <div
+          className="chakra-stack css-owjkmg"
+        >
+          <iframe
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            allowfullscreen="true"
+            frameborder="0"
+            height="500"
+            scrolling="no"
+            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FWonderDiscoveryTravelSriLanka%2F&tabs=messages&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+            style={
+              Object {
+                "border": "none",
+                "overflow": "hidden",
+              }
+            }
+            width="340"
+          />
+                               
+        </div>
+      </div>
+      <hr
+        aria-orientation="horizontal"
+        className="chakra-divider css-4wijg1"
+      />
+    </div>
+  </div>,
+]
+`;
