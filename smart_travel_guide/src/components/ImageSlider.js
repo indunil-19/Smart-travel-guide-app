@@ -79,18 +79,20 @@ export const ImageSlider = (props) => {
     <>
       {!refLoading && (
         <View style={{ width: "100%" }}>
-          <Carousel
-            data={props.photos}
-            layout={"stack"}
-            renderItem={render}
-            sliderWidth={SLIDER_WIDTH}
-            itemWidth={ITEM_WIDTH}
-            containerCustomStyle={styles.carouselContainer}
-            inactiveSlideShift={0}
-            scrollInterpolator={scrollInterpolator}
-            slideInterpolatedStyle={animatedStyles}
-            useScrollView={true}
-          />
+          {props.photos && (
+            <Carousel
+              data={props.photos}
+              layout={"stack"}
+              renderItem={render}
+              sliderWidth={SLIDER_WIDTH}
+              itemWidth={ITEM_WIDTH}
+              containerCustomStyle={styles.carouselContainer}
+              inactiveSlideShift={0}
+              scrollInterpolator={scrollInterpolator}
+              slideInterpolatedStyle={animatedStyles}
+              useScrollView={true}
+            />
+          )}
         </View>
       )}
     </>
