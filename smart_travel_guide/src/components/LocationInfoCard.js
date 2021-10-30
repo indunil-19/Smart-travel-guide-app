@@ -5,20 +5,25 @@ import { AirbnbRating } from "react-native-ratings";
 
 import { theme } from "../core/theme";
 
-export const LocationInfoCard = (props) => {
+export const LocationInfoCard = ({ photo, location }) => {
   const [imgLink, setImgLink] = useState("");
   const [isLoading, setLoaded] = useState(true);
 
   useEffect(() => {
-    setImgLink(
-      `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${props.location.photos[0].photo_reference}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`
-    );
-    setLoaded(false);
-  }, [props.location.photos[0].photo_reference]);
+    if (photo) {
+      setImgLink(
+        `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`
+      );
+      setLoaded(false);
+    }
+  }, [photo]);
   return (
     <Card elevation={6} style={styles.card}>
       {!isLoading && (
-        <Card.Cover source={{ uri: imgLink }} style={styles.cover} />
+        <Card.Cover
+          source={{ uri: photo ? imgLink : "" }}
+          style={styles.cover}
+        />
       )}
       {isLoading && (
         <Card.Cover
@@ -28,11 +33,11 @@ export const LocationInfoCard = (props) => {
       )}
 
       <Card.Title
-        title={props.location.name}
-        subtitle={props.location.formatted_address}
+        title={location.name}
+        subtitle={location.formatted_address}
         right={() => (
           <IconButton
-            icon={{ uri: props.location.icon }}
+            icon={{ uri: location.icon }}
             color={theme.colors.primary}
             size={15}
           />
@@ -48,7 +53,7 @@ export const LocationInfoCard = (props) => {
       >
         <AirbnbRating
           count={5}
-          defaultRating={props.location.rating}
+          defaultRating={location.rating}
           selectedColor={theme.colors.primary}
           showRating={false}
           size={20}
