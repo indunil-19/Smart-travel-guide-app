@@ -37,7 +37,7 @@ const LinkItems = [
     { name: 'sharedPlans', icon: AttachmentIcon,  linkto:"/admin/sharedPlans"},
     { name: 'publicPlans', icon: AttachmentIcon,  linkto:"/admin/publicPlans"},
     { name: 'Goole maps api key', icon: AttachmentIcon,  linkto:"/admin/apiKeyPage"},
-  
+    { name: 'Goole Analitics', icon: AttachmentIcon,  linkto:"/admin/googleAnalitics1"},
   ];
   
 const logout=()=>{

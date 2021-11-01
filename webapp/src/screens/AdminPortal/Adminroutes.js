@@ -21,6 +21,7 @@ import { ViewPois } from '../TravelPlanApp/ViewPOI';
 import { PublicPlans } from './publicPlans';
 import { useContext,useEffect } from 'react';
 import ApiKeyDetailsPage from './apiKeyPage';
+import GA1 from './googleAnalitics1';
 
 export const AdminPortal=()=>{
   const history=useHistory()
@@ -108,6 +109,9 @@ export const AdminPortal=()=>{
             <ApiKeyDetailsPage/>
           </Route>
 
+        <Route path="/admin/googleAnalitics1">
+            <GA1/>
+        </Route>
          </NavBar>
 
         </Switch>
