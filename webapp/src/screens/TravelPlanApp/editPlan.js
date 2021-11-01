@@ -19,17 +19,20 @@ export const EditPlan=()=>{
     const [plan,setPlan]=useState([[], []])
     useEffect( ()=>{ 
 
-        setPlan(state.travelPlan)
+        
+        // console.log(JSON.parse(localStorage.getItem("travelPlan")))
+
+        setPlan(state.editTravelPlan)
         //  console.log(r[0][0][0].photos[0].photo_reference)
         // "wet",[],"2","buddhsism",[],["ancient", "natural", "parks"]
         // state.userPreferences.climate,state.userPreferences.provinces,state.userPreferences.days,state.userPreferences.religion,state.userPreferences.thingsLike,state.userPreferences.placesLike
     
-    } ,[state] )
+    } ,[] )
 
 
     const deletePOI=(index,index1)=>{
         DeletePOI(index,index1,plan).then((res)=>{
-            dispatch({type:"set_travelPlan" , payload:{travelPlan:res}})
+            dispatch({type:"set_editTravelPlan" , payload:{editTravelPlan:res}})
             setPlan(res)
             console.log(res)
         }).catch(e=>{
@@ -40,7 +43,7 @@ export const EditPlan=()=>{
     const deleteDay=(day)=>{
         DeleteDay(day,plan).then((res)=>{
                 console.log(res)
-                dispatch({type:"set_travelPlan" , payload:{travelPlan:res}})
+                dispatch({type:"set_editTravelPlan" , payload:{editTravelPlan:res}})
                 setPlan(res)
             }).catch(e=>{
                 console.log(e)
@@ -49,7 +52,7 @@ export const EditPlan=()=>{
     const AddADay=()=>{
         AddDay(plan).then((res)=>{
             console.log(res)
-            dispatch({type:"set_travelPlan" , payload:{travelPlan:res}})
+            dispatch({type:"set_editTravelPlan" , payload:{editTravelPlan:res}})
             setPlan(res)
         }).catch(e=>{
             console.log(e)
@@ -60,7 +63,7 @@ export const EditPlan=()=>{
     return(
         <>
        
-        <Flex flexDirection="column" alignItems="center">
+        <Flex flexDirection="column" alignItems="center" width="100%">
 
             <HStack> 
                    <IoLocationSharp/> <Badge size="15">9.00 a.m</Badge> <Text fontSize="3xl">Start from colombo</Text>                  
@@ -110,7 +113,7 @@ export const EditPlan=()=>{
                                             </Button>
 
                                         </VStack>
-                                        <Card name={subItem.name} photo={subItem.photos[0].photo_reference} address={subItem.formatted_address} rating={subItem.rating} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  place_id={subItem.place_id}/>
+                                        <Card name={subItem.name} photo={subItem.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${subItem.photos[0].photo_reference}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA` : subItem.photos[0]?  subItem.photos[0].url:"" } address={subItem.formatted_address} rating={subItem.rating} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  place_id={subItem.place_id}/>
                          
                                 </HStack>
                                 </>
@@ -178,6 +181,7 @@ export const EditPlan=()=>{
 
         <VStack position="fixed" bottom="0" right="0" p={3} >
         <Button colorScheme="teal" size="lg" borderRadius="50%" onClick={()=>{
+            dispatch({type:"set_travelPlan" , payload:{travelPlan:state.editTravelPlan}})
             history.push("/travelPlan/travelPlan")
         }}>
             <AiOutlineCheck/>

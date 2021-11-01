@@ -21,7 +21,7 @@ export const NearByHotels=()=>{
   
     return(
         <>
-        <Flex flexDirection="column" alignItems="center">
+        <Flex flexDirection="column" alignItems="center" p={5}>
         
         { 
          data.map((Item, index)=>{

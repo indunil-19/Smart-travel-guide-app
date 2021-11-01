@@ -4,6 +4,7 @@ const Admin = mongoose.model("Admin")
 const Province=mongoose.model("Province")
 const User = mongoose.model("User")
 const Travelplan=mongoose.model("TravelPlan")
+const fs = require("fs");
 
 class AdminController{
      
@@ -263,6 +264,33 @@ class AdminController{
             catch(err=>{
                 console.log(err)
             })
+        }
+
+
+        static async getApiKey(req,res){
+            fs.readFile('./ApiKey.txt', (err, data) => {
+                if (err) return res.json({error:"system error"}) ;
+                let result = JSON.parse(data);
+                return res.json({result})
+            });
+        }
+
+
+
+        static async setApiKey(req,res){
+            console.log(req.body)
+            if(!req.body.apiKey){
+                return res.json({error:"invalid apiKey"})
+            }
+            let result={
+                apiKey:req.body.apiKey,
+                updateDate:new Date()
+            }
+            let data = JSON.stringify(result);
+            fs.writeFile("./ApiKey.txt", data, (err) => {
+                if (err) return res.json({error:"system error"})
+                return res.json({message:"successfully updated api key", result})
+            });
         }
 
 }

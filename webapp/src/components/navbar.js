@@ -36,10 +36,10 @@ const LinkItems = [
     { name: 'TravelplanList', icon: AttachmentIcon,  linkto:"/admin/ViewTravelplanlist"},
     { name: 'sharedPlans', icon: AttachmentIcon,  linkto:"/admin/sharedPlans"},
     { name: 'publicPlans', icon: AttachmentIcon,  linkto:"/admin/publicPlans"},
-    
+    { name: 'Goole maps api key', icon: AttachmentIcon,  linkto:"/admin/apiKeyPage"},
   
   ];
-
+  
 const logout=()=>{
     
     console.log("sdsw")

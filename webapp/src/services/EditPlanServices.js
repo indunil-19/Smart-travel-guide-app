@@ -227,7 +227,7 @@ export const findPois=async(day,travelPlan,allpois)=>{
         }else{
           end_location=allpois[i].geometry.location
         }
-      // console.log(start_location,end_location)
+      // console.log(end_location)
       client
       .directions({params:{
           

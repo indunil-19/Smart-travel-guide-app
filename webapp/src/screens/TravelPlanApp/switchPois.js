@@ -17,7 +17,7 @@ export const SwitchPois=()=>{
     const {state, dispatch}=useContext(TravelContext)
     useEffect(() => {
         
-        switchPOI(parseInt(index), parseInt(index1), state.travelPlan, state.allpois).then((res)=>{
+        switchPOI(parseInt(index), parseInt(index1), state.editTravelPlan, state.allpois).then((res)=>{
             // console.log(res)
             setPois(res[0])
             setRoute(res[1])
@@ -26,9 +26,9 @@ export const SwitchPois=()=>{
 
 
     const addPoi=(poi, route)=>{
-            addPoiToPlan1(index,index1,poi, route,state.travelPlan).then((res)=>{
+            addPoiToPlan1(index,index1,poi, route,state.editTravelPlan).then((res)=>{
                 // console.log(res)
-                dispatch({type:"set_travelPlan" , payload:{travelPlan:res}})
+                dispatch({type:"set_travelPlan" , payload:{editTravelPlan:res}})
             });
     }
 

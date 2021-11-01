@@ -20,6 +20,7 @@ import { TravelPlan } from '../../components/AdminComponents/TravelPlanView';
 import { ViewPois } from '../TravelPlanApp/ViewPOI';
 import { PublicPlans } from './publicPlans';
 import { useContext,useEffect } from 'react';
+import ApiKeyDetailsPage from './apiKeyPage';
 
 export const AdminPortal=()=>{
   const history=useHistory()
@@ -102,6 +103,9 @@ export const AdminPortal=()=>{
 
          <Route path="/test">
             <TestPage/>
+          </Route>
+          <Route path="/admin/apiKeyPage">
+            <ApiKeyDetailsPage/>
           </Route>
 
          </NavBar>

@@ -175,7 +175,7 @@ export const TravelPlan=()=>{
         <TabPanels>
         <TabPanel>
 
-        <Flex flexDirection="column" alignItems="center">
+        <Flex flexDirection="column" alignItems="center" width="100%">
         
 
             <HStack> 
@@ -197,7 +197,7 @@ export const TravelPlan=()=>{
                                 return(
                                 <> 
 
-                                <Card name={subItem.name} photo={subItem.photos[0].photo_reference} address={subItem.formatted_address} rating={subItem.rating} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  place_id={subItem.place_id}/>
+                                <Card name={subItem.name} photo={subItem.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${subItem.photos[0].photo_reference}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA` : subItem.photos[0].url} address={subItem.formatted_address} rating={subItem.rating} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  place_id={subItem.place_id}/>
                                 </>
                                 )
                             })
@@ -241,7 +241,9 @@ export const TravelPlan=()=>{
         </Flex>
 
         <VStack position="fixed" bottom="0" right="0" p={3} >
-        <Button colorScheme="teal" size="lg" borderRadius="50%" onClick={()=>{
+        <Button colorScheme="teal" size="lg" borderRadius="50%" onClick={async()=>{
+            await localStorage.setItem("travelPlan",JSON.stringify(state.travelPlan))
+            await dispatch({type:"set_editTravelPlan",payload:{editTravelPlan:JSON.parse(localStorage.getItem("travelPlan"))}})
             history.push("/travelPlan/editPlan")
         }}>
             <FiEdit/>

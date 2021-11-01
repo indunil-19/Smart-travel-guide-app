@@ -61,6 +61,7 @@ export const CustomPlanInner=()=>{
           }
           if(place.geometry.location){
             // console.log(place.photos[0].getUrl())
+            place.photos[0].url=place.photos[0].getUrl()
             setP(p=>[...p,place])
           }
         }}

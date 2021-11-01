@@ -1,5 +1,5 @@
-import { Flex,Heading, VStack ,Text} from "@chakra-ui/layout"
-import { Input, InputGroup, InputLeftAddon ,Button, Checkbox,Select,useToast } from "@chakra-ui/react"
+import { Flex,Heading, VStack ,Text, Badge} from "@chakra-ui/layout"
+import { Input, InputGroup, InputLeftAddon ,Button, Checkbox,Select,useToast, InputRightElement } from "@chakra-ui/react"
 import { BiUserCircle } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
@@ -155,7 +155,29 @@ export const SignUp=()=>{
 
                 <InputGroup >
                     <RiLockPasswordLine/>
-                    <Input placeholder="password" type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}} />
+                    <Input placeholder="password" type="password" value={password} onChange={(e)=>{
+                        setPassword(e.target.value);
+                        let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
+                        let mediumPassword = new RegExp('((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))')
+                        if(e.target.value==""){
+                            document.getElementById("passwordChecker").textContent=""
+                        }
+                        else if(strongPassword.test(e.target.value)){
+                            document.getElementById("passwordChecker").textContent="strong"
+                            document.getElementById("passwordChecker").style.colorScheme="green"
+
+                        }
+                        else if(mediumPassword.test(e.target.value)){
+                            document.getElementById("passwordChecker").textContent="medium"
+                            document.getElementById("passwordChecker").style.colorScheme="blue"
+                        }
+                        else{
+                            document.getElementById("passwordChecker").textContent="weak"
+                            document.getElementById("passwordChecker").style.colorScheme="red"
+                        }
+                            
+                        }} />
+                    <InputRightElement  children={<Badge id="passwordChecker" mr={2}></Badge>} />
                 </InputGroup>
 
                 

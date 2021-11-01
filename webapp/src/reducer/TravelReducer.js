@@ -34,6 +34,11 @@ export const Travelreducer =(state,action)=>{
                 ...state,
                 travelPlan:action.payload.travelPlan,
             }
+        case "set_editTravelPlan":
+                return{
+                    ...state,
+                    editTravelPlan:action.payload.editTravelPlan,
+                }
         case "set_pois":
             return{
                 ...state,

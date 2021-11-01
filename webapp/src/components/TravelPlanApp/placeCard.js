@@ -12,10 +12,10 @@ export const PlaceCard=({photo,index,name,address, types=[], rating, place_id})=
     useEffect(() => {
         
         
-        setLink(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`)
+        setLink(photo)
     }, [photo])
     return(
-        <Flex flexDirection="row" margin={5} borderWidth="1px" borderRadius="lg" p={5} >
+        <Flex flexDirection="row" margin={5} borderWidth="1px" borderRadius="lg" p={5} width="100%">
                            <Image src={link}  width="400px" height="300px" objectFit="cover" borderRadius="lg"  />
                            <VStack spacing={3.5} alignItems="start" p={5}>
                                  <Avatar name={index.toString()}  />

@@ -11,14 +11,14 @@ export const Carousal=({photos=[]})=>{
             setReferences(photos)
     }, [photos])
     return(
-        <Carousel>
+        <Carousel showThumbs={true} autoPlay={true} infiniteLoop={true} stopOnHover={false} dynamicHeight={true}>
                 
                 {
                     references.map((reference)=>{
                         return(
                             <div >
                             <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=${reference.photo_reference}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`} 
-                             />
+                           style={{ width:"100%",backgroundPosition:"cover"}}  />
                             
                         </div>
                         )

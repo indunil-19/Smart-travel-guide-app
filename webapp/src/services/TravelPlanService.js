@@ -253,7 +253,7 @@ export const calculateAndDisplayRoute=async(pois)=> {
      }
 
 
-     
+     route.legs.pop()
      return [[days,route.legs],pois]
 
      
