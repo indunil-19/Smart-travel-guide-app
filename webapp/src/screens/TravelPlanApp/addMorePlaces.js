@@ -10,6 +10,7 @@ import { useHistory } from "react-router"
 import { Tabs, TabList, TabPanels, Tab, TabPanel,Alert,Spinner,Input, InputGroup, InputLeftAddon,Textarea ,InputAddon} from "@chakra-ui/react"
 import { AlertIcon } from "@chakra-ui/alert"
 import Autocomplete from "react-google-autocomplete";
+import { Config } from "../../config/config"
 
 export const AddMorePlaces=()=>{
     const history=useHistory()
@@ -26,6 +27,11 @@ export const AddMorePlaces=()=>{
     const [poisCustom1,setPoisCustom1]=useState([])
     const [routeCustom1,setRouteCustom1]=useState([])
 
+    useEffect(() => {
+        if(state.custom_poi){ setPoisCustom(state.custom_poi[0]) ; setRouteCustom(state.custom_poi[1]) }
+        else {setPoisCustom([]); setRouteCustom([]) }
+    }, [])
+
 
     useEffect(() => {
         findPois(day, state.editTravelPlan, state.allpois).then((res)=>{
@@ -40,6 +46,7 @@ export const AddMorePlaces=()=>{
             addPoiToPlan(day,poi, route,state.editTravelPlan).then((res)=>{
                 // console.log(res)
                 dispatch({type:"set_editTravelPlan" , payload:{editTravelPlan:res}})
+                dispatch({type:"custom_poi", payload:{custom_poi:""}})
             })
     }
 
@@ -106,7 +113,7 @@ export const AddMorePlaces=()=>{
 
         <Flex flexDirection="column" alignItems="center" p={10}>
                 <Autocomplete style={{width:"40%" ,height:"30px", padding:"5px", margin:"15px",background:"grey", borderRadius:"5px", color:"white"}}
-                apiKey={"AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA"}
+                apiKey={Config.apiKey}
 
                 onPlaceSelected={(place) => {
                 if(place.geometry.location){
@@ -118,7 +125,7 @@ export const AddMorePlaces=()=>{
                     setPlace1(place)
                     document.getElementById("notifier").style.display="none"
                     document.getElementById("spinner").style.display="block"
-                    findPois(day, state.travelPlan, [place]).then((res)=>{
+                    findPois(day, state.editTravelPlan, [place]).then((res)=>{
                         // console.log(res)
                         document.getElementById("spinner").style.display="none"
                         setPoisCustom(res[0])
@@ -126,6 +133,7 @@ export const AddMorePlaces=()=>{
                         if(res[0].length==0){
                             document.getElementById("notifier").style.display="block"
                         }
+                        dispatch({type:"custom_poi", payload:{custom_poi:[res[0],res[1]]}})
                     })
                 }
                 }}
@@ -183,7 +191,7 @@ export const AddMorePlaces=()=>{
         <TabPanel>
                 <Flex flexDirection="column" alignItems="center" p={10}>
                         <Autocomplete style={{width:"40%" ,height:"30px", padding:"5px", margin:"15px",background:"grey", borderRadius:"5px", color:"white"}}
-                        apiKey={"AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA"}
+                        apiKey={Config.apiKey}
 
                         onPlaceSelected={(place) => {
                             console.log(place)
@@ -196,7 +204,7 @@ export const AddMorePlaces=()=>{
                             setPlace1(place)
                             document.getElementById("notifier1").style.display="none"
                             document.getElementById("spinner1").style.display="block"
-                            findPois(day, state.travelPlan, [place]).then((res)=>{
+                            findPois(day, state.editTravelPlan, [place]).then((res)=>{
                                 console.log(res)
                                 document.getElementById("spinner1").style.display="none"
                                 setPoisCustom1(res[0])

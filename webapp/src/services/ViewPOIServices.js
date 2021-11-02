@@ -1,3 +1,5 @@
+import { Config } from "../config/config";
+
 const {Client} = require("@googlemaps/google-maps-services-js");
 
 export const getPoiData=async(place_id)=>{
@@ -5,7 +7,7 @@ export const getPoiData=async(place_id)=>{
     const client = new Client({});
     return await client.placeDetails({params:{
         place_id: place_id,
-        key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+        key: Config.apiKey,
     }}).then((r)=>{
        
         return r.data.result
@@ -20,7 +22,7 @@ export const getNearByPlaces=async(location)=>{
     return  client.placesNearby({
         params:{
             location:location,
-            key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+            key: Config.apiKey,
             type:['tourist_attraction', ],
             radius:"30000",
             componentRestrictions: { country: "LK" },
@@ -39,7 +41,7 @@ export const getNearByHotels=async(location)=>{
     return  client.placesNearby({
         params:{
             location:location,
-            key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+            key: Config.apiKey,
             type:['lodging' ],
             radius:"30000",
             componentRestrictions: { country: "LK" },

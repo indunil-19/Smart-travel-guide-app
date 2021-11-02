@@ -13,7 +13,7 @@ export const UserPreferences=()=>{
     const history=useHistory()
     const [climate, setClimate] =useState('dry');
     const [provinces, setProvinces] = useState([]);
-    const [days, setDays] = useState("2");
+    const [days, setDays] = useState("1");
     const [religion, setReligion] = useState("");
     const [placesLike, setPlacesLike] = useState([]);
     const [thingsLike, setThingsLike] = useState([]);
@@ -138,7 +138,7 @@ export const UserPreferences=()=>{
                 <Heading>3.Number of Days , you hope to travel?</Heading>
                 <Box pt={10} pb={10}>
 
-                <Select  variant="filled" p={10} >
+                <Select  variant="filled" p={10} onChange={(e)=>setDays(e.target.value)} value={days} >
                     <option value="1">1 Day</option>
                     <option value="2">2 Day</option>
                     <option value="3">3 Day</option>
@@ -162,7 +162,7 @@ export const UserPreferences=()=>{
                 <Heading>4.Any religion you would like to see in your travel?</Heading>
                 <Box pt={10} pb={10}>
 
-                <Select  variant="filled" p={10}>
+                <Select  variant="filled" p={10} onChange={(e)=>setReligion(e.target.value)} value={religion}>
                     <option value="Buddhism">Buddhism</option>
                     <option value="Hindu">Hindu</option>
                     <option value="Islam">Islam</option>

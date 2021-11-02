@@ -1,8 +1,10 @@
+import { Config } from "../config/config";
+
 //  import { Loader } from "@googlemaps/js-api-loader"
 const {Client} = require("@googlemaps/google-maps-services-js");
 
 export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,placesLike)=>{
-  
+    console.log(climate,provinces,days,religion,thingsLike,placesLike)
     const client = new Client({});
     var province=provinces
     var climate=climate
@@ -58,7 +60,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
             query: x,
             type:['tourist_attraction', ],
             // 
-            key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+            key: Config.apiKey,
             rating:4,
             componentRestrictions: { country: "LK" },
           };
@@ -72,7 +74,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
               query: x+religion,
               type:['tourist_attraction', ],
               // rankBy :google.maps.places.RankBy.DISTANCE,
-              key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+              key: Config.apiKey,
               rating:4,
               componentRestrictions: { country: "LK" },
             };
@@ -84,7 +86,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
               query: x,
               type:['tourist_attraction', ],
               // rankBy :google.maps.places.RankBy.DISTANCE,
-              key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+              key: Config.apiKey,
               rating:4,
               componentRestrictions: { country: "LK" },
     
@@ -130,7 +132,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
     function addPlaces(results) {
         for (var i = 0; i < results.length; i++) {
         var place = results[i];
-        if(results[i].rating>=4.3){
+        if(results[i].rating>=4.5 && results[i].user_ratings_total>=10){
           Allpois.push(place)
           if(pois.length<=number_of_days*8){
             if(Math.random()>0.5) {
@@ -160,7 +162,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
           optimizeWaypoints: true,
           waypoints: waypts,
           travelMode: 'DRIVING',
-          key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+          key: Config.apiKey,
 
         }})
         .then((response) => {
@@ -230,7 +232,7 @@ export const calculateAndDisplayRoute=async(pois)=> {
       optimizeWaypoints: true,
       waypoints: waypts,
       travelMode: 'DRIVING',
-      key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+      key: Config.apiKey,
 
     }})
     .then((response) => {

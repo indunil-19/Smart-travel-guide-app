@@ -1,3 +1,5 @@
+import { Config } from "../config/config";
+
 const {Client} = require("@googlemaps/google-maps-services-js");
 
    
@@ -97,7 +99,7 @@ export const DeletePOI=async(index, index1, travelPlan=[[[],[]] ,[]])=>{
           destination:end_location,
           optimizeWaypoints: true,
           travelMode: 'DRIVING',
-          key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+          key: Config.apiKey,
 
         }})
         .then((response) => {
@@ -156,7 +158,7 @@ export const DeleteDay=async(day, travelPlan)=>{
           destination:end_location,
           optimizeWaypoints: true,
           travelMode: 'DRIVING',
-          key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+          key: Config.apiKey,
 
         }})
         .then((response) => {
@@ -214,7 +216,7 @@ export const findPois=async(day,travelPlan,allpois)=>{
     var pois=new Array()
     var poisRouteSuitable=new Array()
     
-      for(var i=0; i<allpois.length;i++){
+    for(var i=0; i<allpois.length;i++){
         const waypts = [];
         if(day<allpoisDays){
           if(travelPlan[0][day].length==0){
@@ -236,7 +238,7 @@ export const findPois=async(day,travelPlan,allpois)=>{
           optimizeWaypoints: true,
           travelMode: 'DRIVING',
           waypoints:waypts,
-          key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+          key: Config.apiKey,
 
         }
       })
@@ -251,7 +253,8 @@ export const findPois=async(day,travelPlan,allpois)=>{
         })
          .catch((e) =>{ 
            console.log(e)
-        })   
+        })  
+        await new Promise(r => setTimeout(r, 500)); 
       }
       await new Promise(r => setTimeout(r, 6000));
       
@@ -444,7 +447,7 @@ export const switchPOI=async(index, index1, travelPlan=[[[],[]] ,[]],allpois)=>{
         optimizeWaypoints: true,
         travelMode: 'DRIVING',
         waypoints:waypts,
-        key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+        key: Config.apiKey,
 
       }
     })

@@ -10,6 +10,7 @@ import { AiFillDelete , AiOutlineCheck} from "react-icons/ai";
 import { FaExchangeAlt } from "react-icons/fa";
 import { DeletePOI , DeleteDay,AddDay} from "../../services/EditPlanServices"
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import { Config } from "../../config/config"
 
 
 export const EditPlan=()=>{
@@ -113,7 +114,7 @@ export const EditPlan=()=>{
                                             </Button>
 
                                         </VStack>
-                                        <Card name={subItem.name} photo={subItem.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${subItem.photos[0].photo_reference}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA` : subItem.photos[0]?  subItem.photos[0].url:"" } address={subItem.formatted_address} rating={subItem.rating} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  place_id={subItem.place_id}/>
+                                        <Card name={subItem.name} photo={subItem.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${subItem.photos[0].photo_reference}&key=${Config.apiKey}` : subItem.photos[0]?  subItem.photos[0].url:"" } address={subItem.formatted_address} rating={subItem.rating} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  place_id={subItem.place_id}/>
                          
                                 </HStack>
                                 </>

@@ -49,6 +49,16 @@ export const Travelreducer =(state,action)=>{
                 ...state,
                 planId:action.payload.planId
             }
+        case "custom_pois":
+            return{
+                ...state,
+                custom_pois:action.payload.custom_pois
+            }
+        case "custom_poi":
+            return{
+                ...state,
+                custom_poi:action.payload.custom_poi
+            }
         case "CLEAR":
             return null
         default :

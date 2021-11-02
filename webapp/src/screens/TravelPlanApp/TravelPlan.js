@@ -5,10 +5,10 @@ import { Image,Heading,Button,Text,Badge, Avatar , Skeleton ,Divider,AlertDialog
 import {IoLocationSharp} from "react-icons/io5"
 import {MdDriveEta} from "react-icons/md"
 import { TravelContext } from "../../context/TravelContext"
-import { getTravelPlan } from "../../services/TravelPlanService"
 import { PlaceCard } from "../../components/TravelPlanApp/placeCard"
 import { FiEdit, FiSave} from "react-icons/fi";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow,DirectionsRenderer,Polyline } from "react-google-maps"
+import { Config } from "../../config/config"
 
 
 
@@ -197,7 +197,7 @@ export const TravelPlan=()=>{
                                 return(
                                 <> 
 
-                                <Card name={subItem.name} photo={subItem.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${subItem.photos[0].photo_reference}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA` : subItem.photos[0].url} address={subItem.formatted_address} rating={subItem.rating} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  place_id={subItem.place_id}/>
+                                <Card name={subItem.name} photo={subItem.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${subItem.photos[0].photo_reference}&key=${Config.apiKey}` : subItem.photos[0].url} address={subItem.formatted_address} rating={subItem.rating} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  place_id={subItem.place_id}/>
                                 </>
                                 )
                             })
@@ -350,7 +350,7 @@ const Route=()=>{
         <>
         <Flex width="80%" height="100vh" flexDirection="column" mx="auto" my="2" boxShadow="dark-lg">
         <MapWrapped
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`}
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${Config.apiKey}`}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `100%` }} />}

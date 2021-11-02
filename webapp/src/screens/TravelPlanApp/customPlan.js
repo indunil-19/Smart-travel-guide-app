@@ -8,11 +8,22 @@ import { Button, Heading,Image,AlertDialog,AlertDialogBody,AlertDialogFooter,Ale
 import { MdDeleteForever } from "react-icons/md";
 import { calculateAndDisplayRoute } from '../../services/TravelPlanService';
 import {GrView } from "react-icons/gr";
+import { Config } from "../../config/config"
+
+
+
 export const CustomPlanInner=()=>{
   const history=useHistory()
   const {state, dispatch}=useContext(TravelContext)
-
   const [p,setP]=useState([])
+
+
+  useEffect(()=>{
+      if(!state.custom_pois) setP([])
+      else setP(state.custom_pois)
+  },[])
+
+  
  
  
   const [isOpen, setIsOpen] = useState(false)
@@ -53,7 +64,7 @@ export const CustomPlanInner=()=>{
        <Flex width="100%" alignItems="center" flexDirection="column" justifyContent="center">
                   
         <Autocomplete style={{width:"40%" ,height:"30px", padding:"5px", margin:"15px",background:"grey", borderRadius:"5px", color:"white"}}
-        apiKey={"AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA"}
+        apiKey={Config.apiKey}
 
         onPlaceSelected={(place) => {
           if(place.length>24){
@@ -100,6 +111,7 @@ export const CustomPlanInner=()=>{
                  
             </Button>
             <Button onClick={()=>{
+                  dispatch({type:"custom_pois",payload:{custom_pois:p}})
                   history.push("/travelPlan/viewpoi/"+i.place_id)
               }}>
                  <GrView  />
@@ -169,7 +181,7 @@ export const CustomPlan=()=>{
   return(
     <Flex width="80%" height="180vh" flexDirection="column" mx="auto" my="2" boxShadow="dark-lg">
         <MapWrapped
-          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`}
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${Config.apiKey}`}
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={<div style={{ height: `100%` }} />}
           mapElement={<div style={{ height: `40%` }} />}

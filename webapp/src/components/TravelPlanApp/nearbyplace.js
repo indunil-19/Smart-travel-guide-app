@@ -4,6 +4,7 @@ import React, { useEffect,useState } from "react"
 import { Avatar } from "@chakra-ui/avatar";
 import { StarIcon } from "@chakra-ui/icons"
 import { useHistory } from "react-router"
+import { Config } from "../../config/config";
 
 
 export const NearByPlaceCard=({photo,index,name,address, types=[], rating})=>{
@@ -12,7 +13,7 @@ export const NearByPlaceCard=({photo,index,name,address, types=[], rating})=>{
     useEffect(() => {
         
       
-        setLink(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`)
+        setLink(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=${Config.apiKey}`)
     }, [photo])
 
 
