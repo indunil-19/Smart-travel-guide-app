@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import {
   ActivityIndicator,
   IconButton,
-  Snackbar,
   Button,
   Drawer,
   Chip,
@@ -10,7 +9,6 @@ import {
   Card,
   Title,
   Subheading,
-  Divider,
 } from "react-native-paper";
 import {
   Text,
@@ -37,8 +35,8 @@ export const EditPlan = ({ navigation }) => {
   const [distanceTime, setDistanceTime] = useState({});
 
   useEffect(() => {
-    setPlan(state.editPlan);
-    display(state.editPlan);
+    setPlan(state.travelPlan);
+    display(state.travelPlan);
     setLoading(false);
   }, [state]);
 
@@ -46,7 +44,7 @@ export const EditPlan = ({ navigation }) => {
   const deleteDay = (day) => {
     DeleteDay(day, plan)
       .then((res) => {
-        dispatch({ type: "set_editPlan", payload: { editPlan: res } });
+        dispatch({ type: "set_travelPlan", payload: { travelPlan: res } });
         setPlan(res);
       })
       .catch((e) => {
@@ -58,7 +56,7 @@ export const EditPlan = ({ navigation }) => {
   const deletePOI = (index, index1) => {
     DeletePOI(index, index1, plan)
       .then((res) => {
-        dispatch({ type: "set_editPlan", payload: { editPlan: res } });
+        dispatch({ type: "set_travelPlan", payload: { travelPlan: res } });
         setPlan(res);
       })
       .catch((e) => {
@@ -70,7 +68,7 @@ export const EditPlan = ({ navigation }) => {
   const addDay = () => {
     AddDay(plan)
       .then((res) => {
-        dispatch({ type: "set_editPlan", payload: { editPlan: res } });
+        dispatch({ type: "set_travelPlan", payload: { travelPlan: res } });
         setPlan(res);
       })
       .catch((e) => {
