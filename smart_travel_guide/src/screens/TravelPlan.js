@@ -1,9 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import {
   ActivityIndicator,
-  Snackbar,
   Subheading,
-  Divider,
   Card,
   Drawer,
   Chip,
@@ -32,7 +30,8 @@ import { LocationInfoCard } from "../components/LocationInfoCard";
 
 import { theme } from "../core/theme";
 
-export function TravelPlan({ navigation }) {
+export function TravelPlan({ route, navigation }) {
+  const { permissions, title } = route.params;
   const { state, dispatch } = useContext(AppContext);
   const [isLoading, setLoading] = useState(true);
   const [plan, setPlan] = useState([[], []]);
@@ -55,6 +54,7 @@ export function TravelPlan({ navigation }) {
 
       return dataDict;
     });
+
     // Distance and Duration
     setDistanceTime((curData) => {
       var index = 0;
@@ -128,22 +128,74 @@ export function TravelPlan({ navigation }) {
 
   const confirmSave = () => {
     Alert.alert(
-      "Do you want to save this plan ?",
-      "Press Confirm to save the travel plan.",
+      `Do you want to ${
+        permissions != "view"
+          ? state.planId
+            ? `update the ${title}`
+            : "save this"
+          : title
+      }  plan ?`,
+      `Press Confirm to ${state.planId ? "update" : "save"} the travel plan.`,
       [
         {
           text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
+          onPress: () => {},
           style: "cancel",
         },
         {
           text: "Confirm",
           onPress: () => {
-            savePlan();
+            if (state.planId) {
+              updatePlan();
+            } else {
+              savePlan();
+            }
           },
         },
       ]
     );
+  };
+
+  const updatePlan = () => {
+    fetch(`${Config.localhost}/user/updateTravelPlan`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        planId: state.planId,
+        travelPlan: state.travelPlan,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          Alert.alert(data.error, "", [
+            {
+              text: "Cancel",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel",
+            },
+          ]);
+          console.log(data.error);
+          return;
+        } else {
+          dispatch({
+            type: "set_notification",
+            payload: {
+              notification: {
+                message: "Plan updated successfully",
+                icon: "check-circle-outline",
+              },
+            },
+          });
+          navigation.navigate("Saved Plans");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    navigation.navigate("Saved Plans");
   };
 
   const savePlan = () => {
@@ -169,7 +221,15 @@ export function TravelPlan({ navigation }) {
           console.log(data.error);
           return;
         } else {
-          // ! Add a save confirm
+          dispatch({
+            type: "set_notification",
+            payload: {
+              notification: {
+                message: "Saved Successfully",
+                icon: "check-circle-outline",
+              },
+            },
+          });
           navigation.navigate("Dashboard");
         }
       })
@@ -177,6 +237,7 @@ export function TravelPlan({ navigation }) {
         console.log(err);
       });
   };
+
   const renderStartingLocation = () => {
     return (
       <View style={{ marginBottom: 10 }}>
@@ -283,7 +344,6 @@ export function TravelPlan({ navigation }) {
         {isLoading && (
           <ActivityIndicator animating={true} size={80} theme={theme} />
         )}
-
         {!isLoading && (
           <>
             <SectionList
@@ -345,30 +405,52 @@ export function TravelPlan({ navigation }) {
             />
 
             <Portal>
-              <FAB.Group
-                open={open}
-                icon={open ? "calendar-today" : "plus"}
-                style={{ paddingBottom: 40 }}
-                visible={isFocused}
-                actions={[
-                  {
-                    icon: "map-marker",
-                    label: "Route",
-                    onPress: () => navigation.navigate("Travel Route"),
-                  },
-                  {
-                    icon: "circle-edit-outline",
-                    label: "Edit Plan",
-                    onPress: () => navigation.navigate("Edit Plan"),
-                  },
-                  {
-                    icon: "bookmark-outline",
-                    label: "Save Plan",
-                    onPress: () => confirmSave(),
-                  },
-                ]}
-                onStateChange={onStateChange}
-              />
+              {permissions != "view" ? (
+                <FAB.Group
+                  open={open}
+                  icon={open ? "calendar-today" : "plus"}
+                  style={{ paddingBottom: 40 }}
+                  visible={isFocused}
+                  actions={[
+                    {
+                      icon: "map-marker",
+                      label: "Route",
+                      onPress: () => navigation.navigate("Travel Route"),
+                    },
+                    {
+                      icon: "circle-edit-outline",
+                      label: "Edit Plan",
+                      onPress: () => navigation.navigate("Edit Plan"),
+                    },
+                    {
+                      icon: "bookmark-outline",
+                      label: state.planId ? "Update Plan" : "Save Plan",
+                      onPress: () => confirmSave(),
+                    },
+                  ]}
+                  onStateChange={onStateChange}
+                />
+              ) : (
+                <FAB.Group
+                  open={open}
+                  icon={open ? "calendar-today" : "plus"}
+                  style={{ paddingBottom: 40 }}
+                  visible={isFocused}
+                  actions={[
+                    {
+                      icon: "map-marker",
+                      label: "Route",
+                      onPress: () => navigation.navigate("Travel Route"),
+                    },
+                    {
+                      icon: "bookmark-outline",
+                      label: "Save Plan",
+                      onPress: () => confirmSave(),
+                    },
+                  ]}
+                  onStateChange={onStateChange}
+                />
+              )}
             </Portal>
           </>
         )}
