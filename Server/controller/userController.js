@@ -210,7 +210,7 @@ class UserController {
 
   static async changePlanName(req, res) {
     if (!req.body.name) {
-      return res.json({ error: "fill the name" });
+      return res.json({ error: "Fill the name" });
     }
     return TravelPlan.findOne({ _id: req.body.planId })
       .then((result) => {
@@ -224,18 +224,18 @@ class UserController {
           )
             .then((result) => {
               return res.json({
-                message: "plan name is changed",
+                message: "Plan name is changed",
                 data: result,
               });
             })
             .catch((e) => {
-              return res.json({ error: "system error" });
+              return res.json({ error: "System error" });
             });
         }
-        return res.json({ error: "bad requests" });
+        return res.json({ error: "Bad requests" });
       })
       .catch((e) => {
-        return res.json({ error: "system error" });
+        return res.json({ error: "System error" });
       });
   }
 }
