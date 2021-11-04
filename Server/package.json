@@ -13,13 +13,14 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "connect-mongodb-session": "^3.0.0",
+    "crypto": "^1.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
+    "fs": "0.0.1-security",
     "mongoose": "^5.13.5",
+    "nodemailer": "^6.7.0",
+    "nodemailer-sendgrid-transport": "^0.2.0",
     "nodemon": "^2.0.13",
     "path": "^0.12.7"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.12"
   }
 }
