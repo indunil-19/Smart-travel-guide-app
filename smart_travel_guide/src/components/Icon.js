@@ -3,7 +3,6 @@ export const icon = (val) => {
   switch (val) {
     case "Dry":
       answer = "weather-sunny";
-      console.log(val);
       break;
     case "Intermediate":
       answer = "snowflake";

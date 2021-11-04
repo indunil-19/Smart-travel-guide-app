@@ -34,8 +34,8 @@ const PreferenceSelection = (props) => {
   const { state, dispatch } = useContext(AppContext);
 
   useEffect(() => {
-    console.log(preference);
-    console.log(preference.length);
+    dispatch({ type: "set_travelPlan", payload: { travelPlan: null } });
+    dispatch({ type: "set_planId", payload: { planId: null } });
     if (preference.length === 6) {
       dispatch({
         type: "USER_PREFERENCES",
@@ -67,7 +67,11 @@ const PreferenceSelection = (props) => {
         text: "Confirm",
         onPress: () => {
           setPreference((curPreference) => [...curPreference, value]);
-          props.navigation.navigate("Travel Plan");
+          // props.navigation.navigate("Travel Plan");
+
+          props.navigation.navigate("Travel Plan", {
+            permissions: "edit",
+          });
         },
       },
     ]);
