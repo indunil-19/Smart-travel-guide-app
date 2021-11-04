@@ -1,4 +1,5 @@
 //  import { Loader } from "@googlemaps/js-api-loader"
+import { Config } from "../config/config";
 const { Client } = require("@googlemaps/google-maps-services-js");
 
 export const getTravelPlan = async (
@@ -63,7 +64,7 @@ export const getTravelPlan = async (
           query: x,
           type: ["tourist_attraction"],
           //
-          key: "AIzaSyCZvOdE2r9moeOBqDlvgP1PH3n-v6ZUWVQ",
+          key: Config.apiKey,
           rating: 4,
           componentRestrictions: { country: "LK" },
         };
@@ -77,7 +78,7 @@ export const getTravelPlan = async (
             query: x + religion,
             type: ["tourist_attraction"],
             // rankBy :google.maps.places.RankBy.DISTANCE,
-            key: "AIzaSyCZvOdE2r9moeOBqDlvgP1PH3n-v6ZUWVQ",
+            key: Config.apiKey,
             rating: 4,
             componentRestrictions: { country: "LK" },
           };
@@ -89,7 +90,7 @@ export const getTravelPlan = async (
             query: x,
             type: ["tourist_attraction"],
             // rankBy :google.maps.places.RankBy.DISTANCE,
-            key: "AIzaSyCZvOdE2r9moeOBqDlvgP1PH3n-v6ZUWVQ",
+            key: Config.apiKey,
             rating: 4,
             componentRestrictions: { country: "LK" },
           };
@@ -155,7 +156,7 @@ export const getTravelPlan = async (
           optimizeWaypoints: true,
           waypoints: waypts,
           travelMode: "DRIVING",
-          key: "AIzaSyCZvOdE2r9moeOBqDlvgP1PH3n-v6ZUWVQ",
+          key: Config.apiKey,
         },
       })
       .then((response) => {
@@ -215,7 +216,7 @@ export const calculateAndDisplayRoute = async (pois) => {
         optimizeWaypoints: true,
         waypoints: waypts,
         travelMode: "DRIVING",
-        key: "AIzaSyCZvOdE2r9moeOBqDlvgP1PH3n-v6ZUWVQ",
+        key: Config.apiKey,
       },
     })
     .then((response) => {

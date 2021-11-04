@@ -1,3 +1,4 @@
+import { Config } from "../config/config";
 const { Client } = require("@googlemaps/google-maps-services-js");
 
 export const DeletePOI = async (index, index1, travelPlan = [[[], []], []]) => {
@@ -82,7 +83,7 @@ export const DeletePOI = async (index, index1, travelPlan = [[[], []], []]) => {
         destination: end_location,
         optimizeWaypoints: true,
         travelMode: "DRIVING",
-        key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+        key: Config.apiKey,
       },
     })
     .then((response) => {
@@ -141,7 +142,7 @@ export const DeleteDay = async (day, travelPlan) => {
         destination: end_location,
         optimizeWaypoints: true,
         travelMode: "DRIVING",
-        key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+        key: Config.apiKey,
       },
     })
     .then((response) => {
@@ -216,7 +217,7 @@ export const findPois = async (day, travelPlan, allpois) => {
           optimizeWaypoints: true,
           travelMode: "DRIVING",
           waypoints: waypts,
-          key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+          key: Config.apiKey,
         },
       })
       .then((response) => {
@@ -401,7 +402,7 @@ export const switchPOI = async (
           optimizeWaypoints: true,
           travelMode: "DRIVING",
           waypoints: waypts,
-          key: "AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA",
+          key: Config.apiKey,
         },
       })
       .then((response) => {

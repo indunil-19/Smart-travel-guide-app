@@ -4,6 +4,7 @@ import { Card, Button } from "react-native-paper";
 import { AppContext } from "../context/AppContext";
 import MapView, { Marker, Polyline, Callout } from "react-native-maps";
 import { WebView } from "react-native-webview";
+import { Config } from "../config/config";
 
 export const Route = ({ navigation }) => {
   const { state, dispatch } = useContext(AppContext);
@@ -98,7 +99,7 @@ const CompactLocationInfo = ({ name, imgRef }) => {
       <WebView
         style={styles.image}
         source={{
-          uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${imgRef}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`,
+          uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${imgRef}&key=${Config.apiKey}`,
         }}
       />
       <Text>{name}</Text>

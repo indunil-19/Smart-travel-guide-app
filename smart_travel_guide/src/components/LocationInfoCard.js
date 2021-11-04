@@ -4,6 +4,7 @@ import { Card, IconButton, Button } from "react-native-paper";
 import { AirbnbRating } from "react-native-ratings";
 
 import { theme } from "../core/theme";
+import { Config } from "../config/config";
 
 export const LocationInfoCard = ({ photo, location }) => {
   const [imgLink, setImgLink] = useState("");
@@ -12,7 +13,7 @@ export const LocationInfoCard = ({ photo, location }) => {
   useEffect(() => {
     if (photo) {
       setImgLink(
-        `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`
+        `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=${Config.apiKey}`
       );
       setLoaded(false);
     }

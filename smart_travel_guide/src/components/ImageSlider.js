@@ -3,8 +3,9 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { Dimensions } from "react-native";
 import Carousel from "react-native-snap-carousel";
 import { scrollInterpolator, animatedStyles } from "../core/animation";
-import { Card } from "react-native-paper";
-import { Button } from "react-native-paper";
+
+import { Config } from "../config/config";
+
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
 const ITEM_HEIGHT = Math.round((ITEM_WIDTH * 3) / 4);
@@ -65,7 +66,7 @@ export const ImageSlider = (props) => {
             <Image
               fadeDuration={2000} //* image fade in duration on 1st load after that image is cached in memory used in networkloaded images can be also used in loacl images
               source={{
-                uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=${imgRef[index]}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`,
+                uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=${imgRef[index]}&key=${Config.apiKey}`,
               }}
               style={styles.image}
               resizeMode="cover"
