@@ -1,15 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, Alert } from "react-native";
-import { Card, Title, Button } from "react-native-paper";
+import { Card, Title, Button, IconButton } from "react-native-paper";
 import { AppContext } from "../context/AppContext";
 
 import { Config } from "../config/config";
 import { theme } from "../core/theme";
 import { useNavigation } from "@react-navigation/native";
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-}
+import Dialog from "react-native-dialog";
+import TextInput from "./TextInput";
 
 export const PlanCard = ({
   _id = "",
@@ -22,6 +20,14 @@ export const PlanCard = ({
 }) => {
   const { state, dispatch } = useContext(AppContext);
   const navigation = useNavigation();
+  const [randomInt, setRandomInt] = useState();
+  const [visible, setVisible] = useState(false);
+  const [planName, setPlanName] = useState({ name: "", error: "" });
+  const [displayName, setDisplayName] = useState(name);
+
+  useEffect(() => {
+    setRandomInt(Math.floor(Math.random() * 6));
+  }, []);
 
   const links = [
     require("../assets/img/1.jpg"),
@@ -31,6 +37,64 @@ export const PlanCard = ({
     require("../assets/img/5.jpg"),
     require("../assets/img/6.jpg"),
   ];
+  const showDialog = () => {
+    if (visible) {
+      setVisible(false);
+    } else {
+      setVisible(true);
+    }
+  };
+  const changeName = () => {
+    if (planName && planName.name.length != 0) {
+      fetch(`${Config.localhost}/user/changePlanName`, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          planId: _id,
+          name: planName.name,
+        }),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          console.log(result);
+          if (result.error) {
+            dispatch({
+              type: "set_notification",
+              payload: {
+                notification: {
+                  message: result.error,
+                  icon: "alert-octagon-outline",
+                },
+              },
+            });
+          } else {
+            dispatch({
+              type: "set_notification",
+              payload: {
+                notification: {
+                  message: result.message,
+                  icon: "check-circle-outline",
+                },
+              },
+            });
+            setDisplayName(planName.name);
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      console.log(planName);
+      showDialog();
+    } else {
+      setPlanName((cur) => {
+        return { name: cur.name, error: "Plan name cannot be empty." };
+      });
+      return;
+    }
+  };
+
   const deletePlan = () => {
     fetch(`${Config.localhost}/user/deleteTravelPlan`, {
       method: "delete",
@@ -54,6 +118,7 @@ export const PlanCard = ({
         console.log(e);
       });
   };
+
   const confirmDelete = () => {
     Alert.alert(
       "Do you want to delete this plan ?",
@@ -73,13 +138,52 @@ export const PlanCard = ({
       ]
     );
   };
+
   return (
     <Card style={styles.card} elevation={8}>
       <Card.Cover
-        source={links[getRandomInt(6)]}
+        source={links[randomInt]}
         style={{ borderTopLeftRadius: 20, borderTopRightRadius: 20 }}
       />
-      <Card.Title title={name} subtitle={createdDate} />
+      <Card.Title
+        title={displayName}
+        subtitle={createdDate}
+        right={() => (
+          <>
+            <IconButton
+              icon="circle-edit-outline"
+              color={theme.colors.primary}
+              size={25}
+              onPress={() => showDialog()}
+            />
+            <Dialog.Container
+              onBackdropPress={() => {
+                showDialog();
+              }}
+              visible={visible}
+              style={{ borderRadius: 20 }}
+            >
+              <Dialog.Title>Change Name of {displayName}</Dialog.Title>
+              <TextInput
+                placeholder="Enter new Name"
+                onChangeText={(text) => {
+                  setPlanName({ name: text, error: "" });
+                }}
+                error={planName.error}
+                errorText={planName.error}
+              />
+
+              <Dialog.Button label="Cancel" color="red" onPress={showDialog} />
+              <Dialog.Button
+                label="Confirm"
+                onPress={() => {
+                  changeName();
+                }}
+              />
+            </Dialog.Container>
+          </>
+        )}
+      />
       <Card.Content>
         <Title>{days + " day trip"}</Title>
       </Card.Content>
@@ -101,11 +205,16 @@ export const PlanCard = ({
               type: "set_travelPlan",
               payload: { travelPlan: travelPlan },
             });
+            dispatch({
+              type: "set_editPlan",
+              payload: { editPlan: travelPlan },
+            });
             dispatch({ type: "set_planId", payload: { planId: _id } });
             navigation.navigate("User Plan", {
               title: name,
               plan: travelPlan,
               id: _id,
+              permissions: "editSaved",
             });
           }}
         >
