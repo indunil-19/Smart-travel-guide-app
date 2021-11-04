@@ -46,6 +46,8 @@ export const reducer = (state, action) => {
       };
     case "set_editPlan":
       return { ...state, editPlan: action.payload.editPlan };
+    case "set_notification":
+      return { ...state, notification: action.payload.notification };
     case "set_pois":
       return {
         ...state,
