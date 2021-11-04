@@ -17,6 +17,7 @@ export const AppNavigator = () => {
         initialRouteName="Add Plan"
         screenOptions={{
           headerShown: false,
+          tabBarHideOnKeyboard: true,
           tabBarStyle: {
             backgroundColor: theme.colors.primary,
           },
