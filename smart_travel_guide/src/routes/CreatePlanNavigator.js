@@ -17,57 +17,62 @@ import { NearByHotels } from "../screens/NearByHotels";
 import { HeaderAvatar } from "../components/HeaderAvatar";
 
 import { theme } from "../core/theme";
+import { Notification } from "../components/Notification";
 
 const Stack = createStackNavigator();
 
 export const CreatePlanNavigator = () => {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerRight: () => <HeaderAvatar />,
-        headerStyle: {
-          backgroundColor: theme.colors.primary,
-        },
-      }}
-    >
-      {/* <Stack.Screen name="Dashboard" component={Dashboard} />
-      <Stack.Screen name="Profile" component={ProfileScreen} />
-      <Stack.Screen name="Edit Profile" component={UpdateProfile} />
-      <Stack.Screen name="Create New Plan" component={PreferenceSelection} /> */}
-      <Stack.Screen
-        name="Travel Plan"
-        component={TravelPlan}
-        options={{ headerBackVisible: false }}
-      />
-      <Stack.Screen name="Travel Route" component={Route} />
-      <Stack.Screen name="Edit Plan" component={EditPlan} />
-      <Stack.Screen
-        name="Find Hotels"
-        component={NearByHotels}
-        options={{
-          presentation: "transparentModal",
-          headerShown: false,
-          cardOverlayEnabled: true,
-          ...TransitionPresets.ModalPresentationIOS,
+    <>
+      <Notification />
+      <Stack.Navigator
+        screenOptions={{
+          headerRight: () => <HeaderAvatar />,
+          headerRightContainerStyle: { padding: 10 },
+          headerStyle: {
+            backgroundColor: theme.colors.primary,
+          },
         }}
-      />
-      <Stack.Screen
-        name="Add Place"
-        component={AddPlace}
-        options={{
-          presentation: "transparentModal",
-          headerShown: false,
-          cardOverlayEnabled: true,
-          ...TransitionPresets.ModalPresentationIOS,
-        }}
-      />
-      <Stack.Screen
-        name="Location Detail"
-        component={LocationDetail}
-        options={({ route }) => ({ title: route.params.name })}
-      />
+      >
+        <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="Edit Profile" component={UpdateProfile} />
+        <Stack.Screen name="Create New Plan" component={PreferenceSelection} />
+        <Stack.Screen
+          name="Travel Plan"
+          component={TravelPlan}
+          options={{ headerBackVisible: false }}
+        />
+        <Stack.Screen name="Travel Route" component={Route} />
+        <Stack.Screen name="Edit Plan" component={EditPlan} />
+        <Stack.Screen
+          name="Find Hotels"
+          component={NearByHotels}
+          options={{
+            presentation: "transparentModal",
+            headerShown: false,
+            cardOverlayEnabled: true,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <Stack.Screen
+          name="Add Place"
+          component={AddPlace}
+          options={{
+            presentation: "transparentModal",
+            headerShown: false,
+            cardOverlayEnabled: true,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <Stack.Screen
+          name="Location Detail"
+          component={LocationDetail}
+          options={({ route }) => ({ title: route.params.name })}
+        />
 
-      <Stack.Screen name="Provinces" component={Provinces} />
-    </Stack.Navigator>
+        <Stack.Screen name="Provinces" component={Provinces} />
+      </Stack.Navigator>
+    </>
   );
 };
