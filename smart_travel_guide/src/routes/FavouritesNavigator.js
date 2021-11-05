@@ -14,6 +14,7 @@ import LocationDetail from "../screens/LocationDetail.js";
 import { theme } from "../core/theme";
 import { HeaderAvatar } from "../components/HeaderAvatar";
 import { Notification } from "../components/Notification";
+import { ResetPassword } from "../screens/ResetPassword";
 
 const Stack = createStackNavigator();
 
@@ -54,6 +55,16 @@ export const FavouritesNavigator = () => (
       />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Edit Profile" component={UpdateProfile} />
+      <Stack.Screen
+        name="Change Password"
+        component={ResetPassword}
+        options={{
+          presentation: "transparentModal",
+          headerShown: false,
+          cardOverlayEnabled: true,
+          ...TransitionPresets.ModalPresentationIOS,
+        }}
+      />
     </Stack.Navigator>
   </>
 );

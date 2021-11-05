@@ -12,6 +12,7 @@ import { NearByHotels } from "../screens/NearByHotels";
 import { EditPlan } from "../screens/EditPlan";
 import { Route } from "../screens/Route";
 import LocationDetail from "../screens/LocationDetail.js";
+import { ResetPassword } from "../screens/ResetPassword";
 
 import { theme } from "../core/theme";
 import { HeaderAvatar } from "../components/HeaderAvatar";
@@ -72,6 +73,16 @@ export const SavedPlanNavigator = () => (
       />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Edit Profile" component={UpdateProfile} />
+      <Stack.Screen
+        name="Change Password"
+        component={ResetPassword}
+        options={{
+          presentation: "transparentModal",
+          headerShown: false,
+          cardOverlayEnabled: true,
+          ...TransitionPresets.ModalPresentationIOS,
+        }}
+      />
     </Stack.Navigator>
   </>
 );

@@ -13,6 +13,7 @@ import { UpdateProfile } from "../screens/updateProfile";
 import { EditPlan } from "../screens/EditPlan";
 import { AddPlace } from "../screens/AddPlace";
 import { NearByHotels } from "../screens/NearByHotels";
+import { ResetPassword } from "../screens/ResetPassword";
 
 import { HeaderAvatar } from "../components/HeaderAvatar";
 
@@ -37,6 +38,16 @@ export const CreatePlanNavigator = () => {
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="Edit Profile" component={UpdateProfile} />
+        <Stack.Screen
+          name="Change Password"
+          component={ResetPassword}
+          options={{
+            presentation: "transparentModal",
+            headerShown: false,
+            cardOverlayEnabled: true,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
         <Stack.Screen name="Create New Plan" component={PreferenceSelection} />
         <Stack.Screen
           name="Travel Plan"
