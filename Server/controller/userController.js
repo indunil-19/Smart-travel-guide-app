@@ -171,7 +171,7 @@ class UserController {
   static async changePasssword(req, res) {
     const { newPassword, prevoiusPassowrd } = req.body;
     if (!newPassword || !prevoiusPassowrd) {
-      return res.status(422).json({ error: "please add all the fields" });
+      return res.status(422).json({ error: "Please add all the fields" });
     }
 
     return User.findOne({ email: req.session.user.email })
@@ -190,21 +190,23 @@ class UserController {
                 )
                   .then((data) => {
                     console.log(data);
-                    return res.json({ message: "password update successfull" });
+                    return res.json({ message: "Password update successful" });
                   })
                   .catch((err) => {
-                    return res.json({ error: "update error" });
+                    return res.json({ error: "Update error" });
                   });
               });
             }
-            return res.json({ error: "your entered password is  wrong" });
+            return res.json({
+              error: "The password you entered is incorrect.",
+            });
           })
           .catch((e) => {
-            return res.json({ error: "update error" });
+            return res.json({ error: "Update error" });
           });
       })
       .catch((e) => {
-        return res.status(422).json({ error: "update error" });
+        return res.status(422).json({ error: "Update error" });
       });
   }
 
