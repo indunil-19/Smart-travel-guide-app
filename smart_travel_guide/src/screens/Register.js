@@ -62,7 +62,7 @@ const RegisterScreen = (props) => {
       setPassword({ ...password, error: passwordError });
       return;
     }
-    fetch(`${Config.Localhost}/signup`, {
+    fetch(`${Config.localhost}/signup`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -91,7 +91,7 @@ const RegisterScreen = (props) => {
           // M.toast({html:"signedin success",classes:"#43a047 green darken-1"})
           // history.push('/')
           console.log("sign up sucess");
-          Alert.alert(`sign up sucessfull`);
+          Alert.alert(`Sign Up Sucessful`);
           props.navigation.navigate("Login");
         }
       })
@@ -112,7 +112,7 @@ const RegisterScreen = (props) => {
           // M.toast({html:"signedin success",classes:"#43a047 green darken-1"})
           // history.push('/')
           console.log("sign up sucess");
-          Alert.alert(`sign up sucessfull`);
+          Alert.alert(`Sign Up Sucessful`);
           props.navigation.navigate("Login");
         }
       })
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     color: theme.colors.primary,
   },
   registerContainer: {
-    width: "100%",
+    width: "80%",
     maxWidth: 340,
     // padding: 20,
     alignItems: "center",
