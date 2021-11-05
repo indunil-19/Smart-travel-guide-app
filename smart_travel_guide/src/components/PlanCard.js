@@ -1,6 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import { StyleSheet, Alert } from "react-native";
-import { Card, Title, Button, IconButton } from "react-native-paper";
+import {
+  Card,
+  Title,
+  Button,
+  IconButton,
+  ActivityIndicator,
+} from "react-native-paper";
 import { AppContext } from "../context/AppContext";
 
 import { Config } from "../config/config";
@@ -24,6 +30,7 @@ export const PlanCard = ({
   const [visible, setVisible] = useState(false);
   const [planName, setPlanName] = useState({ name: "", error: "" });
   const [displayName, setDisplayName] = useState(name);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     setRandomInt(Math.floor(Math.random() * 6));
@@ -37,6 +44,7 @@ export const PlanCard = ({
     require("../assets/img/5.jpg"),
     require("../assets/img/6.jpg"),
   ];
+
   const showDialog = () => {
     if (visible) {
       setVisible(false);
@@ -44,6 +52,7 @@ export const PlanCard = ({
       setVisible(true);
     }
   };
+
   const changeName = () => {
     if (planName && planName.name.length != 0) {
       fetch(`${Config.localhost}/user/changePlanName`, {
@@ -95,7 +104,39 @@ export const PlanCard = ({
     }
   };
 
+  const sharePlan = () => {
+    fetch(`${Config.localhost}/user/sharePlan`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        planId: _id,
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.result) {
+          dispatch({
+            type: "set_notification",
+            payload: {
+              notification: {
+                message: `${name} shared successfully.`,
+                icon: "check-circle-outline",
+              },
+            },
+          });
+        } else {
+          Alert.alert("Share was unsuccessful");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   const deletePlan = () => {
+    setLoading(true);
     fetch(`${Config.localhost}/user/deleteTravelPlan`, {
       method: "delete",
       headers: {
@@ -119,24 +160,20 @@ export const PlanCard = ({
       });
   };
 
-  const confirmDelete = () => {
-    Alert.alert(
-      "Do you want to delete this plan ?",
-      "Press Confirm to Delete this travel plan.",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
+  const confirmAlert = (message, description, action) => {
+    Alert.alert(message, description, [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      {
+        text: "Confirm",
+        onPress: () => {
+          action == "Share" ? sharePlan() : deletePlan();
         },
-        {
-          text: "Confirm",
-          onPress: () => {
-            deletePlan();
-          },
-        },
-      ]
-    );
+      },
+    ]);
   };
 
   return (
@@ -198,7 +235,6 @@ export const PlanCard = ({
           style={{
             borderRadius: 20,
             backgroundColor: theme.colors.primary,
-            marginLeft: 10,
           }}
           onPress={() => {
             dispatch({
@@ -221,14 +257,42 @@ export const PlanCard = ({
           View Plan
         </Button>
         <Button
-          icon="delete-outline"
+          icon="share-variant"
           labelStyle={{ color: "white" }}
           mode="contained"
-          style={{ borderRadius: 20, backgroundColor: "red", marginRight: 10 }}
-          onPress={confirmDelete}
+          style={{
+            borderRadius: 20,
+            backgroundColor: theme.colors.secondary,
+          }}
+          onPress={() =>
+            confirmAlert(
+              `Are you sure you want to share ${name} ?`,
+              "Press confirm to share the plan.",
+              "Share"
+            )
+          }
         >
-          Delete
+          Share
         </Button>
+        {isLoading ? (
+          <ActivityIndicator animating={isLoading} color="red" />
+        ) : (
+          <Button
+            icon="delete-outline"
+            labelStyle={{ color: "white" }}
+            mode="contained"
+            style={{ borderRadius: 20, backgroundColor: "red" }}
+            onPress={() =>
+              confirmAlert(
+                `Do you want to delete ${name} ?`,
+                "Press Confirm to Delete the travel plan.",
+                "Delete"
+              )
+            }
+          >
+            Delete
+          </Button>
+        )}
       </Card.Actions>
     </Card>
   );
