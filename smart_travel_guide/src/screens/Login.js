@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { TouchableOpacity, StyleSheet, Text, View, Alert } from "react-native";
+import { ActivityIndicator } from "react-native-paper";
 import Background from "../components/Background";
 import Logo from "../components/Logo";
 import Header from "../components/Header";
@@ -15,6 +16,7 @@ import { AsyncStorage } from "react-native";
 const LoginScreen = (props) => {
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
+  const [loading, setLoading] = useState(false);
   const { onLogin, state, dispatch } = useContext(AppContext);
 
   const _onLoginPressed = () => {
@@ -26,6 +28,7 @@ const LoginScreen = (props) => {
       setPassword({ ...password, error: passwordError });
       return;
     }
+    setLoading(true);
     fetch(`${Config.localhost}/signin`, {
       method: "post",
       headers: {
@@ -45,6 +48,16 @@ const LoginScreen = (props) => {
         } else {
           AsyncStorage.setItem("user", JSON.stringify(data.user));
           dispatch({ type: "USER", payload: data.user });
+          dispatch({
+            type: "set_notification",
+            payload: {
+              notification: {
+                message: `Welcome ${data.user.firstname} !`,
+                icon: "check-circle-outline",
+                duration: 3000,
+              },
+            },
+          });
           onLogin();
         }
       })
@@ -91,15 +104,27 @@ const LoginScreen = (props) => {
 
         <View style={styles.forgotPassword}>
           <TouchableOpacity
-          //   onPress={() => navigation.navigate('ForgotPasswordScreen')}
+            onPress={() =>
+              props.navigation.navigate("Reset Password", {
+                reset: true,
+                height: "60%",
+              })
+            }
           >
             <Text style={styles.label}>Forgot your password?</Text>
           </TouchableOpacity>
         </View>
-
-        <Button mode="contained" onPress={_onLoginPressed}>
-          Login
-        </Button>
+        {!loading ? (
+          <Button mode="contained" onPress={_onLoginPressed}>
+            Login
+          </Button>
+        ) : (
+          <ActivityIndicator
+            animating={loading}
+            size="large"
+            color={theme.colors.primary}
+          />
+        )}
 
         <View style={styles.row}>
           <Text style={styles.label}>Don’t have an account? </Text>
@@ -126,6 +151,7 @@ const styles = StyleSheet.create({
   },
   label: {
     color: theme.colors.secondary,
+    fontSize: 15,
   },
   link: {
     fontWeight: "bold",
