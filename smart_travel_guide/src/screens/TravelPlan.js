@@ -80,18 +80,18 @@ export function TravelPlan({ route, navigation }) {
       display(state.travelPlan);
     } else {
       getTravelPlan(
-        "wet",
-        [],
-        "2",
-        "buddhsism",
-        [],
-        ["ancient", "natural", "parks"]
-        // state.userPreferences.climate,
-        // state.userPreferences.provinces,
-        // state.userPreferences.days,
-        // state.userPreferences.religion,
-        // state.userPreferences.thingsLike,
-        // state.userPreferences.placesLike
+        // "wet",
+        // [],
+        // "2",
+        // "buddhsism",
+        // [],
+        // ["ancient", "natural", "parks"]
+        state.userPreferences.climate,
+        state.userPreferences.provinces,
+        state.userPreferences.days,
+        state.userPreferences.religion,
+        state.userPreferences.thingsLike,
+        state.userPreferences.placesLike
       ).then((r) => {
         setPlan(r[0]);
         setData((curData) => {
