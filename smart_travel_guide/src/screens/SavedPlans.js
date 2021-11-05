@@ -55,6 +55,7 @@ const SavedPlans = () => {
       },
     });
   };
+
   const updatePlans = (result) => {
     setPlans((curPlans) => {
       const newPlans = curPlans.filter((plan) => {
