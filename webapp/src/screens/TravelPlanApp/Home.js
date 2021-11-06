@@ -3,9 +3,9 @@ import { Footer } from "../../components/TravelPlanApp/Footer"
 import { Button } from "@chakra-ui/button"
 import { Image } from "@chakra-ui/image"
 import { useHistory } from "react-router"
-import { PlanCard } from "../../components/TravelPlanApp/planCard,"
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
+import { PlanCardHome } from "../../components/TravelPlanApp/planCardhome"
 
 export const Home=()=>{
     const [plans,setPlans]=useState([])
@@ -48,7 +48,7 @@ export const Home=()=>{
                 <Flex flexDirection="column" p={10} shadow="dark-lg" borderRadius="5px" width="80%">
                      <Image src={"https://images.unsplash.com/photo-1632429619634-3d97fc1693e9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80"}  width="400px" height="300px" objectFit="cover" borderRadius="lg"  /> 
                     <Button colorScheme="teal" m={4} onClick={()=>{
-                        history.push("/travelPlan/customPlan")
+                        history.push("/travelPlan/startLocationSelect")
                     }}>
                         Create your own Travel Plan
                     </Button>
@@ -80,7 +80,7 @@ export const Home=()=>{
                         return(
                             <>
                                 <Flex minWidth="md">
-                                    <PlanCard  name={plan.name ? plan.name : `My plan ${index+1}`} days={plan.travelPlan[0].length} createdDate={plan.createdAt} travelPlan={plan.travelPlan}/>
+                                    <PlanCardHome  name={plan.name ? plan.name : `My plan ${index+1}`} days={plan.travelPlan[0].length} createdDate={plan.createdAt} travelPlan={plan.travelPlan}/>
                                  </Flex>
                             </>
                         )

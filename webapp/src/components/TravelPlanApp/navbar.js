@@ -1,5 +1,5 @@
 import { Box,HStack } from "@chakra-ui/layout"
-import { Button ,Heading, Menu,MenuButton,MenuList,MenuItem,MenuItemOption,MenuGroup,MenuOptionGroup,MenuIcon,MenuCommand,MenuDivider,} from "@chakra-ui/react"
+import { Button ,Heading, Menu,MenuButton,MenuList,MenuItem,MenuItemOption,MenuGroup,MenuOptionGroup,MenuIcon,MenuCommand,MenuDivider,Image} from "@chakra-ui/react"
 import { FaUserCircle} from "react-icons/fa";
 import {Link} from "react-router-dom"
 import { TravelContext } from "../../context/TravelContext";
@@ -26,13 +26,14 @@ const NavBar=()=>{
 
             {state && state._id ? <>
                 <Link to="/travelPlan">
-                    <Heading>Travel Guide</Heading>
+                    {/* <Heading>Travel Guide</Heading> */}
+                    <Image src="https://res.cloudinary.com/dm36weewi/image/upload/v1636177256/logo_fydibn.jpg" mt="-5" />
                 </Link> 
             
             </>:
             <>
                 <Link >
-                        <Heading>Travel Guide</Heading>
+                     <Image src="https://res.cloudinary.com/dm36weewi/image/upload/v1636177256/logo_fydibn.jpg" mt="-5" />
                 </Link> 
             
             </>}   

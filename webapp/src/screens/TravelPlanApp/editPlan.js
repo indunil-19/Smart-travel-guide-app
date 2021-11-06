@@ -11,18 +11,23 @@ import { FaExchangeAlt } from "react-icons/fa";
 import { DeletePOI , DeleteDay,AddDay} from "../../services/EditPlanServices"
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { Config } from "../../config/config"
-
+import { CustomPlaceCard } from "../../components/TravelPlanApp/customPlaceCard"
 
 export const EditPlan=()=>{
     const toast=useToast()
     const history=useHistory()
     const {state, dispatch}=useContext(TravelContext)
     const [plan,setPlan]=useState([[], []])
-    useEffect( ()=>{ 
 
-        
+
+    useEffect(()=>{
+        if(!state.travelPlan){
+            history.push("/travelPlan/travelPlan")
+        }
+    },[])
+
+    useEffect( ()=>{  
         // console.log(JSON.parse(localStorage.getItem("travelPlan")))
-
         setPlan(state.editTravelPlan)
         //  console.log(r[0][0][0].photos[0].photo_reference)
         // "wet",[],"2","buddhsism",[],["ancient", "natural", "parks"]
@@ -32,7 +37,7 @@ export const EditPlan=()=>{
 
 
     const deletePOI=(index,index1)=>{
-        DeletePOI(index,index1,plan).then((res)=>{
+        DeletePOI(index,index1,plan, state.userPreferences.startLocation).then((res)=>{
             dispatch({type:"set_editTravelPlan" , payload:{editTravelPlan:res}})
             setPlan(res)
             console.log(res)
@@ -67,7 +72,7 @@ export const EditPlan=()=>{
         <Flex flexDirection="column" alignItems="center" width="100%">
 
             <HStack> 
-                   <IoLocationSharp/> <Badge size="15">9.00 a.m</Badge> <Text fontSize="3xl">Start from colombo</Text>                  
+                   <IoLocationSharp/> <Badge size="15">9.00 a.m</Badge> <Text fontSize="3xl">Start -{plan[1].length ? plan[1][plan[1].length-1].start_address : ""}</Text>                  
             </HStack>
          
 
@@ -114,7 +119,13 @@ export const EditPlan=()=>{
                                             </Button>
 
                                         </VStack>
-                                        <Card name={subItem.name} photo={subItem.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${subItem.photos[0].photo_reference}&key=${Config.apiKey}` : subItem.photos[0]?  subItem.photos[0].url:"" } address={subItem.formatted_address} rating={subItem.rating} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  place_id={subItem.place_id}/>
+                                            <> 
+                                            {subItem.custom ?
+                                            <CustomCard name={subItem.name} photo={subItem.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${subItem.photos[0].photo_reference}&key=${Config.apiKey}` : subItem.photos[0].url} address={subItem.formatted_address} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  description={subItem.description} />
+                                            :
+                                            <Card name={subItem.name} photo={subItem.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${subItem.photos[0].photo_reference}&key=${Config.apiKey}` : subItem.photos[0].url} address={subItem.formatted_address} rating={subItem.rating} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  place_id={subItem.place_id}/>
+                                            }
+                                            </>
                          
                                 </HStack>
                                 </>
@@ -226,6 +237,22 @@ const Card=({distance,duration,photo,index,name,address, types=[], rating, place
             </Flex>
     )
 }
+const CustomCard=({distance,duration,photo,index,name,address,description})=>{
 
+    return(
+        <Flex flexDirection="column" alignItems="center" padding="10px">
+                        <HStack  h="100px" p={4}>
+                            <Divider orientation="vertical"   variant="dashed" />
+                            <VStack>
+                                <HStack>< MdDriveEta /> <Text fontSize="2xl">{distance} </Text> </HStack>
+                                <Badge size="15">{duration}</Badge>
+                            </VStack>
+
+                        </HStack>
+                        
+                        <CustomPlaceCard  photo={photo} index={index} name={name} address={address} description={description}/>                     
+        </Flex>
+    )
+}
 
   

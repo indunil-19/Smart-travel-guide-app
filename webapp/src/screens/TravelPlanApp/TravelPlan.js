@@ -9,7 +9,7 @@ import { PlaceCard } from "../../components/TravelPlanApp/placeCard"
 import { FiEdit, FiSave} from "react-icons/fi";
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow,DirectionsRenderer,Polyline } from "react-google-maps"
 import { Config } from "../../config/config"
-
+import { CustomPlaceCard } from "../../components/TravelPlanApp/customPlaceCard"
 
 
 export const TravelPlan=()=>{
@@ -33,6 +33,9 @@ export const TravelPlan=()=>{
         //  console.log(r[0])
         //  setPlan(r[0])
         //  setLoading(true)
+        dispatch({type:"USER_PREFERENCES",payload:{userPreferences:{
+            startLocation:{lat:6.927079,lng:79.857750}
+        }}}) ;
          dispatch({type:"set_travelPlan" , payload:{travelPlan:[[[]],[]]}})
          dispatch({type:"set_pois" , payload:{allpois:[]}})
          
@@ -179,7 +182,7 @@ export const TravelPlan=()=>{
         
 
             <HStack> 
-                   <IoLocationSharp/> <Badge size="15">9.00 a.m</Badge> <Text fontSize="3xl">Start from colombo</Text>                  
+                   <IoLocationSharp/> <Badge size="15">9.00 a.m</Badge> <Text fontSize="3xl">Start -{plan[1].length ? plan[1][0].start_address : ""}</Text>                  
             </HStack>
          
 
@@ -196,8 +199,11 @@ export const TravelPlan=()=>{
                                 accomodation=subItem.geometry.location
                                 return(
                                 <> 
-
+                                {subItem.custom ?
+                                <CustomCard name={subItem.name} photo={subItem.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${subItem.photos[0].photo_reference}&key=${Config.apiKey}` : subItem.photos[0].url} address={subItem.formatted_address} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  description={subItem.description} />
+                                :
                                 <Card name={subItem.name} photo={subItem.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${subItem.photos[0].photo_reference}&key=${Config.apiKey}` : subItem.photos[0].url} address={subItem.formatted_address} rating={subItem.rating} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  place_id={subItem.place_id}/>
+                                }
                                 </>
                                 )
                             })
@@ -287,10 +293,34 @@ const Card=({distance,duration,photo,index,name,address, types=[], rating, place
 
                         </HStack>
                         
-                        <PlaceCard  photo={photo} index={index} name={name} address={address} types={types} rating={rating} place_id={place_id}/>
+                        <PlaceCard  photo={photo} index={index} name={name} address={address} types={types} rating={rating} place_id={place_id}/> 
+                        
+                        
+                        
         </Flex>
     )
 }
+
+
+const CustomCard=({distance,duration,photo,index,name,address,description})=>{
+
+    return(
+        <Flex flexDirection="column" alignItems="center" padding="10px">
+                        <HStack  h="100px" p={4}>
+                            <Divider orientation="vertical"   variant="dashed" />
+                            <VStack>
+                                <HStack>< MdDriveEta /> <Text fontSize="2xl">{distance} </Text> </HStack>
+                                <Badge size="15">{duration}</Badge>
+                            </VStack>
+
+                        </HStack>
+                        
+                        <CustomPlaceCard  photo={photo} index={index} name={name} address={address} description={description}/>                     
+        </Flex>
+    )
+}
+
+
 const Map=()=>{
     const {state,dispatch}=useContext(TravelContext)
     const [plan,setPlan]=useState([[[]],[]])
@@ -312,7 +342,7 @@ const Map=()=>{
      <DirectionsRenderer directions={ plan[1][1] } />
      :<> </>
     } */}
-        <Marker position={{lat:6.927079,lng:79.857750}} label={"start"} />
+        <Marker position={state.userPreferences.startLocation} label={"start"} />
         {plan && plan[0].map((item=[],index)=>{
             return(
                 <>

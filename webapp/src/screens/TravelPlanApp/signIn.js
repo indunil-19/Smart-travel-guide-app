@@ -105,7 +105,7 @@ export const SignIn=()=>{
                 {/* <Checkbox defaultIsChecked>Remember me</Checkbox> */}
 
                 <Button colorScheme="blue" onClick={()=>sign()}>Sign In</Button>
-                <Text >Forget Password?<Link to="/travelPlan/reset" >Reset</Link></Text>
+                <Text >Forget Password?<Link to="/travelPlan/reset" >click here</Link></Text>
                 <Text >you don't have an account?<Link to="/travelPlan/signup" >SignUp</Link></Text>
                 
             </VStack>

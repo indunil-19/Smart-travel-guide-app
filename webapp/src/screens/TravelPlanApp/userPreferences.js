@@ -5,6 +5,9 @@ import { useHistory } from "react-router"
 import { TravelContext } from "../../context/TravelContext"
 import { Link } from "react-router-dom"
 import { getTravelPlan } from "../../services/TravelPlanService"
+import { Config } from "../../config/config"
+import Autocomplete from "react-google-autocomplete";
+
 
 export const UserPreferences=()=>{
 
@@ -18,6 +21,8 @@ export const UserPreferences=()=>{
     const [placesLike, setPlacesLike] = useState([]);
     const [thingsLike, setThingsLike] = useState([]);
     const [loading,setLoading]=useState(false)
+    const [start_location,setStartLocation]=useState({lat:6.927079,lng:79.857750})
+    const [start_location_name,setStartLocationName]=useState("colombo")
 
     const [q1, setQ1]=useState("block")
     const [q2, setQ2]=useState("none")
@@ -25,7 +30,7 @@ export const UserPreferences=()=>{
     const [q4, setQ4]=useState("none")
     const [q5, setQ5]=useState("none")
     const [q6, setQ6]=useState("none")
-
+    const [q7, setQ7]=useState("none")
     
     const [isOpen, setIsOpen] = useState(false)
     const onClose = () => setIsOpen(false)
@@ -254,36 +259,75 @@ export const UserPreferences=()=>{
                 <Button colorScheme="teal" variant="outline" onClick={() => {setQ5("block"); setQ6("none")}}>
                     Previous
                 </Button>
-                <Button colorScheme="teal" variant="outline" isLoading={loading} loadingText="plase wait"  onClick={() => {
 
-                        setLoading(true)
-                         dispatch({type:"USER_PREFERENCES",payload:{userPreferences:{
-                            climate:climate,
-                            provinces:provinces,
-                            days:days,
-                            religion:religion,
-                            placesLike:placesLike,
-                            thingsLike:thingsLike
-                        }}}) ;
-
-                        getTravelPlan(climate,provinces,days,religion,thingsLike,placesLike).then((r)=>{
-                                // console.log(r)
-                                setLoading(false)
-                                dispatch({type:"set_travelPlan" , payload:{travelPlan:r[0]}})
-                                dispatch({type:"set_pois" , payload:{allpois:r[1]}})
-                                history.push("/travelPlan/travelPlan")
-
-                                
-                        }).catch(e=>{
-                            console.log(e)
-                        });
-
-
-
-
-                    }} >
-                    Submit
+                <Button colorScheme="teal" variant="outline" onClick={() => {setQ6("none"); setQ7("block")}}>
+                    Next
                 </Button>
+                
+                </HStack >
+
+        </Box>
+
+        <Box maxW="60%" borderWidth="1px" borderRadius="lg" overflow="hidden" m="auto" padding="25" boxShadow="dark-lg" display={q7}>
+                <Heading>7.Select location to start your trip</Heading>
+                <Box pt={10} pb={10}>
+                
+                <Autocomplete style={{width:"40%" ,height:"30px", padding:"5px", margin:"15px",background:"grey", borderRadius:"5px", color:"white"}}
+                        apiKey={Config.apiKey}
+
+                        onPlaceSelected={(place) => {
+                            console.log(place)
+                        if(place.geometry.location){
+                            let location={lat:place.geometry.location.lat(),lng:place.geometry.location.lng()}
+                           setStartLocation(location)
+                           setStartLocationName(place.name)
+                        }
+                        }}
+
+                        options={{
+                            types: ['(cities)' ],
+                            componentRestrictions: { country: "LK" },
+                            fields:["ALL"]
+                        }}
+                        >
+                        </Autocomplete>
+
+                        <Text>your current starting location : {start_location_name}</Text>
+                
+                </Box>
+
+                <HStack justifyContent="space-between">
+                            <Button colorScheme="teal" variant="outline" onClick={() => {setQ6("block"); setQ7("none")}}>
+                                Previous
+                            </Button>
+                
+                            <Button colorScheme="teal" variant="outline" isLoading={loading} loadingText="plase wait"  onClick={() => {
+
+                            setLoading(true)
+                            dispatch({type:"USER_PREFERENCES",payload:{userPreferences:{
+                                climate:climate,
+                                provinces:provinces,
+                                days:days,
+                                religion:religion,
+                                placesLike:placesLike,
+                                thingsLike:thingsLike,
+                                startLocation:start_location
+                            }}}) ;
+
+                            getTravelPlan(climate,provinces,days,religion,thingsLike,placesLike,start_location).then((r)=>{
+                                    // console.log(r)
+                                    setLoading(false)
+                                    dispatch({type:"set_travelPlan" , payload:{travelPlan:r[0]}})
+                                    dispatch({type:"set_pois" , payload:{allpois:r[1]}})
+                                    history.push("/travelPlan/travelPlan")
+
+                                    
+                            }).catch(e=>{
+                                console.log(e)
+                            });
+                            }} >
+                            Submit
+                            </Button>
                 </HStack >
 
         </Box>

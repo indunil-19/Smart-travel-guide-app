@@ -7,6 +7,7 @@ import Autocomplete from "react-google-autocomplete";
 import {useState,useContext,useEffect} from "react"
 import { useHistory } from "react-router";
 import { TravelContext } from "../../context/TravelContext";
+import { Config } from "../../config/config";
 
 
 export const SignUp=()=>{
@@ -139,7 +140,7 @@ export const SignUp=()=>{
                 <InputGroup >
                     <RiLockPasswordLine/>
                     <Autocomplete style={{width:"100%" ,height:"45px", padding:"10px", margin:"15px",background:"transparent", borderRadius:"5px", color:"white", borderColor:"white", borderWidth:"2px"}}
-                         apiKey={"AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA"}
+                         apiKey={Config.apiKey}
                             onPlaceSelected={(place) => {
                                     setCountry(place.name)
                             }}

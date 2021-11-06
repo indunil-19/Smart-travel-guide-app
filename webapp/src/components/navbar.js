@@ -37,7 +37,7 @@ const LinkItems = [
     { name: 'sharedPlans', icon: AttachmentIcon,  linkto:"/admin/sharedPlans"},
     { name: 'publicPlans', icon: AttachmentIcon,  linkto:"/admin/publicPlans"},
     { name: 'Goole maps api key', icon: AttachmentIcon,  linkto:"/admin/apiKeyPage"},
-    { name: 'Goole Analitics', icon: AttachmentIcon,  linkto:"/admin/googleAnalitics1"},
+    { name: 'Google Analitics', icon: AttachmentIcon,  linkto:"/admin/googleAnalitics1"},
   ];
   
 const logout=()=>{
@@ -97,7 +97,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
 
       <Link href="/admin/dashboard">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Travel App
+          Travel App Admins
         </Text>
       </Link>
         

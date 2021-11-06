@@ -27,6 +27,7 @@ import {useContext,useEffect} from "react"
 import { SwitchPois } from "./switchPois"
 import { ChangePassword } from "./changePassword"
 import ResestPassword from "./resestPassword"
+import StartLocation from "./startLocationPage"
 
 
 
@@ -63,6 +64,9 @@ const TravelPlanApp=()=>{
             </Route>
             <Route path="/travelPlan/customPlan">
                 <CustomPlan/>
+            </Route>
+            <Route path="/travelPlan/startLocationSelect">
+                <StartLocation/>
             </Route>
             <Route path="/travelPlan/province/:pid">
                 <Province/>

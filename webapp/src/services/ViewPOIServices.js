@@ -8,6 +8,7 @@ export const getPoiData=async(place_id)=>{
     return await client.placeDetails({params:{
         place_id: place_id,
         key: Config.apiKey,
+     
     }}).then((r)=>{
        
         return r.data.result

@@ -3,7 +3,7 @@ import { Config } from "../config/config";
 const {Client} = require("@googlemaps/google-maps-services-js");
 
    
-export const DeletePOI=async(index, index1, travelPlan=[[[],[]] ,[]])=>{
+export const DeletePOI=async(index, index1, travelPlan=[[[],[]] ,[]],startLocation={lat:6.927079,lng:79.857750})=>{
   console.log(index,index1)
     const client = new Client({});
     var start_location={}
@@ -32,7 +32,7 @@ export const DeletePOI=async(index, index1, travelPlan=[[[],[]] ,[]])=>{
       else if(index1==0){
         console.log("2")
         if(plan[index-1].length==0){
-          start_location={lat:6.927079,lng:79.857750}
+          start_location=startLocation
         }
         else{
           start_location=plan[index-1][plan[index-1].length-1].geometry.location
@@ -44,7 +44,7 @@ export const DeletePOI=async(index, index1, travelPlan=[[[],[]] ,[]])=>{
     }
     else if(index==0){
       if(index1==0){
-        start_location={lat:6.927079,lng:79.857750}
+        start_location=startLocation
         // travelPlan[0][index].pop(index1)
 
       }
@@ -177,7 +177,7 @@ export const DeleteDay=async(day, travelPlan)=>{
 }
 
 
-export const findPois=async(day,travelPlan,allpois)=>{
+export const findPois=async(day,travelPlan,allpois, startLocation={lat:6.927079,lng:79.857750})=>{
     // console.log(day,travelPlan,allpois)
     const client = new Client({});
     const allpoisDays=travelPlan[0].length
@@ -186,7 +186,7 @@ export const findPois=async(day,travelPlan,allpois)=>{
     var end_location={}
     if(num_pois_in_day==0){
       if(day==1){
-        start_location={lat:6.927079,lng:79.857750}
+        start_location=startLocation
       }
       else{
         start_location=travelPlan[0][day-2][travelPlan[0][day-2].length-1].geometry.location
@@ -207,6 +207,7 @@ export const findPois=async(day,travelPlan,allpois)=>{
 
     for(let i=0; i<travelPlan[0][day-1].length; i++){
           remaining_time-=travelPlan[1][l+i].duration.value+3600
+          // remaining_time-=travelPlan[1][l+i].duration.value+travelPlan[0][day-1][i].time
     }
     remaining_time-=3600
     // console.log(remaining_time)
@@ -265,6 +266,7 @@ export const findPois=async(day,travelPlan,allpois)=>{
                 t+=poisRoute[i][j].duration.value
             }
             if(t<=remaining_time){
+              // if(t<=remaining_time-allpois[i].time){
               pois.push(allpois[i])
               poisRouteSuitable.push(poisRoute[i])
             }
@@ -337,7 +339,7 @@ export const AddDay=async(travelPlan)=>{
 
 
    
-export const switchPOI=async(index, index1, travelPlan=[[[],[]] ,[]],allpois)=>{
+export const switchPOI=async(index, index1, travelPlan=[[[],[]] ,[]],allpois,startLocation={lat:6.927079,lng:79.857750})=>{
   const client = new Client({});
   var start_location={}
   var end_location={}
@@ -355,7 +357,7 @@ export const switchPOI=async(index, index1, travelPlan=[[[],[]] ,[]],allpois)=>{
     else if(index1==0){
       console.log("2")
       if(plan[index-1].length==0){
-        start_location={lat:6.927079,lng:79.857750}
+        start_location=startLocation
       }
       else{
         start_location=plan[index-1][plan[index-1].length-1].geometry.location
@@ -367,7 +369,7 @@ export const switchPOI=async(index, index1, travelPlan=[[[],[]] ,[]],allpois)=>{
   }
   else if(index==0){
     if(index1==0){
-      start_location={lat:6.927079,lng:79.857750}
+      start_location=startLocation
       // travelPlan[0][index].pop(index1)
 
     }
@@ -384,7 +386,7 @@ export const switchPOI=async(index, index1, travelPlan=[[[],[]] ,[]],allpois)=>{
     if(index1==plan[index].length-1){
       console.log("5")
       if(plan[index+1].length==0){
-        end_location={lat:6.927079,lng:79.857750}
+        end_location=startLocation
       }else{
         end_location=plan[index+1][0].geometry.location
       }
@@ -425,6 +427,7 @@ export const switchPOI=async(index, index1, travelPlan=[[[],[]] ,[]],allpois)=>{
   }
   
   for(let i=0; i<travelPlan[0][index].length; i++){
+      // if(index1!=i) remaining_time-=travelPlan[1][pivot+i].duration.value+travelPlan[0][index][i].time
       if(index1!=i) remaining_time-=travelPlan[1][pivot+i].duration.value+3600
         
   }
@@ -473,6 +476,7 @@ export const switchPOI=async(index, index1, travelPlan=[[[],[]] ,[]],allpois)=>{
           for(let j=0; j<poisRoute[i].length;j++){
               t+=poisRoute[i][j].duration.value
           }
+          // if(t<=remaining_time-allpois[i].time){
           if(t<=remaining_time){
             pois.push(allpois[i])
             poisRouteSuitable.push(poisRoute[i])

@@ -153,7 +153,7 @@ export const CustomPlanInner=()=>{
 
           <Button colorScheme="teal" variant="outline" onClick={
            ()=>{
-            calculateAndDisplayRoute(p).then(r=>{
+            calculateAndDisplayRoute(p,state.userPreferences.startLocation).then(r=>{
              
               dispatch({type:"set_travelPlan" , payload:{travelPlan:r[0]}})
               dispatch({type:"set_pois" , payload:{allpois:r[1]}})

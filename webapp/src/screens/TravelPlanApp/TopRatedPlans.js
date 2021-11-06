@@ -1,6 +1,6 @@
-import { PlanCard } from "../../components/TravelPlanApp/planCard,"
 import { Flex } from "@chakra-ui/layout"
 import { useState,useEffect } from "react"
+import { PlanCardHome } from "../../components/TravelPlanApp/planCardhome"
 export const TopRatedPlans=()=>{
     const [plans,setPlans]=useState([])
     useEffect(()=>{
@@ -21,7 +21,7 @@ export const TopRatedPlans=()=>{
                         return(
                             <>
                                 <Flex minWidth="md">
-                                    <PlanCard  name={plan.name ? plan.name : `My plan ${index+1}`} days={plan.travelPlan[0].length} createdDate={plan.createdAt} travelPlan={plan.travelPlan}/>
+                                    <PlanCardHome  name={plan.name ? plan.name : `My plan ${index+1}`} days={plan.travelPlan[0].length} createdDate={plan.createdAt} travelPlan={plan.travelPlan}/>
                                  </Flex>
                             </>
                         )

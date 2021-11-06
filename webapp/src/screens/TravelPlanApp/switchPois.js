@@ -7,6 +7,7 @@ import { Flex, HStack ,VStack} from "@chakra-ui/layout"
 import { GrAddCircle } from "react-icons/gr";
 import { Button } from "@chakra-ui/button"
 import { useHistory } from "react-router"
+import { Config } from "../../config/config"
 
 export const SwitchPois=()=>{
     const {index,index1}=useParams()
@@ -15,9 +16,17 @@ export const SwitchPois=()=>{
     const [pois,setPois]=useState([])
     const [route,setRoute]=useState([])
     const {state, dispatch}=useContext(TravelContext)
+
+    useEffect(()=>{
+        if(!state.travelPlan){
+            history.push("/travelPlan/travelPlan")
+        }
+    },[])
+
+
     useEffect(() => {
         
-        switchPOI(parseInt(index), parseInt(index1), state.editTravelPlan, state.allpois).then((res)=>{
+        switchPOI(parseInt(index), parseInt(index1), state.editTravelPlan, state.allpois, state.userPreferences.startLocation).then((res)=>{
             // console.log(res)
             setPois(res[0])
             setRoute(res[1])
@@ -34,7 +43,7 @@ export const SwitchPois=()=>{
 
     return(
         <>
-        <Flex flexDirection="column" alignItems="center">
+        <Flex flexDirection="column" alignItems="center" width="100%" p={2}>
         
         { 
          pois.map((Item, index)=>{
@@ -52,7 +61,7 @@ export const SwitchPois=()=>{
 
 
 
-                <PlaceCard  index={index+1} name={Item.name} address={Item.vicinity} photo={Item.photos ? Item.photos[0].photo_reference : "" } rating={Item.rating} place_id={Item.place_id}/>
+                <PlaceCard  index={index+1} name={Item.name} address={Item.vicinity} photo={Item.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${Item.photos[0].photo_reference}&key=${Config.apiKey}` : Item.photos[0]?  Item.photos[0].url:"" } rating={Item.rating} place_id={Item.place_id}/>
                 </HStack>
                 </>
             )

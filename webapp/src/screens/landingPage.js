@@ -41,14 +41,14 @@ const TravelApp=()=>{
     {
       img:
         "https://images.unsplash.com/photo-1606326128683-60ff4212127e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      label: "First Slide",
-      description: "Nulla vitae elit libero, a pharetra augue mollis interdum.",
+      label: "Smart Guide",
+      description: "New way to plan your trip.",
     },
     {
       img:
         "https://images.unsplash.com/photo-1536560328749-3dd331d32a05?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-      label: "Second Slide",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      label: "It's free",
+      description: "",
     },
     {
       img:
@@ -91,9 +91,9 @@ const TravelApp=()=>{
 
   return (
     <>
-    <Center bg="tomato" h="100px" color="white" fontSize="50px">
+    <Center  h="100px" color="white" fontSize="50px">
       <Heading>
-      Smart Travel Guide
+        <Image src="https://res.cloudinary.com/dm36weewi/image/upload/v1636177256/logo_fydibn.jpg" height="100px" />
       </Heading>
     </Center>
     <Flex

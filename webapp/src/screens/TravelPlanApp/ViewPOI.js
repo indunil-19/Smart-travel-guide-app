@@ -4,7 +4,7 @@ import { useParams } from 'react-router'
 import { getPoiData , getNearByPlaces} from "../../services/ViewPOIServices"
 import {NearByPlaceCard} from '../../components/TravelPlanApp/nearbyplace'
 import { PoiCard } from "../../components/TravelPlanApp/poicard"
-
+import { Flex } from "@chakra-ui/layout"
 
 export const ViewPois=()=>{
     const [data,setData]=useState({})
@@ -12,6 +12,8 @@ export const ViewPois=()=>{
     const [location,setLocation]=useState({})
     const [nearByPlaces,setNearByPlaces]=useState([])
     // const [a,setA]=useState(false)
+
+    
 
     useEffect( ()=>{
             getPoiData(place_id).then((r)=>{
@@ -71,6 +73,7 @@ export const ViewPois=()=>{
 
 
          <TabPanel >
+             <Flex flexDirection="column" alignItems="start" width="100%" p={2}>
             { (nearByPlaces)  && nearByPlaces.map((nearByPlace,index)=>{
                 return (
                     // <>{nearByPlace.name}</>
@@ -80,6 +83,7 @@ export const ViewPois=()=>{
             
             
             }
+            </Flex>
          </TabPanel>
 
 

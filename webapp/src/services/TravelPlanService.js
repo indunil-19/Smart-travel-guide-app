@@ -1,9 +1,10 @@
 import { Config } from "../config/config";
-
+import { timeSlots } from "./times";
 //  import { Loader } from "@googlemaps/js-api-loader"
 const {Client} = require("@googlemaps/google-maps-services-js");
 
-export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,placesLike)=>{
+
+export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,placesLike,startLocation={lat:6.927079,lng:79.857750})=>{
     console.log(climate,provinces,days,religion,thingsLike,placesLike)
     const client = new Client({});
     var province=provinces
@@ -18,6 +19,8 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
     var placeslike=placesLike
     //Natural, animal, botenical gardens, parks, beaches, ancient, reliogous 
     var number_of_days=parseInt(days)
+
+    var startLocation=startLocation
     
     var provinceData={
       "Northern":[9.112945,80.477003],
@@ -136,6 +139,13 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
           Allpois.push(place)
           if(pois.length<=number_of_days*8){
             if(Math.random()>0.5) {
+              var vt=0;
+              for(let i=0;i<place.types.length; i++){
+                 let time=timeSlots[place.types[i]]
+                 if(Number.isInteger(time)) vt=Math.max(vt,time)
+                 
+              }
+              place.time=vt
               pois.push(place)
            
             };
@@ -157,8 +167,8 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
 
       return client
       .directions({params:{
-          origin:{lat:6.927079,lng:79.857750},
-          destination:{lat:6.927079,lng:79.857750},
+          origin:startLocation,
+          destination:startLocation,
           optimizeWaypoints: true,
           waypoints: waypts,
           travelMode: 'DRIVING',
@@ -174,7 +184,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
           let time=0
 
            for (let i = 0; i < route.legs.length-1; i++) {
-             time=time+route.legs[i].duration.value+3600
+             time=time+route.legs[i].duration.value+pois[route.waypoint_order[i]].time
 
              if(time<32400) {
                day1.push(pois[route.waypoint_order[i]]); 
@@ -209,7 +219,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
 
 
 
-export const calculateAndDisplayRoute=async(pois)=> {
+export const calculateAndDisplayRoute=async(pois,startLocation={lat:6.927079,lng:79.857750})=> {
   const client = new Client({});
   const waypts = [];
   
@@ -227,8 +237,8 @@ export const calculateAndDisplayRoute=async(pois)=> {
 
   return client
   .directions({params:{
-      origin:{lat:6.927079,lng:79.857750},
-      destination:{lat:6.927079,lng:79.857750},
+      origin:startLocation,
+      destination:startLocation,
       optimizeWaypoints: true,
       waypoints: waypts,
       travelMode: 'DRIVING',
@@ -265,3 +275,4 @@ export const calculateAndDisplayRoute=async(pois)=> {
     });
 
 }
+
