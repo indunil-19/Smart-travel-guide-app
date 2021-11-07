@@ -22,6 +22,8 @@ import { PublicPlans } from './publicPlans';
 import { useContext,useEffect } from 'react';
 import ApiKeyDetailsPage from './apiKeyPage';
 import GA1 from './googleAnalitics1';
+import GA2 from './GoogleAnalytics2';
+import { Footer2 } from '../../components/TravelPlanApp/Footer2';
 
 export const AdminPortal=()=>{
   const history=useHistory()
@@ -65,9 +67,9 @@ export const AdminPortal=()=>{
           <Route path="/admin/user/viewSingleuser">
             <ViewAdmin/>
           </Route>
-          <Route path="/admin/editquestions">
+          {/* <Route path="/admin/editquestions">
             <Editquestions/>
-          </Route>
+          </Route> */}
           <Route path="/admin/viewAdmin/:pid">
             <ViewAdmin/>
           </Route>
@@ -112,10 +114,13 @@ export const AdminPortal=()=>{
         <Route path="/admin/googleAnalitics1">
             <GA1/>
         </Route>
+        <Route path="/admin/googleAnalitics2">
+            <GA2/>
+        </Route>
          </NavBar>
 
         </Switch>
-          
+          <Footer2/>
         
         </>
     )

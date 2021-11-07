@@ -31,13 +31,15 @@ const LinkItems = [
     { name: 'Adminlist', icon: AttachmentIcon, linkto:"/admin/viewAdmins" },
     { name: 'Provinces data', icon: AttachmentIcon,  linkto:"/admin/provinces"},
     { name: 'View user list', icon: AttachmentIcon,  linkto:"/admin/Viewuserlist"},
-    { name: 'Editquestions', icon: AttachmentIcon,  linkto:"/admin/editquestions"},
+    // { name: 'Editquestions', icon: AttachmentIcon,  linkto:"/admin/editquestions"},
     { name: 'Genaratereport', icon: AttachmentIcon,  linkto:"/admin/genarate"},
     { name: 'TravelplanList', icon: AttachmentIcon,  linkto:"/admin/ViewTravelplanlist"},
     { name: 'sharedPlans', icon: AttachmentIcon,  linkto:"/admin/sharedPlans"},
     { name: 'publicPlans', icon: AttachmentIcon,  linkto:"/admin/publicPlans"},
     { name: 'Goole maps api key', icon: AttachmentIcon,  linkto:"/admin/apiKeyPage"},
     { name: 'Google Analitics', icon: AttachmentIcon,  linkto:"/admin/googleAnalitics1"},
+    { name: 'Google Analitics', icon: AttachmentIcon,  linkto:"/admin/googleAnalitics2"},
+    
   ];
   
 const logout=()=>{

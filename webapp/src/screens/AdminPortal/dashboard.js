@@ -22,7 +22,7 @@ const Dashboard=()=>{
         
         <Slideshow/>
        
-        <StatGroup bg="white" p="5" boxShadow="dark-lg">
+        {/* <StatGroup bg="white" p="5" boxShadow="dark-lg">
         <Stat>
             <StatLabel>Number of Admin online</StatLabel>
             <StatNumber>30</StatNumber>
@@ -87,7 +87,7 @@ const Dashboard=()=>{
           
             </StatHelpText>
         </Stat>
-        </StatGroup>
+        </StatGroup> */}
 
         </>
     )
@@ -119,11 +119,11 @@ const slideImages = [
   
   const Slideshow = () => {
       return (
-        <div className="slide-container" style={{height:"500px"}}>
+        <div className="slide-container" style={{height:"100vh"}}>
           <Slide>
            {slideImages.map((slideImage, index)=> (
               <div className="each-slide" key={index}>
-                <div style={{'backgroundImage': `url(${slideImage.url})`,height:"500px",objectFit:"cover"}}>
+                <div style={{'backgroundImage': `url(${slideImage.url})`,height:"100vh",objectFit:"cover"}}>
                 <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} style={{textAlign: 'center',paddingTop:"200px"}}>
                   {slideImage.caption}
                 </Heading>
