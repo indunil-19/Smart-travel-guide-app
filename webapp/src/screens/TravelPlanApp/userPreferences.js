@@ -311,7 +311,8 @@ export const UserPreferences=()=>{
                                 religion:religion,
                                 placesLike:placesLike,
                                 thingsLike:thingsLike,
-                                startLocation:start_location
+                                startLocation:start_location,
+                                startLocationName:start_location_name
                             }}}) ;
 
                             getTravelPlan(climate,provinces,days,religion,thingsLike,placesLike,start_location).then((r)=>{
@@ -320,7 +321,6 @@ export const UserPreferences=()=>{
                                     dispatch({type:"set_travelPlan" , payload:{travelPlan:r[0]}})
                                     dispatch({type:"set_pois" , payload:{allpois:r[1]}})
                                     history.push("/travelPlan/travelPlan")
-
                                     
                             }).catch(e=>{
                                 console.log(e)
@@ -332,11 +332,7 @@ export const UserPreferences=()=>{
 
         </Box>
 
-
-
-
-
-        </Box>
+       </Box>
         
         
         </>

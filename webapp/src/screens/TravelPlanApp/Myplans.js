@@ -102,7 +102,7 @@ export const MyPlans=()=>{
                                 
                             }}><AiOutlineDelete /></Button>
                         
-                            <PlanCard _id={plan._id} name={plan.name ? plan.name : `My plan ${index+1}`} days={plan.travelPlan[0].length} createdDate={plan.createdAt} travelPlan={plan.travelPlan} />
+                            <PlanCard _id={plan._id} name={plan.name ? plan.name : `My plan ${index+1}`} days={plan.travelPlan[0].length} createdDate={plan.createdAt} travelPlan={plan.travelPlan} startLocation={plan.start_location} startLocationName={plan.start_location_name}   />
 
                             </HStack>
                          </Flex>

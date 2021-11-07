@@ -39,7 +39,9 @@ class UserController{
             
              const travelPlan=new TravelPlan({
                  travelPlan:req.body.travelPlan,
-                 ownedBy:req.session.user._id
+                 ownedBy:req.session.user._id,
+                 start_location:req.body.start_location,
+                 start_location_name:req.body.start_location_name
 
              })  
              travelPlan.save().then((result)=>{
@@ -68,7 +70,9 @@ class UserController{
     static async updateTravelPlan(req,res){
        
         TravelPlan.findOneAndUpdate({_id:req.body.planId,ownedBy:req.session.user._id},{
-            travelPlan:req.body.travelPlan
+            travelPlan:req.body.travelPlan,
+            start_location:req.body.start_location,
+            start_location_name:req.body.start_location_name
         }).then(data=>{
                 if(data){
                     return res.json({data})
@@ -127,7 +131,9 @@ class UserController{
                 rate:data.rate,
                 ownedBy:{
                     _id:"617acefbaa2522ab237609ed"
-                }
+                },
+                start_location:data.start_location,
+                start_location_name:data.start_location_name
 
             })  
             travelPlan.save().then((result)=>{

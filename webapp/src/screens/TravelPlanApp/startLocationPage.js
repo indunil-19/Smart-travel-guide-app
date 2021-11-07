@@ -47,7 +47,8 @@ const StartLocation=()=>{
                             <Button colorScheme="teal" variant="outline"  onClick={() => {
 
                             dispatch({type:"USER_PREFERENCES",payload:{userPreferences:{
-                                startLocation:start_location
+                                startLocation:start_location,
+                                startLocationName:start_location_name
                             }}}) ;
                             history.push("/travelPlan/customPlan")
 

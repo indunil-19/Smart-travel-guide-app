@@ -74,7 +74,7 @@ export const AddMorePlaces=()=>{
 
 
         <TabPanel>
-        <Flex flexDirection="column" alignItems="center" width="100%" p={2}>
+        <Flex flexDirection="column" alignItems="center" width="100%" p={2} mt="6">
         {
             pois.length==0 ? 
             <>
@@ -239,8 +239,8 @@ export const AddMorePlaces=()=>{
                             place.geometry.location=location;
 
 
-                            // let h=parseFloat(hours)
-                            // let m=parseFloat(minutes)
+                            let h=parseFloat(hours)
+                            let m=parseFloat(minutes)
                             console.log(hours,minutes)
 
                             // if(isNaN(h) || isNaN(m)){
@@ -251,8 +251,8 @@ export const AddMorePlaces=()=>{
                             //     document.getElementById("notifier1").style.display="block"
                             //     return;
                             // }
-                            // let time=h*3600 + m*60
-                            // place.time=time;
+                            let time=h*3600 + m*60
+                            place.time=time;
                             place.photos=[{
                                 url:"https://uploads-ssl.webflow.com/576fd5a8f192527e50a4b918/605b5fb7ff14b82bc8d41e28_Sri%20Lanka%20travel%20guide%20(1).jpg"
                             }]

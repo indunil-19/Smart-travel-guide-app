@@ -24,7 +24,7 @@ export const TravelPlan=()=>{
         if(state.travelPlan){
             setLoading(true)
             setPlan(state.travelPlan)
-           console.log(state.travelPlan)
+            console.log(state.travelPlan)
             
         }
         else{
@@ -34,7 +34,8 @@ export const TravelPlan=()=>{
         //  setPlan(r[0])
         //  setLoading(true)
         dispatch({type:"USER_PREFERENCES",payload:{userPreferences:{
-            startLocation:{lat:6.927079,lng:79.857750}
+            startLocation:{lat:6.927079,lng:79.857750},
+            startLocationName:"colombo"
         }}}) ;
          dispatch({type:"set_travelPlan" , payload:{travelPlan:[[[]],[]]}})
          dispatch({type:"set_pois" , payload:{allpois:[]}})
@@ -63,7 +64,9 @@ export const TravelPlan=()=>{
                 "Content-Type":"application/json",
             },
             body:JSON.stringify({
-                travelPlan:state.travelPlan
+                travelPlan:state.travelPlan,
+                start_location:state.userPreferences.startLocation,
+                start_location_name:state.userPreferences.startLocationName
             })
         }).then(res=>res.json()).then((data)=>{
                 if(data.error){
@@ -99,7 +102,9 @@ export const TravelPlan=()=>{
             },
             body:JSON.stringify({
                 planId:state.planId,
-                travelPlan:state.travelPlan
+                travelPlan:state.travelPlan,
+                start_location:state.userPreferences.startLocation,
+                start_location_name:state.userPreferences.startLocationName
             })
         }).then(res=>res.json()).then((data)=>{
                 console.log(data)
@@ -182,7 +187,7 @@ export const TravelPlan=()=>{
         
 
             <HStack> 
-                   <IoLocationSharp/> <Badge size="15">9.00 a.m</Badge> <Text fontSize="3xl">Start -{plan[1].length ? plan[1][0].start_address : ""}</Text>                  
+                   <IoLocationSharp/> <Badge size="15">9.00 a.m</Badge> <Text fontSize="3xl">Start -{ state.userPreferences ? state.userPreferences.startLocationName : ""}</Text>                  
             </HStack>
          
 
@@ -330,7 +335,7 @@ const Map=()=>{
     const [open,setOpen]=useState(false);
 
     var i=0;
-    const path=[{lat:6.927079,lng:79.857750}]
+    const path=[state.userPreferences.startLocation]
       return(
           <>
   

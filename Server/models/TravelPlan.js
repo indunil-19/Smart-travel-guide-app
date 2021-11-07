@@ -12,6 +12,14 @@ const travelSchema = new mongoose.Schema({
         required:true,
         default:[[[]],[]]
     },
+    start_location:{
+        type:Object,
+        default:{lat:6.927079,lng:79.857750}
+    },
+    start_location_name:{
+        type:String,
+        default:"colombo"
+    },
     ownedBy:{
         type:ObjectId,
         ref:"User"

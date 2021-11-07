@@ -24,14 +24,9 @@ export const CustomPlanInner=()=>{
   },[])
 
   
- 
- 
   const [isOpen, setIsOpen] = useState(false)
   const onClose = () => setIsOpen(false)
   const cancelRef = useRef()
-  
-
-    
     
     return(
         <>

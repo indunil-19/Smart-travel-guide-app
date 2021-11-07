@@ -21,7 +21,7 @@ export const Home=()=>{
     return(
         <>
         <Flex flexDirection="column"  alignItems="center" minHeight="100vh" backgroundRepeat="no-repeat" backgroundSize="cover" backgroundPosition="center"  backgroundImage="url('https://images.unsplash.com/photo-1583648542585-d5f9b9c989a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80')">
-            <Text fontSize="4xl" p={5}>The new way to plan your next trip</Text>
+            <Text fontSize="4xl" p={1}>The new way to plan your next trip</Text>
 
             <Text fontSize="xl">Get a personalized trip --->
             A complete day by day itinerary
@@ -34,8 +34,8 @@ export const Home=()=>{
             </Text>
 
 
-            <HStack spacing={10} p={2}>
-                <Flex flexDirection="column" p={10} shadow="dark-lg" borderRadius="5px" width="80%">
+            <HStack spacing={10} p={2} mt={0}>
+                <Flex flexDirection="column" p={6} shadow="dark-lg" borderRadius="5px" width="80%">
                    <Image src={"https://images.unsplash.com/photo-1632429619634-3d97fc1693e9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80"}  width="400px" height="300px" objectFit="cover" borderRadius="lg"  /> 
                    
                     <Button colorScheme="teal" m={4} onClick={()=>{
@@ -45,7 +45,7 @@ export const Home=()=>{
                     </Button>
                 </Flex>
 
-                <Flex flexDirection="column" p={10} shadow="dark-lg" borderRadius="5px" width="80%">
+                <Flex flexDirection="column" p={6} shadow="dark-lg" borderRadius="5px" width="80%">
                      <Image src={"https://images.unsplash.com/photo-1632429619634-3d97fc1693e9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80"}  width="400px" height="300px" objectFit="cover" borderRadius="lg"  /> 
                     <Button colorScheme="teal" m={4} onClick={()=>{
                         history.push("/travelPlan/startLocationSelect")
@@ -80,7 +80,7 @@ export const Home=()=>{
                         return(
                             <>
                                 <Flex minWidth="md">
-                                    <PlanCardHome  name={plan.name ? plan.name : `My plan ${index+1}`} days={plan.travelPlan[0].length} createdDate={plan.createdAt} travelPlan={plan.travelPlan}/>
+                                    <PlanCardHome  name={plan.name ? plan.name : `My plan ${index+1}`} days={plan.travelPlan[0].length} createdDate={plan.createdAt} travelPlan={plan.travelPlan} startLocation={plan.start_location} startLocationName={plan.start_location_name} />
                                  </Flex>
                             </>
                         )

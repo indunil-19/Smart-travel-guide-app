@@ -12,7 +12,7 @@ import { TravelContext } from "../../context/TravelContext";
 import { useHistory } from "react-router"
 import {EditIcon} from '@chakra-ui/icons'
 
-export const PlanCard=({_id="",name,days,createdDate, travelPlan})=>{
+export const PlanCard=({_id="",name,days,createdDate, travelPlan,startLocation,startLocationName})=>{
     const {state, dispatch}=useContext(TravelContext)
     const [newName,setNewName]=useState(name)
     const history=useHistory()
@@ -92,6 +92,10 @@ export const PlanCard=({_id="",name,days,createdDate, travelPlan})=>{
                                 <Button colorScheme="teal" variant="outline" onClick={()=>{
                                         dispatch({type:"set_travelPlan" , payload:{travelPlan:travelPlan}})
                                         dispatch({type:"set_planId" , payload:{planId:_id}})
+                                        dispatch({type:"USER_PREFERENCES",payload:{userPreferences:{
+                                            startLocation:startLocation,
+                                            startLocationName:startLocationName
+                                        }}}) ;
                                         history.push("/travelPlan/viewMyTravelPlan")
 
                                 }}>

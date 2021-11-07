@@ -72,7 +72,7 @@ export const EditPlan=()=>{
         <Flex flexDirection="column" alignItems="center" width="100%">
 
             <HStack> 
-                   <IoLocationSharp/> <Badge size="15">9.00 a.m</Badge> <Text fontSize="3xl">Start -{plan[1].length ? plan[1][plan[1].length-1].start_address : ""}</Text>                  
+                   <IoLocationSharp/> <Badge size="15">9.00 a.m</Badge> <Text fontSize="3xl">Start -{ state.userPreferences ? state.userPreferences.startLocationName : ""}</Text>                  
             </HStack>
          
 
