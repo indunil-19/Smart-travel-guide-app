@@ -2,7 +2,7 @@
   "name": "adminportal",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:5000",
+  "proxy": "https://smart-guide-app.herokuapp.com",
   "dependencies": {
     "@chakra-ui/icons": "^1.0.15",
     "@chakra-ui/react": "^1.6.7",
