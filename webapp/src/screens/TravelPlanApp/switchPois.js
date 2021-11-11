@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react"
+import React, { useContext, useState, useEffect } from "react"
 import { switchPOI, addPoiToPlan1 } from "../../services/EditPlanServices"
 import { useParams } from 'react-router'
 import { TravelContext } from "../../context/TravelContext"
@@ -8,7 +8,7 @@ import { GrAddCircle } from "react-icons/gr";
 import { Button } from "@chakra-ui/button"
 import { useHistory } from "react-router"
 
-export const SwitchPois=()=>{
+const SwitchPois=()=>{
     const {index,index1}=useParams()
     const history=useHistory()
     
@@ -66,3 +66,4 @@ export const SwitchPois=()=>{
         </>
     )
 }
+export default SwitchPois

@@ -65,7 +65,7 @@ const ResestPassword  = ()=>{
             />
             <Button colorScheme="blue" m={5} 
             onClick={()=>PostData()}
-            >
+            data-testid="submit" >
                reset password
             </Button>
             

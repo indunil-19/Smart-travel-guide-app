@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`top rated plans page test should match snapshot 1`] = `
+<div
+  className="css-1mp0wmd"
+  data-testid="tplans"
+/>
+`;
