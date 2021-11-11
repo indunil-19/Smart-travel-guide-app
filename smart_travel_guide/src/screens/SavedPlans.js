@@ -77,6 +77,7 @@ const SavedPlans = () => {
           style={{
             flex: 1,
             flexDirection: "column",
+            backgroundColor: "#fff",
           }}
         >
           <ScrollView
@@ -84,7 +85,7 @@ const SavedPlans = () => {
               <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
             }
           >
-            {!isLoading &&
+            {plans &&
               plans.map((plan, index) => {
                 return (
                   <View
@@ -104,31 +105,34 @@ const SavedPlans = () => {
                 );
               })}
           </ScrollView>
-          {plans.length == 0 ? (
-            <View
-              style={{
-                height: "100%",
-                backgroundColor: "#fff",
-                justifyContent: "center",
-                alignItems: "center",
-                paddingHorizontal: 10,
-                paddingTop: 10,
-              }}
-            >
-              <Image
-                style={{ width: 250, height: 250 }}
-                source={require("../assets/img/travel.png")}
-              />
-              <Text
+          {plans && plans.length == 0 ? (
+            <ScrollView>
+              <View
                 style={{
-                  fontSize: 20,
-                  textAlign: "center",
-                  fontWeight: "bold",
+                  height: "100%",
+                  backgroundColor: "#fff",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  paddingHorizontal: 10,
+                  paddingTop: 10,
                 }}
               >
-                Seems like you dont have any saved plans
-              </Text>
-            </View>
+                <Image
+                  style={{ width: 250, height: 250 }}
+                  source={require("../assets/img/travel.png")}
+                />
+
+                <Text
+                  style={{
+                    fontSize: 20,
+                    textAlign: "center",
+                    fontWeight: "bold",
+                  }}
+                >
+                  Seems like you dont have any saved plans
+                </Text>
+              </View>
+            </ScrollView>
           ) : (
             <></>
           )}

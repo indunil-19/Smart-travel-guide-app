@@ -54,13 +54,13 @@ export const Dashboard = ({ navigation }) => {
         <Card.Actions
           style={{ flexDirection: "row", justifyContent: "space-evenly" }}
         >
-          <Button
+          {/* <Button
             mode="contained"
             style={{ borderRadius: 20 }}
             onPress={() => {}}
           >
             CUSTOM PLAN
-          </Button>
+          </Button> */}
           <Button
             mode="contained"
             style={{ borderRadius: 20 }}
