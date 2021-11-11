@@ -121,9 +121,9 @@ export const EditPlan=()=>{
                                         </VStack>
                                             <> 
                                             {subItem.custom ?
-                                            <CustomCard name={subItem.name} photo={subItem.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${subItem.photos[0].photo_reference}&key=${Config.apiKey}` : subItem.photos[0].url} address={subItem.formatted_address} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  description={subItem.description} />
+                                            <CustomCard name={subItem.name} photo={subItem.photos ? subItem.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${subItem.photos[0].photo_reference}&key=${Config.apiKey}` : subItem.photos[0].url ? subItem.photos[0].url : "" : ""} address={subItem.formatted_address} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  description={subItem.description} />
                                             :
-                                            <Card name={subItem.name} photo={subItem.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${subItem.photos[0].photo_reference}&key=${Config.apiKey}` : subItem.photos[0].url} address={subItem.formatted_address} rating={subItem.rating} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  place_id={subItem.place_id}/>
+                                            <Card name={subItem.name} photo={ subItem.photos ? subItem.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${subItem.photos[0].photo_reference}&key=${Config.apiKey}` : subItem.photos[0].url ? subItem.photos[0].url : "" : "" } address={subItem.formatted_address} rating={subItem.rating} index={i} distance={plan[1][i-1].distance.text} duration={plan[1][i-1].duration.text}  place_id={subItem.place_id}/>
                                             }
                                             </>
                          
@@ -164,7 +164,7 @@ export const EditPlan=()=>{
                                                         return
                                                 }
                                             dispatch({type:"accomodation_location", payload:{
-                                                accomodation_location:accomodation
+                                                accomodation_location:Item[Item.length-1].geometry.location
                                             }})
                                             history.push('/travelPlan/nearbyhotels')
                                         }}>

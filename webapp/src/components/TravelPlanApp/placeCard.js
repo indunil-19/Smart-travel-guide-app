@@ -6,7 +6,7 @@ import { Image,Button,Badge, Avatar , } from "@chakra-ui/react"
 import { StarIcon } from "@chakra-ui/icons"
 
 
-export const PlaceCard=({photo,index,name,address, types=[], rating, place_id})=>{
+export const PlaceCard=({photo="",index,name,address, types=[], rating, place_id})=>{
     const [link,setLink]=useState("")
     const history=useHistory()
     useEffect(() => {

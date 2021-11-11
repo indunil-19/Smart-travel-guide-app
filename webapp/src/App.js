@@ -12,6 +12,8 @@ function App() {
   useEffect(()=>{
     ReactGA.pageview(window.location.pathname + window.location.search);
   },[])
+
+
   return (
     <ChakraProvider>
     <div className="App">
@@ -19,11 +21,11 @@ function App() {
       
         <Switch>
     
-          <Route exact path="/">
+          <Route  exact path="/">
             <TravelApp/>
           </Route>
           
-          <Route path="/travelPlan">
+          <Route  path="/travelPlan">
             <TravelPlanRoutes  />
           </Route>
 

@@ -48,6 +48,7 @@ export const PoiCard=({data={}})=>{
                 })}
 
                 <Text >website : <a target="_blank" href={data.website}>{data.website}</a></Text>
+                <Text >phone number : {data.formatted_phone_number}</Text>
             </VStack>
 
 

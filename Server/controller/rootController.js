@@ -57,6 +57,7 @@ class RootController{
 
     }
     static async login(req,res){
+        console.log("dsd")
         const {email,password} = req.body
         if(!email || !password){
         return res.status(422).json({error:"please add email or password"})

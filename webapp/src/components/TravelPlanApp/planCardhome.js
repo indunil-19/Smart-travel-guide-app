@@ -32,7 +32,7 @@ export const PlanCardHome=({_id="",name,days,createdDate, travelPlan,startLocati
                                             startLocation:startLocation,
                                             startLocationName:startLocationName
                                         }}}) ;
-                                        history.push("/travelPlan/viewMyTravelPlan")
+                                        history.push("/travelPlan/travelPlan")
 
                                 }}>
                                     View Plan

@@ -10,10 +10,12 @@ import { PlanCardHome } from "../../components/TravelPlanApp/planCardhome"
 export const Home=()=>{
     const [plans,setPlans]=useState([])
     useEffect(()=>{
-            fetch("/user/getPublicTravelPlans").then(res=>res.json())
+            fetch("/api/user/getPublicTravelPlans").then(res=>res.json())
             .then(result=>{
                 console.log(result)
                 setPlans(result.myPlans)
+            }).catch(e=>{
+                console.log(e)
             })
     },[])
     

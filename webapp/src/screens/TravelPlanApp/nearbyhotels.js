@@ -21,7 +21,7 @@ export const NearByHotels=()=>{
             getNearByHotels(state.accomodation_location).
             then((r)=>{
                 setData(r)
-                // console.log(r)   
+                console.log(r)   
             }); 
             
         },[state.accomodation_location] )
@@ -31,12 +31,13 @@ export const NearByHotels=()=>{
         <>
         <Flex flexDirection="column" alignItems="center" p={5}>
         
-        { 
+        { data.length &&
          data.map((Item, index)=>{
+             console.log(Item)
             return(
                 <>
                 
-                <PlaceCard  index={index+1} name={Item.name} address={Item.vicinity} photo={Item.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${Item.photos[0].photo_reference}&key=${Config.apiKey}` : Item.photos[0]?  Item.photos[0].url:"" } rating={Item.rating} place_id={Item.place_id}/>
+                <PlaceCard  index={index+1} name={Item.name} address={Item.vicinity} photo={Item.photos? Item.photos[0].photo_reference ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${Item.photos[0].photo_reference}&key=${Config.apiKey}` : Item.photos[0].url?  Item.photos[0].url:"" : "" } rating={Item.rating} place_id={Item.place_id}/>
                 
                 </>
             )

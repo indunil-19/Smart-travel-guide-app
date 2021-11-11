@@ -2,9 +2,8 @@ import React , {useEffect,useState}from "react"
 import { useHistory } from "react-router"
 import { Box, Flex ,HStack, VStack} from "@chakra-ui/layout"
 import { Image,Button,Badge, Avatar , } from "@chakra-ui/react"
-
 import { StarIcon } from "@chakra-ui/icons"
-
+import {Config} from "../../config/config"
 
 export const PlaceCard=({photo,index,name,address, types=[], rating, place_id})=>{
     const [link,setLink]=useState("")
@@ -12,7 +11,7 @@ export const PlaceCard=({photo,index,name,address, types=[], rating, place_id})=
     useEffect(() => {
         
       
-        setLink(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`)
+        setLink(`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo}&key=${Config.apiKey}`)
     }, [photo])
     return(
         <Flex flexDirection="row" margin={5} borderWidth="1px" borderRadius="lg" p={5} >
