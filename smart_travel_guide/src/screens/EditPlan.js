@@ -227,7 +227,11 @@ export const EditPlan = ({ navigation }) => {
             }}
           >
             <Title>Starting From :</Title>
-            <Subheading> Colombo </Subheading>
+            <Subheading>
+              {state.locationDetails
+                ? state.locationDetails.startLocationName
+                : ""}
+            </Subheading>
           </Card.Content>
           <Card.Content
             style={{
@@ -255,7 +259,6 @@ export const EditPlan = ({ navigation }) => {
         >
           <Card.Content
             style={{
-              flexDirection: "row",
               alignContent: "center",
               alignItems: "center",
               padding: 5,

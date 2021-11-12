@@ -91,7 +91,8 @@ export function TravelPlan({ route, navigation }) {
         state.userPreferences.days,
         state.userPreferences.religion,
         state.userPreferences.thingsLike,
-        state.userPreferences.placesLike
+        state.userPreferences.placesLike,
+        state.locationDetails.startLocation
       ).then((r) => {
         setPlan(r[0]);
         setData((curData) => {
@@ -257,7 +258,11 @@ export function TravelPlan({ route, navigation }) {
             }}
           >
             <Title>Starting From :</Title>
-            <Subheading> Colombo </Subheading>
+            <Subheading>
+              {state.locationDetails
+                ? state.locationDetails.startLocationName
+                : ""}
+            </Subheading>
           </Card.Content>
           <Card.Content
             style={{
