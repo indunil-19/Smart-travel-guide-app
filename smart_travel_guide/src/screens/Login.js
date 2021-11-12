@@ -45,6 +45,7 @@ const LoginScreen = (props) => {
         if (data.error) {
           setEmail({ ...email, error: data.error });
           setPassword({ ...password, error: data.error });
+          setLoading(false);
         } else {
           AsyncStorage.setItem("user", JSON.stringify(data.user));
           dispatch({ type: "USER", payload: data.user });
@@ -63,6 +64,7 @@ const LoginScreen = (props) => {
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   };
 
