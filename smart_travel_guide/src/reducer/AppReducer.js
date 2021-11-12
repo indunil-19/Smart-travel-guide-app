@@ -53,6 +53,8 @@ export const reducer = (state, action) => {
         ...state,
         allpois: action.payload.allpois,
       };
+    case "set_start_location":
+      return { ...state, locationDetails: action.payload.locationDetails };
     case "set_planId":
       return {
         ...state,
