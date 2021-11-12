@@ -10,9 +10,14 @@ const TextInput = ({ errorText, ...props }) => (
       selectionColor={theme.colors.primary}
       underlineColor={theme.colors.secondary}
       mode="outlined"
+      testID="text-input"
       {...props}
     />
-    {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
+    {errorText ? (
+      <Text testID="error-text" style={styles.error}>
+        {errorText}
+      </Text>
+    ) : null}
   </View>
 );
 
