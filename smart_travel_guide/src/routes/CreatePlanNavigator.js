@@ -14,6 +14,7 @@ import { EditPlan } from "../screens/EditPlan";
 import { AddPlace } from "../screens/AddPlace";
 import { NearByHotels } from "../screens/NearByHotels";
 import { ResetPassword } from "../screens/ResetPassword";
+import { StartLocation } from "../screens/StartLocation";
 
 import { HeaderAvatar } from "../components/HeaderAvatar";
 
@@ -50,9 +51,14 @@ export const CreatePlanNavigator = () => {
         />
         <Stack.Screen name="Create New Plan" component={PreferenceSelection} />
         <Stack.Screen
+          name="Starting Location"
+          component={StartLocation}
+          options={{ headerLeft: () => null }}
+        />
+        <Stack.Screen
           name="Travel Plan"
           component={TravelPlan}
-          options={{ headerBackVisible: false }}
+          options={{ headerLeft: () => null }}
         />
         <Stack.Screen name="Travel Route" component={Route} />
         <Stack.Screen name="Edit Plan" component={EditPlan} />
