@@ -5,7 +5,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 
 
-export const Carousal=({photos=[]})=>{
+ const Carousal=({photos=[]})=>{
     const [references, setReferences]=useState([])
     useEffect(()=>{
             setReferences(photos)
@@ -17,7 +17,7 @@ export const Carousal=({photos=[]})=>{
                     references.map((reference)=>{
                         return(
                             <div >
-                            <img src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=${reference.photo_reference}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`} 
+                            <img data-testid="image"  src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photo_reference=${reference.photo_reference}&key=AIzaSyChMTwAb_hWwYdvcM_gSGcx84k_al-EtIA`} 
                              />
                             
                         </div>
@@ -28,3 +28,4 @@ export const Carousal=({photos=[]})=>{
             </Carousel>
     )
 }
+export default Carousal

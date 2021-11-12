@@ -1,6 +1,6 @@
 import { Flex,VStack,HStack,Text,} from '@chakra-ui/layout';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from "react-google-maps"
-import {useState,useEffect,useContext,useRef} from "react";
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, } from "react-google-maps"
+import React, {useState,useContext,useRef} from "react";
 import Autocomplete from "react-google-autocomplete";
 import { useHistory } from "react-router"
 import { TravelContext } from "../../context/TravelContext"
@@ -8,7 +8,8 @@ import { Button, Heading,Image,AlertDialog,AlertDialogBody,AlertDialogFooter,Ale
 import { MdDeleteForever } from "react-icons/md";
 import { calculateAndDisplayRoute } from '../../services/TravelPlanService';
 import {GrView } from "react-icons/gr";
-export const CustomPlanInner=()=>{
+
+ const CustomPlanInner=()=>{
   const history=useHistory()
   const {state, dispatch}=useContext(TravelContext)
 
@@ -164,7 +165,7 @@ export const CustomPlanInner=()=>{
 }
 const MapWrapped = withScriptjs(withGoogleMap(CustomPlanInner));
 
-export const CustomPlan=()=>{
+ const CustomPlan=()=>{
   return(
     <Flex width="80%" height="180vh" flexDirection="column" mx="auto" my="2" boxShadow="dark-lg">
         <MapWrapped
@@ -177,4 +178,4 @@ export const CustomPlan=()=>{
   )
 }
 
-
+export  {CustomPlan, CustomPlanInner};

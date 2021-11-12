@@ -6,7 +6,7 @@ import { StarIcon } from "@chakra-ui/icons"
 import { useHistory } from "react-router"
 
 
-export const NearByPlaceCard=({photo,index,name,address, types=[], rating})=>{
+ const NearByPlaceCard=({photo,index,name,address, types=[], rating})=>{
     const [link,setLink]=useState("")
     const history=useHistory()
     useEffect(() => {
@@ -18,7 +18,7 @@ export const NearByPlaceCard=({photo,index,name,address, types=[], rating})=>{
 
 
     return(
-        <Flex flexDirection="column" alignItems="center" padding="10px">
+        <Flex flexDirection="column" alignItems="center" padding="10px" data-testid="card">
                       
 
 
@@ -57,3 +57,4 @@ export const NearByPlaceCard=({photo,index,name,address, types=[], rating})=>{
             </Flex>
     )
 }
+export default NearByPlaceCard

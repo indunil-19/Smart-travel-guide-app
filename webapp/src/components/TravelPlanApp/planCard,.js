@@ -1,4 +1,4 @@
-import {  useContext, useState } from "react";
+import React, {  useContext, useState } from "react";
 import { Flex, HStack, VStack } from "@chakra-ui/layout"
 import { Text, Image, Heading , Button,Popover,
     PopoverTrigger,

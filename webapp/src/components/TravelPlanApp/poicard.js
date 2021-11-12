@@ -7,7 +7,7 @@ import { Carousal } from "../../components/TravelPlanApp/carousal"
 import { Review } from "../../components/TravelPlanApp/review"
 
 
-export const PoiCard=({data={}})=>{
+ const PoiCard=({data={}})=>{
     return(
         <Flex  flexDirection="column" alignItems="center" width="70%" marginX="auto" boxShadow="dark-lg" padding={4} marginTop={2}>            
             
@@ -52,3 +52,4 @@ export const PoiCard=({data={}})=>{
         </Flex>
     )
 }
+export default PoiCard

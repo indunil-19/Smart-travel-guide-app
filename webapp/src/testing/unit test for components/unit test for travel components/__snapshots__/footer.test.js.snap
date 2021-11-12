@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`footer component test should match snapshot 1`] = `
+<div
+  className="css-dx7dn0"
+>
+  <div
+    className="chakra-stack css-owjkmg"
+  >
+    <div
+      className="chakra-stack css-k7bpxb"
+    >
+      <div
+        className="chakra-stack css-aju1p1"
+      >
+        <h3
+          className="chakra-heading css-4g6ai3"
+          onClick={[Function]}
+        >
+          About Us
+        </h3>
+        <h3
+          className="chakra-heading css-4g6ai3"
+          onClick={[Function]}
+        >
+          Contact Us
+        </h3>
+      </div>
+      <hr
+        aria-orientation="vertical"
+        className="chakra-divider css-qj2fhx"
+      />
+      <div
+        className="chakra-stack css-owjkmg"
+      >
+        <iframe
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          allowfullscreen="true"
+          frameborder="0"
+          height="500"
+          scrolling="no"
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FWonderDiscoveryTravelSriLanka%2F&tabs=messages&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+          style={
+            Object {
+              "border": "none",
+              "overflow": "hidden",
+            }
+          }
+          width="340"
+        />
+                             
+      </div>
+    </div>
+    <hr
+      aria-orientation="horizontal"
+      className="chakra-divider css-4wijg1"
+    />
+  </div>
+</div>
+`;
+
+exports[`footer2 component test should match snapshot 1`] = `
+<div
+  className="css-dx7dn0"
+>
+  <div
+    className="chakra-stack css-owjkmg"
+  >
+    <div
+      className="chakra-stack css-k7bpxb"
+    >
+      <div
+        className="chakra-stack css-aju1p1"
+      >
+        <h3
+          className="chakra-heading css-4g6ai3"
+          onClick={[Function]}
+        >
+          About Us
+        </h3>
+        <h3
+          className="chakra-heading css-4g6ai3"
+          onClick={[Function]}
+        >
+          Contact Us
+        </h3>
+      </div>
+      <hr
+        aria-orientation="vertical"
+        className="chakra-divider css-qj2fhx"
+      />
+      <div
+        className="chakra-stack css-owjkmg"
+      >
+        <iframe
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          allowfullscreen="true"
+          frameborder="0"
+          height="500"
+          scrolling="no"
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FWonderDiscoveryTravelSriLanka%2F&tabs=messages&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+          style={
+            Object {
+              "border": "none",
+              "overflow": "hidden",
+            }
+          }
+          width="340"
+        />
+                             
+      </div>
+    </div>
+    <hr
+      aria-orientation="horizontal"
+      className="chakra-divider css-4wijg1"
+    />
+  </div>
+</div>
+`;

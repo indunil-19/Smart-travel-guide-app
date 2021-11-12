@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import React from "react"
 import { useHistory } from "react-router"
 
-export const Footer=()=>{
+ const Footer=()=>{
     const history=useHistory()
     return(
         <>
@@ -49,3 +49,4 @@ export const Footer=()=>{
         </>
     )
 }
+export default Footer

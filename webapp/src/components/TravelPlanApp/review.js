@@ -4,9 +4,9 @@ import { Tag , TagLabel,} from "@chakra-ui/tag";
 import { Avatar } from "@chakra-ui/avatar";
 import { StarIcon } from "@chakra-ui/icons"
 
-export const Review=({author_name, author_url,profile_photo_url,relative_time_description,text,rating})=>{
+ const Review=({author_name, author_url,profile_photo_url,relative_time_description,text,rating})=>{
     return(
-        <Flex borderWidth="1px" borderRadius="lg" alignItems="start" flexDirection="column" p={5} m={5}>
+        <Flex borderWidth="1px" borderRadius="lg" alignItems="start" flexDirection="column" p={5} m={5} data-testid="review">
                     <Link href={author_url} isExternal>
                     <Tag size="lg" colorScheme="red" borderRadius="full">
                     <Avatar
@@ -35,3 +35,4 @@ export const Review=({author_name, author_url,profile_photo_url,relative_time_de
             </Flex>
     )
 }
+export default Review

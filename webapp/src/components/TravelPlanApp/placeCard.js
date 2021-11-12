@@ -6,7 +6,7 @@ import { Image,Button,Badge, Avatar , } from "@chakra-ui/react"
 import { StarIcon } from "@chakra-ui/icons"
 
 
-export const PlaceCard=({photo,index,name,address, types=[], rating, place_id})=>{
+ const PlaceCard=({photo,index,name,address, types=[], rating, place_id})=>{
     const [link,setLink]=useState("")
     const history=useHistory()
     useEffect(() => {
@@ -40,7 +40,7 @@ export const PlaceCard=({photo,index,name,address, types=[], rating, place_id})=
                                         <Box>rating {rating}</Box>
                                         
                                 </HStack>
-                                        <Button colorScheme="teal" variant="outline" onClick={()=>{
+                                        <Button colorScheme="teal" variant="outline" data-testid="button" onClick={()=>{
                                             history.push('/travelPlan/viewpoi/'+place_id)
                                         }}>
                                             See more...
@@ -51,3 +51,4 @@ export const PlaceCard=({photo,index,name,address, types=[], rating, place_id})=
         </Flex>
     )
 }
+export default PlaceCard
