@@ -12,7 +12,7 @@ export const Province = (props) => {
   const [description, setDescription]=useState("")
   useEffect(()=>{
     
-     fetch("/api/admin/getProvinceData/"+pid).
+     fetch("/api/user/getProvinceData/"+pid).
      then(res=>res.json())
      .then(data=>{
         console.log(data)

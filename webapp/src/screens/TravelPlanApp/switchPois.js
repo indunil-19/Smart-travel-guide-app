@@ -8,6 +8,7 @@ import { GrAddCircle } from "react-icons/gr";
 import { Button } from "@chakra-ui/button"
 import { useHistory } from "react-router"
 import { Config } from "../../config/config"
+import {Alert, AlertIcon} from "@chakra-ui/react"
 
 export const SwitchPois=()=>{
     const {index,index1}=useParams()
@@ -28,6 +29,9 @@ export const SwitchPois=()=>{
         
         switchPOI(parseInt(index), parseInt(index1), state.editTravelPlan, state.allpois, state.userPreferences.startLocation).then((res)=>{
             // console.log(res)
+            if(res[0].length==0){
+                document.getElementById("alert").innerText="It seems there is no pois to suggests"
+            }
             setPois(res[0])
             setRoute(res[1])
         })
@@ -44,6 +48,13 @@ export const SwitchPois=()=>{
     return(
         <>
         <Flex flexDirection="column" alignItems="center" width="100%" p={2}>
+
+            {
+                 <Alert status="warning" m={5} id="alert">
+                 <AlertIcon />
+                 wait.....
+                 </Alert>
+            }
         
         { 
          pois.map((Item, index)=>{

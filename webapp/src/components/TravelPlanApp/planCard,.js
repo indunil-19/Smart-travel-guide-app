@@ -15,6 +15,7 @@ import {EditIcon} from '@chakra-ui/icons'
 export const PlanCard=({_id="",name,days,createdDate, travelPlan,startLocation,startLocationName})=>{
     const {state, dispatch}=useContext(TravelContext)
     const [newName,setNewName]=useState(name)
+    const [name1,setName]=useState(name)
     const history=useHistory()
     const toast=useToast()
 
@@ -47,8 +48,8 @@ export const PlanCard=({_id="",name,days,createdDate, travelPlan,startLocation,s
                     duration: 4000,
                     isClosable: true,
                   })
-                  name=newName
                   
+                  setName(newName)
             }
 
         }).catch(e=>{
@@ -63,7 +64,7 @@ export const PlanCard=({_id="",name,days,createdDate, travelPlan,startLocation,s
                        <VStack p={3} alignItems="start" spacing={5}>
                                 <HStack>
                                 <Heading as="h3" size="lg">
-                                    {name}
+                                    {name1}
                                 </Heading>                                 
                                         <>
                                         <Popover>

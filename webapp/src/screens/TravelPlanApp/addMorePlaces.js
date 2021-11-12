@@ -45,6 +45,9 @@ export const AddMorePlaces=()=>{
 
     useEffect(() => {
         findPois(day, state.editTravelPlan, state.allpois,state.userPreferences.startLocation).then((res)=>{
+            if(res[0].length==0){
+                document.getElementById("suggestedPlaces").innerText="It seems there is no places to suggests, try other two methods"
+            }
             console.log(res)
             setPois(res[0])
             setRoute(res[1])
@@ -76,14 +79,14 @@ export const AddMorePlaces=()=>{
         <TabPanel>
         <Flex flexDirection="column" alignItems="center" width="100%" p={2} mt="6">
         {
-            pois.length==0 ? 
+           
             <>
-                <Alert status="warning" mt="100px">
+                <Alert status="warning" mt="100px" id="suggestedPlaces">
                     <AlertIcon />
-                    Seems there is no pois for suggests. 
+                    wait for sometime...............
                 </Alert>
             
-            </> :<></>
+            </> 
         }
         
         { 
