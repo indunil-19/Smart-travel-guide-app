@@ -83,7 +83,7 @@ export const PlanCard = ({
               type: "set_notification",
               payload: {
                 notification: {
-                  message: result.message,
+                  message: "Plan name Changed Successfully",
                   icon: "check-circle-outline",
                 },
               },
