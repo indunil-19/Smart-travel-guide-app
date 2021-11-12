@@ -60,18 +60,18 @@ const PreferenceSelection = (props) => {
     Alert.alert("Confirm preferences", "Submit the selected prefernces.", [
       {
         text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
+        onPress: () => {},
         style: "cancel",
       },
       {
         text: "Confirm",
         onPress: () => {
           setPreference((curPreference) => [...curPreference, value]);
-          // props.navigation.navigate("Travel Plan");
+          props.navigation.navigate("Starting Location");
 
-          props.navigation.navigate("Travel Plan", {
-            permissions: "edit",
-          });
+          // props.navigation.navigate("Travel Plan", {
+          //   permissions: "edit",
+          // });
         },
       },
     ]);
