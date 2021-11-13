@@ -117,7 +117,11 @@ const LoginScreen = (props) => {
           </TouchableOpacity>
         </View>
         {!loading ? (
-          <Button mode="contained" onPress={_onLoginPressed}>
+          <Button
+            mode="contained"
+            onPress={_onLoginPressed}
+            testId="login-button"
+          >
             Login
           </Button>
         ) : (
