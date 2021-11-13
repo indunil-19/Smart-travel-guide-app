@@ -197,7 +197,7 @@ export const UserPreferences=()=>{
                 <CheckboxGroup colorScheme="green" onChange={(e)=>setPlacesLike(e)} >
                 <VStack alignItems="start">
                     <Checkbox value="Natural" >Natural</Checkbox>
-                    <Checkbox value="animal">Animal</Checkbox>
+                    <Checkbox value="animal">wild life</Checkbox>
                     <Checkbox value="botenical gardens">Botenical gardens</Checkbox>
                     <Checkbox value="parks">Parks</Checkbox>
                     <Checkbox value="beaches">Beaches</Checkbox>

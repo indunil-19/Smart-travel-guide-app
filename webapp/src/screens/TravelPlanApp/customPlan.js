@@ -62,11 +62,17 @@ export const CustomPlanInner=()=>{
         apiKey={Config.apiKey}
 
         onPlaceSelected={(place) => {
-          if(place.length>24){
+          // console.log(place)
+          if(!place.photos ){
+            return
+          }
+          if(p.length>24){
               setIsOpen(true)
           }
           if(place.geometry.location){
             // console.log(place.photos[0].getUrl())
+            let location={lat:place.geometry.location.lat(),lng:place.geometry.location.lng()}
+            place.geometry.location=location;
             place.photos[0].url=place.photos[0].getUrl()
             setP(p=>[...p,place])
           }

@@ -18,11 +18,16 @@ export const NearByHotels=()=>{
     },[])
 
     useEffect( ()=>{
+            
+            
             getNearByHotels(state.accomodation_location).
             then((r)=>{
                 setData(r)
                 console.log(r)   
-            }); 
+            }).catch(e=>{
+                console.log(e)
+                setData([])
+            }) 
             
         },[state.accomodation_location] )
 
@@ -31,7 +36,7 @@ export const NearByHotels=()=>{
         <>
         <Flex flexDirection="column" alignItems="center" p={5}>
         
-        { data.length &&
+        { data &&
          data.map((Item, index)=>{
              console.log(Item)
             return(

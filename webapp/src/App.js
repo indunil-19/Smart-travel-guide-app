@@ -6,7 +6,7 @@ import {TravelPlanRoutes} from './screens/TravelPlanApp'
 import { Adminroutes } from './screens/AdminPortal/Adminroutes';
 import ReactGA from 'react-ga';
 import { useEffect } from 'react';
-ReactGA.initialize('G-0BFM1STVER');
+ReactGA.initialize('G-66D8464QRW');
 
 function App() {  
   useEffect(()=>{
