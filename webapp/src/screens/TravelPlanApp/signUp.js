@@ -2,6 +2,9 @@ import { Flex,Heading, VStack ,Text, Badge} from "@chakra-ui/layout"
 import { Input, InputGroup, InputLeftAddon ,Button, Checkbox,Select,useToast, InputRightElement } from "@chakra-ui/react"
 import { BiUserCircle } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
+// import { BsFillCalendar2DateFill } from "react-icons/bs";
+import { AiOutlineMail ,AiOutlineCalendar} from "react-icons/ai";
+import { HiOutlineLocationMarker } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import Autocomplete from "react-google-autocomplete";
 import {useState,useContext,useEffect} from "react"
@@ -117,7 +120,7 @@ export const SignUp=()=>{
                 </InputGroup>
 
                 <InputGroup >
-                    <BiUserCircle  />
+                    <AiOutlineCalendar  />
                     <Input type="date" placeholder="Date of birth" value={dob} onChange={(e)=>setDOB(e.target.value)} />
                 </InputGroup>
 
@@ -133,12 +136,12 @@ export const SignUp=()=>{
                 </InputGroup>
 
                 <InputGroup >
-                    <RiLockPasswordLine/>
+                    <AiOutlineMail/>
                     <Input placeholder="email" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
                 </InputGroup>
 
                 <InputGroup >
-                    <RiLockPasswordLine/>
+                    <HiOutlineLocationMarker/>
                     <Autocomplete style={{width:"100%" ,height:"45px", padding:"10px", margin:"15px",background:"transparent", borderRadius:"5px", color:"white", borderColor:"white", borderWidth:"2px"}}
                          apiKey={Config.apiKey}
                             onPlaceSelected={(place) => {

@@ -12,15 +12,17 @@ import {
     StatNumber,
     StatHelpText,
     StatArrow,
-    StatGroup,Heading,Button
+    StatGroup,Heading,Button, Flex
   } from "@chakra-ui/react"
 import { CProgress } from "@coreui/react";
 import { CProgressBar } from "@coreui/react";
 const Dashboard=()=>{
     return(
         <>
-        
-        <Slideshow/>
+        <Flex height="100vh">
+        {/* <Slideshow/> */}
+        <iframe width="100%" height="100%" src="https://charts.mongodb.com/charts-smart-travel-guide-app-ubstm/public/dashboards/5921ca6d-dcfc-4ba4-bc0a-3bd0d73d753c" />
+
        
         {/* <StatGroup bg="white" p="5" boxShadow="dark-lg">
         <Stat>
@@ -88,7 +90,7 @@ const Dashboard=()=>{
             </StatHelpText>
         </Stat>
         </StatGroup> */}
-
+        </Flex>
         </>
     )
 }
@@ -120,7 +122,7 @@ const slideImages = [
   const Slideshow = () => {
       return (
         <div className="slide-container" style={{height:"100vh"}}>
-          <Slide>
+          {/* <Slide>
            {slideImages.map((slideImage, index)=> (
               <div className="each-slide" key={index}>
                 <div style={{'backgroundImage': `url(${slideImage.url})`,height:"100vh",objectFit:"cover"}}>
@@ -130,7 +132,7 @@ const slideImages = [
                 </div>
               </div>
             ))} 
-          </Slide>
+          </Slide> */}
         </div>
       )
   }

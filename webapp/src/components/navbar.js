@@ -174,7 +174,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
         fontSize="2xl"
         fontFamily="monospace"
         fontWeight="bold">
-        Logo
+        Travel App Admins
       </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
@@ -215,8 +215,8 @@ const MobileNav = ({ onOpen, ...rest }) => {
             <MenuList
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}>
-              <MenuItem >Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
+              {/* <MenuItem >Profile</MenuItem>
+              <MenuItem>Settings</MenuItem> */}
               <MenuDivider />
               <MenuItem  onClick={()=>{
                    logout()

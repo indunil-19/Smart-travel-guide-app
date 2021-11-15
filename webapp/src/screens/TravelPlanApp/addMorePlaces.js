@@ -47,10 +47,13 @@ export const AddMorePlaces=()=>{
         findPois(day, state.editTravelPlan, state.allpois,state.userPreferences.startLocation).then((res)=>{
             if(res[0].length==0){
                 document.getElementById("suggestedPlaces").innerText="It seems there is no places to suggests, try other two methods"
+            }else{
+                // document.getElementById("suggestedPlaces").style.display="none"
             }
             console.log(res)
             setPois(res[0])
             setRoute(res[1])
+            
         })
     }, [state])
 
@@ -78,7 +81,7 @@ export const AddMorePlaces=()=>{
 
         <TabPanel>
         <Flex flexDirection="column" alignItems="center" width="100%" p={2} mt="6">
-        {
+        {  !pois.length && 
            
             <>
                 <Alert status="warning" mt="100px" id="suggestedPlaces">
