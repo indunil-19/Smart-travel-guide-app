@@ -119,7 +119,7 @@ export const getTravelPlan=async(climate,provinces,days,religion,thingsLike,plac
       
         return client
           .textSearch({
-                        params: request,
+            params: request,
             timeout: 1000, // milliseconds
           })
           .then((r) => {
