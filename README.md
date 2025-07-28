@@ -18,13 +18,14 @@ The project has **four main components**:
 For a detailed user guide on using the admin portal, please refer to this document:
 [Smart Travel Guide App - User Guide admin portal](https://docs.google.com/document/d/12XdmX2QmU4vlicDRYfUY0LKmcaf4_0kSj7_PePjypLY/edit?usp=sharing)
 
-<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/1.png" width="300"/>
-<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/2.png" width="300"/>
-<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/3.png" width="300"/>
-<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/4.png" width="300"/>
-<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/5.png" width="300"/>
-<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/6.png" width="300"/>
-
+<p float="left">
+<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/1.png" width="100"/>
+<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/2.png" width="100"/>
+<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/3.png" width="100"/>
+<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/4.png" width="100"/>
+<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/5.png" width="100"/>
+<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/6.png" width="100"/>
+</p>
 
 3. **Mobile Application**
 
