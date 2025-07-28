@@ -4,6 +4,12 @@
 
 A smart travel guide mobile application developed for **Sri Lanka**, featuring a mobile app, admin portal, and backend server.
 
+## 🎥 Demo Video
+
+Watch the demo of the Smart Travel Guide App:
+
+[![Watch Demo](https://img.youtube.com/vi/YwweQU0rfBU/0.jpg)](https://youtu.be/YwweQU0rfBU)
+
 ---
 
 ## 🗂️ Project Structure
@@ -96,12 +102,11 @@ node app.js     # Otherwise
 
 ## 🖥️ Admin Portal Setup
 
-![Admin Portal Screenshot](https://raw.githubusercontent.com/indunil-19/Smart-travel-guide-app/main/AdminPortal/ss/admin_portal.png)
 
 ### 📍 Location:
 
 ```bash
-cd AdminPortal
+cd webapp
 ```
 
 ### 🛠️ Installation:
