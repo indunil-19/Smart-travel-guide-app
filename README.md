@@ -19,6 +19,20 @@ For a detailed user guide on using the admin portal, please refer to this docume
 [Smart Travel Guide App - User Guide admin portal](https://docs.google.com/document/d/12XdmX2QmU4vlicDRYfUY0LKmcaf4_0kSj7_PePjypLY/edit?usp=sharing)
 
 <p float="left">
+<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/admin/1.png" width="200"/>
+<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/admin/2.png" width="200"/>
+<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/admin/3.png" width="200"/>
+<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/admin/4.png" width="200"/>
+<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/admin/5.png" width="200"/>
+</p>
+
+
+3. **Mobile Application**
+
+For a detailed user guide on using the mobile application, please refer to this document:
+[Smart Travel Guide App - User Guide mobile application](https://docs.google.com/document/d/1JeFfx03i7i6kSYNR5Gl5jI5k41662VMzYCNkNfn8HVw/edit?usp=sharing)
+
+<p float="left">
 <img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/1.png" width="150"/>
 <img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/2.png" width="150"/>
 <img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/3.png" width="150"/>
@@ -27,16 +41,18 @@ For a detailed user guide on using the admin portal, please refer to this docume
 <img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/6.png" width="150"/>
 </p>
 
-3. **Mobile Application**
-
-For a detailed user guide on using the mobile application, please refer to this document:
-[Smart Travel Guide App - User Guide mobile application](https://docs.google.com/document/d/1JeFfx03i7i6kSYNR5Gl5jI5k41662VMzYCNkNfn8HVw/edit?usp=sharing)
-
-
 4. **Web Application**
 
 For a detailed user guide on using the web application, please refer to this document:
 [Smart Travel Guide App - User Guide web application](https://docs.google.com/document/d/1JeFfx03i7i6kSYNR5Gl5jI5k41662VMzYCNkNfn8HVw/edit?usp=sharing)
+
+<p float="left">
+<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/webapp/1.png" width="200"/>
+<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/webapp/2.png" width="200"/>
+<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/webapp/3.png" width="200"/>
+<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/webapp/4.png" width="200"/>
+<img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/webapp/5.png" width="200"/>
+</p>
 
 ---
 
