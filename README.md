@@ -18,6 +18,14 @@ The project has **four main components**:
 For a detailed user guide on using the admin portal, please refer to this document:
 [Smart Travel Guide App - User Guide admin portal](https://docs.google.com/document/d/12XdmX2QmU4vlicDRYfUY0LKmcaf4_0kSj7_PePjypLY/edit?usp=sharing)
 
+![](https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/1.png)
+![](https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/2.png)
+![](https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/3.png)
+![](https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/4.png)
+![](https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/5.png)
+![](https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/6.png)
+
+
 
 3. **Mobile Application**
 
@@ -25,10 +33,10 @@ For a detailed user guide on using the mobile application, please refer to this 
 [Smart Travel Guide App - User Guide mobile application](https://docs.google.com/document/d/1JeFfx03i7i6kSYNR5Gl5jI5k41662VMzYCNkNfn8HVw/edit?usp=sharing)
 
 
-3. **Web Application**
+4. **Web Application**
 
 For a detailed user guide on using the web application, please refer to this document:
-[Smart Travel Guide App - User Guide web application](https://docs.google.com/document/d/12XdmX2QmU4vlicDRYfUY0LKmcaf4_0kSj7_PePjypLY/edit?usp=sharing)
+[Smart Travel Guide App - User Guide web application](https://docs.google.com/document/d/1JeFfx03i7i6kSYNR5Gl5jI5k41662VMzYCNkNfn8HVw/edit?usp=sharing)
 
 ---
 
