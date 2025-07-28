@@ -36,7 +36,7 @@ For a detailed user guide on using the admin portal, please refer to this docume
 3. **Mobile Application**
 
 For a detailed user guide on using the mobile application, please refer to this document:
-[Smart Travel Guide App - User Guide mobile application](https://docs.google.com/document/d/1JeFfx03i7i6kSYNR5Gl5jI5k41662VMzYCNkNfn8HVw/edit?usp=sharing)
+[Smart Travel Guide App - User Guide mobile application](https://docs.google.com/document/d/1ZSOKFvEXmdRzjNfrPBVcs5kHOBz8zm5Vz2fZXzY70Yc/edit?usp=sharing)
 
 <p float="left">
 <img src="https://github.com/indunil-19/Smart-travel-guide-app/blob/main/Screens/mobile/1.png" width="150"/>
@@ -122,7 +122,9 @@ npm start
 ```
 
 > 🌐 Open [http://localhost:3000/](http://localhost:3000) in your browser to access the landing page.
+
 > 🌐 Open [http://localhost:3000/travelPlan](http://localhost:3000/travelPlan) in your browser to access the travel plan web app.
+
 > 🌐 Open [http://localhost:3000/admin/signin](http://localhost:3000/admin/signin) in your browser to access the admin portal.
 
 ---
