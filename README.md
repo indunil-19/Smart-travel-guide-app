@@ -100,7 +100,7 @@ node app.js     # Otherwise
 
 ---
 
-## 🖥️ Admin Portal Setup
+## 🖥️ Admin Portal and WebApplication Setup
 
 
 ### 📍 Location:
@@ -121,7 +121,9 @@ npm install
 npm start
 ```
 
-> 🌐 Open [http://localhost:3000](http://localhost:3000) in your browser to access the admin portal.
+> 🌐 Open [http://localhost:3000/](http://localhost:3000) in your browser to access the landing page.
+> 🌐 Open [http://localhost:3000/travelPlan](http://localhost:3000/travelPlan) in your browser to access the travel plan web app.
+> 🌐 Open [http://localhost:3000/admin/signin](http://localhost:3000/admin/signin) in your browser to access the admin portal.
 
 ---
 
